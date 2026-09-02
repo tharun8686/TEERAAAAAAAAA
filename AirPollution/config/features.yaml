@@ -1,0 +1,37 @@
+reference_features:
+  - pm25
+  - pm10
+  - no
+  - no2
+  - nox
+  - nh3
+  - so2
+  - co
+  - o3
+  - temperature
+  - relative_humidity
+  - wind_speed
+  - wind_direction_sin
+  - wind_direction_cos
+  - pressure
+  - pm25_lag_15
+  - pm25_lag_30
+  - pm25_lag_60
+  - pm25_delta_30
+  - pm25_slope_30
+  - hour_sin
+  - hour_cos
+
+edge_features:
+  - pm25
+  - pm10
+  - gas_proxy
+  - temperature
+  - relative_humidity
+  - pressure
+  - pm25_lag_15
+  - pm25_lag_30
+  - pm25_delta_30
+  - pm25_slope_30
+  - hour_sin
+  - hour_cos

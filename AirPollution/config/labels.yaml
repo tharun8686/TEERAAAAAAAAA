@@ -1,0 +1,5 @@
+deterioration_criteria:
+  ratio_increase: 1.15
+  min_absolute_increase_pm25: 15.0
+  horizon_30m_steps: 2
+  horizon_60m_steps: 4

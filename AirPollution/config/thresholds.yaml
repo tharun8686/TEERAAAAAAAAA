@@ -1,0 +1,11 @@
+pm25_categories:
+  NORMAL: [0.0, 60.0]
+  WATCH: [60.1, 120.0]
+  WARNING: [120.1, 250.0]
+  CRITICAL: [250.1, 1000.0]
+
+pm10_categories:
+  NORMAL: [0.0, 100.0]
+  WATCH: [100.1, 250.0]
+  WARNING: [250.1, 350.0]
+  CRITICAL: [350.1, 1500.0]

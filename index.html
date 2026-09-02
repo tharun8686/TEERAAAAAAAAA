@@ -1,0 +1,4573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terra Edge — Environmental Intelligence Network</title>
+    <meta name="description" content="India's distributed Edge-AI environmental hazard early warning system covering flood, wildfire, landslide and air pollution risks.">
+    <!-- Google Fonts: Inter (Enterprise UI Standard) + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+    /* ============================================================
+       HUMAN-ENGINEERED ENTERPRISE CONTROL CENTER DESIGN SYSTEM
+    ============================================================ */
+    :root {
+        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+        
+        --radius-sm: 6px;
+        --radius: 12px;
+        --radius-lg: 16px;
+        
+        /* Solid Enterprise Slate Dark Theme */
+        --bg-deep: #090d16;
+        --panel-bg: #0f172a;
+        --panel-bg-hover: #1e293b;
+        --panel-border: rgba(255, 255, 255, 0.08);
+        --panel-border-hover: rgba(255, 255, 255, 0.16);
+
+        /* Refined Brand & Status Colors */
+        --brand-blue: #3b82f6;
+        --brand-blue-hover: #2563eb;
+        
+        --accent-flood: #38bdf8;
+        --accent-fire:  #f97316;
+        --accent-land:  #f59e0b;
+        --accent-air:   #14b8a6;
+        --accent-heat:  #eab308;
+        --accent-ind:   #a855f7;
+        --accent-water: #0ea5e9;
+
+        /* System Status Colors */
+        --status-normal:   #10b981;
+        --status-warning:  #f59e0b;
+        --status-critical: #ef4444;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+
+    body {
+        background: var(--bg-deep);
+        color: #f1f5f9;
+        font-family: var(--font-sans);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+        position: relative;
+    }
+
+    /* ============================================================
+       CUSTOM DARK GLASS SCROLLBAR SYSTEM
+    ============================================================ */
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(0, 210, 255, 0.35) rgba(10, 16, 28, 0.6);
+    }
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+        background: rgba(10, 16, 28, 0.6);
+        border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: rgba(0, 210, 255, 0.3);
+        border-radius: 9999px;
+        border: 1px solid rgba(0, 210, 255, 0.4);
+        box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 210, 255, 0.6);
+        border-color: rgba(0, 210, 255, 0.9);
+        box-shadow: 0 0 12px rgba(0, 210, 255, 0.5);
+    }
+    ::-webkit-scrollbar-corner {
+        background: rgba(10, 16, 28, 0.6);
+    }
+
+    /* Base cinematic overlay */
+    .cinematic-bg {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background: 
+            radial-gradient(ellipse at 20% 20%, rgba(20, 24, 45, 0.35) 0%, transparent 65%),
+            linear-gradient(180deg, rgba(6, 7, 14, 0.85) 0%, rgba(6, 7, 14, 0.98) 100%),
+            url('https://images.unsplash.com/photo-1511497584788-87676104235f?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
+        pointer-events: none;
+    }
+
+    /* Dynamic procedural canvas background */
+    #bg-canvas {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    /* Ambient aura glow layer (Smoothly shifts per model) */
+    .ambient-aura {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        filter: blur(120px);
+        opacity: 0.36;
+        transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .theme-all   { background: radial-gradient(ellipse at 30% 30%, rgba(0, 210, 255, 0.3) 0%, transparent 60%), radial-gradient(ellipse at 70% 70%, rgba(59, 130, 246, 0.25) 0%, transparent 60%); }
+    .theme-flood { background: radial-gradient(ellipse at 40% 40%, rgba(0, 210, 255, 0.38) 0%, transparent 60%), radial-gradient(ellipse at 80% 80%, rgba(2, 132, 199, 0.32) 0%, transparent 60%); }
+    .theme-fire  { background: radial-gradient(ellipse at 50% 30%, rgba(255, 87, 34, 0.4) 0%, transparent 60%), radial-gradient(ellipse at 80% 70%, rgba(220, 38, 38, 0.32) 0%, transparent 60%); }
+    .theme-land  { background: radial-gradient(ellipse at 30% 60%, rgba(245, 158, 11, 0.38) 0%, transparent 60%), radial-gradient(ellipse at 70% 30%, rgba(217, 119, 6, 0.3) 0%, transparent 60%); }
+    .theme-air   { background: radial-gradient(ellipse at 60% 40%, rgba(45, 212, 191, 0.38) 0%, transparent 60%), radial-gradient(ellipse at 20% 70%, rgba(13, 148, 136, 0.3) 0%, transparent 60%); }
+    .theme-heat  { background: radial-gradient(ellipse at 40% 60%, rgba(251, 191, 36, 0.38) 0%, transparent 60%), radial-gradient(ellipse at 70% 20%, rgba(217, 119, 6, 0.3) 0%, transparent 60%); }
+    .theme-ind   { background: radial-gradient(ellipse at 50% 50%, rgba(168, 85, 247, 0.35) 0%, transparent 60%), radial-gradient(ellipse at 10% 80%, rgba(147, 51, 234, 0.3) 0%, transparent 60%); }
+    .theme-water { background: radial-gradient(ellipse at 40% 50%, rgba(14, 165, 233, 0.35) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(2, 132, 199, 0.3) 0%, transparent 60%); }
+
+    .mist-overlay {
+        position: fixed;
+        inset: 0;
+        background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.03) 1px, transparent 0);
+        background-size: 32px 32px;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    /* ============================================================
+       TOP NAVIGATION BAR
+    ============================================================ */
+    nav {
+        position: sticky;
+        top: 0;
+        z-index: 999;
+        background: rgba(6, 7, 14, 0.78);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border-bottom: 1px solid var(--glass-border);
+        box-shadow: var(--glass-shine);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 40px;
+        height: 68px;
+    }
+
+    .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+    }
+
+    .brand-shield {
+        width: 30px;
+        height: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .brand-shield svg {
+        width: 100%;
+        height: 100%;
+        fill: #ffffff;
+    }
+
+    .brand-text {
+        font-family: var(--font-sans);
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #ffffff;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+    }
+
+    .nav-link {
+        font-family: var(--font-sans);
+        font-size: 13px;
+        font-weight: 500;
+        color: #94a3b8;
+        text-decoration: none;
+        transition: color 0.2s ease;
+        cursor: pointer;
+    }
+    .nav-link:hover { color: #ffffff; }
+
+    /* ============================================================
+       INTERACTIVE FLUID RISING BUBBLE BUTTON (THEMED WORK BUTTON)
+    ============================================================ */
+    .btn-fluid-bubble {
+        position: relative;
+        overflow: hidden;
+        border-radius: 9999px;
+        background: rgba(10, 18, 36, 0.85);
+        border: 1px solid rgba(0, 210, 255, 0.35);
+        padding: 8px 20px;
+        font-family: var(--font-mono);
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.6px;
+        color: #e0f2fe;
+        cursor: pointer;
+        outline: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-fluid-bubble .bubble-fill {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 240%;
+        border-radius: 9999px;
+        background: linear-gradient(180deg, rgba(0, 210, 255, 0.35) 0%, rgba(59, 130, 246, 0.5) 100%);
+        transform-origin: bottom center;
+        transform: translateY(100%);
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .btn-fluid-bubble .btn-text {
+        position: relative;
+        z-index: 2;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: #e0f2fe;
+        transition: color 0.25s ease;
+    }
+
+    .btn-fluid-bubble:hover {
+        border-color: rgba(0, 210, 255, 0.75);
+        box-shadow: 0 0 22px rgba(0, 210, 255, 0.4), 0 4px 20px rgba(0, 0, 0, 0.5);
+        transform: translateY(-1px);
+    }
+
+    .btn-fluid-bubble:hover .bubble-fill {
+        transform: translateY(35%);
+    }
+
+    .btn-fluid-bubble:hover .btn-text {
+        color: #ffffff;
+    }
+
+    /* ============================================================
+       PAGE WRAPPER
+    ============================================================ */
+    .page-wrap {
+        position: relative;
+        z-index: 1;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 30px 40px 100px;
+        display: flex;
+        flex-direction: column;
+        gap: 70px;
+        width: 100%;
+    }
+
+    /* ============================================================
+       HOMEPAGE HERO (REFERENCE IMAGE LAYOUT)
+    ============================================================ */
+    .hero-editorial {
+        position: relative;
+        min-height: 480px;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        align-items: center;
+        gap: 50px;
+        padding: 20px 0;
+    }
+
+    /* Diagonal geometric slicing line */
+    .diagonal-line {
+        position: absolute;
+        top: 25px;
+        left: 22%;
+        width: 420px;
+        height: 1.5px;
+        background: rgba(255, 255, 255, 0.65);
+        transform: rotate(38deg);
+        transform-origin: left center;
+        pointer-events: none;
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
+    }
+
+    .hero-title-wrap {
+        position: relative;
+        z-index: 2;
+    }
+
+    .title-part-1 {
+        font-family: var(--font-serif);
+        font-size: 92px;
+        font-weight: 400;
+        line-height: 0.95;
+        letter-spacing: -1.5px;
+        color: #ffffff;
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    .title-part-2 {
+        font-family: var(--font-serif);
+        font-size: 92px;
+        font-weight: 400;
+        font-style: italic;
+        line-height: 0.95;
+        letter-spacing: -1px;
+        color: #ffffff;
+        display: block;
+        padding-left: 130px;
+    }
+
+    .hero-narrative {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 24px;
+        max-width: 440px;
+    }
+
+    .hero-lead-text {
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 1.65;
+        color: #cbd5e1;
+    }
+
+    .editorial-grid-block {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px 12px;
+        width: fit-content;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 3px;
+        color: #ffffff;
+        padding: 14px 0;
+        border-top: 1px solid var(--glass-border);
+        border-bottom: 1px solid var(--glass-border);
+    }
+
+    .editorial-callout-right {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .callout-divider {
+        width: 30px;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.4);
+    }
+
+    .callout-lead {
+        font-size: 12.5px;
+        color: #94a3b8;
+        line-height: 1.45;
+    }
+
+    /* ============================================================
+       STRUCTURED 4-MODEL GLASS SELECTION MATRIX (CLASSIC & PROFESSIONAL)
+    ============================================================ */
+    .models-matrix-section {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .section-editorial-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--glass-border);
+    }
+
+    .section-editorial-header h3 {
+        font-family: var(--font-serif);
+        font-size: 32px;
+        font-weight: 400;
+        color: #ffffff;
+    }
+
+    .section-editorial-header span {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: #64748b;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .models-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+    }
+
+    .model-slate {
+        border-radius: var(--radius);
+        background: rgba(11, 16, 28, 0.78);
+        backdrop-filter: blur(28px);
+        -webkit-backdrop-filter: blur(28px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        padding: 26px 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 350px;
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+
+    /* Soft, Eye-Friendly Outer Margin Glow */
+    .model-slate::before {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        border-radius: calc(var(--radius) + 1px);
+        background: transparent;
+        z-index: -1;
+        opacity: 0;
+        filter: blur(12px);
+        transition: opacity 0.35s ease;
+        pointer-events: none;
+    }
+
+    .model-slate:hover {
+        transform: translateY(-6px);
+        background: rgba(14, 20, 36, 0.88);
+    }
+    .model-slate:hover::before {
+        opacity: 0.8;
+    }
+
+    /* ─── Flood AI Glow ─── */
+    .ms-card-flood:hover {
+        border-color: rgba(0, 210, 255, 0.5);
+        box-shadow: 0 0 24px rgba(0, 210, 255, 0.25), 0 0 45px rgba(2, 132, 199, 0.12), var(--glass-shine);
+    }
+    .ms-card-flood::before {
+        background: linear-gradient(135deg, rgba(0, 210, 255, 0.5), rgba(59, 130, 246, 0.35));
+    }
+
+    /* ─── WildFire AI Glow ─── */
+    .ms-card-fire:hover {
+        border-color: rgba(255, 87, 34, 0.5);
+        box-shadow: 0 0 24px rgba(255, 87, 34, 0.25), 0 0 45px rgba(220, 38, 38, 0.12), var(--glass-shine);
+    }
+    .ms-card-fire::before {
+        background: linear-gradient(135deg, rgba(255, 87, 34, 0.5), rgba(220, 38, 38, 0.35));
+    }
+
+    /* ─── Landslide AI Glow ─── */
+    .ms-card-land:hover {
+        border-color: rgba(245, 158, 11, 0.5);
+        box-shadow: 0 0 24px rgba(245, 158, 11, 0.25), 0 0 45px rgba(217, 119, 6, 0.12), var(--glass-shine);
+    }
+    .ms-card-land::before {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.5), rgba(217, 119, 6, 0.35));
+    }
+
+    /* ─── Air Pollution AI Glow ─── */
+    .ms-card-air:hover {
+        border-color: rgba(45, 212, 191, 0.5);
+        box-shadow: 0 0 24px rgba(45, 212, 191, 0.25), 0 0 45px rgba(13, 148, 136, 0.12), var(--glass-shine);
+    }
+    .ms-card-air::before {
+        background: linear-gradient(135deg, rgba(45, 212, 191, 0.5), rgba(13, 148, 136, 0.35));
+    }
+
+    /* ─── Extreme Heat AI Glow ─── */
+    .ms-card-heat:hover {
+        border-color: rgba(251, 191, 36, 0.5);
+        box-shadow: 0 0 24px rgba(251, 191, 36, 0.25), 0 0 45px rgba(217, 119, 6, 0.12), var(--glass-shine);
+    }
+    .ms-card-heat::before {
+        background: linear-gradient(135deg, rgba(251, 191, 36, 0.5), rgba(217, 119, 6, 0.35));
+    }
+
+    /* ─── Industrial Emissions Glow ─── */
+    .ms-card-ind:hover {
+        border-color: rgba(168, 85, 247, 0.5);
+        box-shadow: 0 0 24px rgba(168, 85, 247, 0.25), 0 0 45px rgba(147, 51, 234, 0.12), var(--glass-shine);
+    }
+    .ms-card-ind::before {
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.5), rgba(147, 51, 234, 0.35));
+    }
+
+    /* ─── Water Quality Glow ─── */
+    .ms-card-water:hover {
+        border-color: rgba(14, 165, 233, 0.5);
+        box-shadow: 0 0 24px rgba(14, 165, 233, 0.25), 0 0 45px rgba(2, 132, 199, 0.12), var(--glass-shine);
+    }
+    .ms-card-water::before {
+        background: linear-gradient(135deg, rgba(14, 165, 233, 0.5), rgba(2, 132, 199, 0.35));
+    }
+
+    .ms-top-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+    }
+
+    .ms-num {
+        font-family: var(--font-mono);
+        font-size: 10.5px;
+        font-weight: 600;
+        color: #64748b;
+        letter-spacing: 1.2px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .ms-icon {
+        font-size: 18px;
+    }
+
+    .ms-name {
+        font-family: var(--font-serif);
+        font-size: 25px;
+        font-weight: 400;
+        line-height: 1.18;
+        color: #ffffff;
+        margin-bottom: 10px;
+        letter-spacing: -0.3px;
+    }
+
+    .ms-tagline {
+        font-size: 12.5px;
+        color: #94a3b8;
+        line-height: 1.5;
+        margin-bottom: 18px;
+    }
+
+    .ms-sensors-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 20px;
+    }
+
+    .ms-sensor-tag {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        padding: 3.5px 8px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.035);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: #cbd5e1;
+    }
+
+    .ms-action-btn {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 14px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        font-family: var(--font-mono);
+        font-size: 10.5px;
+        font-weight: 600;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        color: #cbd5e1;
+        transition: color 0.2s ease;
+    }
+
+    .model-slate:hover .ms-action-btn { color: #ffffff; }
+
+    .ms-arrow {
+        font-size: 13px;
+        transition: transform 0.2s ease;
+    }
+    .model-slate:hover .ms-arrow { transform: translateX(3px); }
+
+    /* ============================================================
+       CLEAN 3-CARD ARCHITECTURE & PRINCIPLES SECTION
+    ============================================================ */
+    .principles-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+    }
+
+    .principle-card {
+        border-radius: var(--radius);
+        background: rgba(13, 18, 30, 0.65);
+        backdrop-filter: blur(28px);
+        -webkit-backdrop-filter: blur(28px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        padding: 28px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        transition: border-color 0.2s ease;
+    }
+    .principle-card:hover { border-color: rgba(255, 255, 255, 0.18); }
+
+    .pc-tag {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: #64748b;
+    }
+
+    .pc-title {
+        font-family: var(--font-serif);
+        font-size: 22px;
+        font-weight: 400;
+        color: #ffffff;
+        line-height: 1.25;
+    }
+
+    .pc-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 4px;
+    }
+
+    .pc-list li {
+        font-size: 12.5px;
+        color: #94a3b8;
+        line-height: 1.45;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .pc-list li::before {
+        content: '—';
+        color: #64748b;
+        font-family: var(--font-mono);
+    }
+
+    .pc-list li b { color: #f1f5f9; font-weight: 600; }
+
+    /* ============================================================
+       LIVE HAZARD CONSOLES (CLASSIC & MISSION-CONTROL DESIGN)
+    ============================================================ */
+    .live-hub-section {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .consoles-top-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .live-hub-nav-pills {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        overflow-x: auto;
+    }
+
+    .hub-pill {
+        padding: 7px 16px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        font-family: var(--font-mono);
+        font-size: 11px;
+        font-weight: 500;
+        color: #cbd5e1;
+        cursor: pointer;
+        outline: none;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+    }
+    .hub-pill:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+        border-color: rgba(255, 255, 255, 0.25);
+    }
+    .hub-pill.active-pill {
+        background: rgba(0, 210, 255, 0.15);
+        border-color: rgba(0, 210, 255, 0.5);
+        color: #ffffff;
+        box-shadow: 0 0 16px rgba(0, 210, 255, 0.25);
+    }
+
+    /* Single Live Console Chassis */
+    .console-box {
+        border-radius: var(--radius-lg);
+        background: rgba(10, 15, 26, 0.82);
+        backdrop-filter: blur(32px);
+        -webkit-backdrop-filter: blur(32px);
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        scroll-margin-top: 90px;
+    }
+
+    .console-header {
+        padding: 20px 30px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(8, 12, 22, 0.7);
+    }
+
+    .console-title {
+        font-family: var(--font-sans);
+        font-size: 16px;
+        font-weight: 700;
+        color: #ffffff;
+        letter-spacing: -0.2px;
+    }
+
+    .console-subtitle {
+        font-size: 11px;
+        font-family: var(--font-mono);
+        color: #64748b;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 3px;
+    }
+
+    .live-pulse-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #10b981;
+        box-shadow: 0 0 8px #10b981;
+        display: inline-block;
+        animation: pulseLive 2s infinite ease-in-out;
+    }
+    @keyframes pulseLive {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .console-body {
+        display: grid;
+        grid-template-columns: 1fr 350px;
+        gap: 20px;
+        padding: 24px 30px 30px;
+    }
+
+    .main-col { display: flex; flex-direction: column; gap: 18px; }
+    .side-col  { display: flex; flex-direction: column; gap: 18px; }
+
+    /* Map Chassis (h-[420px] w-full) */
+    .map-wrap {
+        border-radius: var(--radius);
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        height: 420px;
+        width: 100%;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        background: #090e18;
+        position: relative;
+    }
+
+    /* Google Maps Canvas & custom elements */
+    .gmap-canvas {
+        width: 100%;
+        height: 100%;
+        background: #090e18;
+    }
+    
+    /* Native GMaps InfoWindow styling override */
+    .gm-style .gm-style-iw-c {
+        background-color: rgba(10, 16, 28, 0.95) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        backdrop-filter: blur(16px) !important;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.7) !important;
+        border-radius: 12px !important;
+        padding: 12px !important;
+    }
+    .gm-style .gm-style-iw-d {
+        overflow: auto !important;
+        color: #ffffff !important;
+        max-height: none !important;
+    }
+    .gm-style .gm-style-iw-t::after {
+        background: rgba(10, 16, 28, 0.95) !important;
+    }
+    .gm-ui-hover-effect {
+        top: 2px !important;
+        right: 2px !important;
+    }
+    .gm-ui-hover-effect span {
+        background-color: #ffffff !important;
+    }
+
+    /* Map View Mode Controls HUD buttons */
+    .map-hud-modes {
+        display: flex;
+        gap: 6px;
+        margin-top: 6px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 6px;
+    }
+    .map-hud-mode-btn {
+        color: #94a3b8;
+        cursor: pointer;
+        font-family: var(--font-sans);
+        font-size: 9px;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 2px 6px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.03);
+        transition: all 0.2s ease;
+    }
+    .map-hud-mode-btn:hover {
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+    .map-hud-mode-btn.active {
+        color: #00d2ff;
+        background: rgba(0, 210, 255, 0.15);
+        border-color: rgba(0, 210, 255, 0.3);
+    }
+
+    /* Styled Map Placeholder when API key is missing */
+    .map-placeholder {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(10, 16, 28, 0.72);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        padding: 30px;
+        text-align: center;
+        z-index: 10;
+        color: #cbd5e1;
+    }
+    .map-placeholder h3 {
+        font-family: var(--font-serif);
+        font-size: 20px;
+        margin-bottom: 8px;
+        color: #ffffff;
+    }
+    .map-placeholder p {
+        font-family: var(--font-sans);
+        font-size: 12.5px;
+        color: #94a3b8;
+        max-width: 320px;
+        line-height: 1.5;
+    }
+    .map-placeholder code {
+        font-family: var(--font-mono);
+        background: rgba(255,255,255,0.06);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 11px;
+        color: #f59e0b;
+    }
+    .telemetry-pulse-pin {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+    }
+    .t-pin-core {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 2px solid #ffffff;
+        box-shadow: 0 0 12px currentColor;
+        z-index: 2;
+    }
+    .t-pin-ring {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 1.5px solid currentColor;
+        animation: pinRadarPulse 2.4s infinite ease-out;
+        opacity: 0.8;
+        z-index: 1;
+    }
+    @keyframes pinRadarPulse {
+        0% { transform: scale(0.3); opacity: 1; }
+        100% { transform: scale(1.6); opacity: 0; }
+    }
+
+    /* Refined Metrics Strip */
+    .metrics-strip {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+    }
+
+    .metric-card {
+        border-radius: var(--radius);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 16px 18px;
+        background: rgba(14, 20, 34, 0.65);
+        backdrop-filter: blur(20px);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .metric-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.12);
+    }
+
+    #console-flood .metric-card::before { background: linear-gradient(90deg, #00d2ff, transparent); }
+    #console-fire .metric-card::before  { background: linear-gradient(90deg, #ff5722, transparent); }
+    #console-land .metric-card::before  { background: linear-gradient(90deg, #f59e0b, transparent); }
+    #console-air .metric-card::before   { background: linear-gradient(90deg, #2dd4bf, transparent); }
+
+    .metric-lbl {
+        font-size: 10px;
+        font-family: var(--font-mono);
+        color: #718096;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        margin-bottom: 6px;
+    }
+
+    .metric-val {
+        font-size: 19px;
+        font-weight: 700;
+        color: #ffffff;
+        font-family: var(--font-sans);
+        letter-spacing: -0.3px;
+    }
+
+    /* Refined Side Panels (Simulator & Alerts) */
+    .card {
+        border-radius: var(--radius);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 20px;
+        background: rgba(14, 20, 34, 0.65);
+        backdrop-filter: blur(20px);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .card-head {
+        font-size: 13.5px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #ffffff;
+        letter-spacing: -0.2px;
+    }
+
+    .ctrl-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 14px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.035);
+    }
+
+    .ctrl-row:last-of-type {
+        border-bottom: none;
+        margin-bottom: 8px;
+    }
+
+    label {
+        font-size: 11.5px;
+        color: #94a3b8;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    label b {
+        font-family: var(--font-mono);
+        color: #e2e8f0;
+        font-size: 12px;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1px 6px;
+        border-radius: 4px;
+        width: fit-content;
+    }
+
+    /* Professional Cyber Range Sliders */
+    input[type=range] {
+        width: 140px;
+        cursor: pointer;
+        height: 5px;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.1);
+        outline: none;
+    }
+    input.r-air   { accent-color: var(--accent-air); }
+    input.r-heat  { accent-color: var(--accent-heat); }
+    input.r-ind   { accent-color: var(--accent-ind); }
+
+    .btn {
+        width: 100%;
+        margin-top: 12px;
+        padding: 11px 16px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 10px;
+        font-family: var(--font-mono);
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.06);
+        color: #ffffff;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        transition: all 0.25s ease;
+    }
+    .btn:hover {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.28);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.12);
+    }
+
+    /* Refined Alerts Feed */
+    .alert-item {
+        border-radius: 8px;
+        padding: 11px 14px;
+        margin-bottom: 10px;
+        font-size: 11.5px;
+        border-left: 3px solid #00d2ff;
+        background: rgba(255, 255, 255, 0.03);
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        border-right: 1px solid rgba(255, 255, 255, 0.06);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        line-height: 1.5;
+    }
+    .al-crit {
+        border-left-color: var(--status-critical);
+        background: rgba(239, 68, 68, 0.04);
+    }
+    .al-warning {
+        border-left-color: var(--status-warning);
+        background: rgba(245, 158, 11, 0.04);
+    }
+    .no-alerts {
+        font-size: 12px;
+        color: #475569;
+        padding: 8px 0;
+        font-family: var(--font-mono);
+    }
+
+    .pill {
+        font-size: 10px;
+        font-family: var(--font-mono);
+        font-weight: 600;
+        padding: 3px 9px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.04);
+        color: #94a3b8;
+    }
+
+    /* ============================================================
+       PRODUCT HOMEPAGE CONTROL CENTER STYLING
+    ============================================================ */
+    .overview-pipeline-strip {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+        align-items: center;
+        gap: 12px;
+        margin-top: -10px;
+    }
+    .pipeline-card {
+        background: rgba(11, 16, 28, 0.72);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: var(--radius);
+        padding: 18px 20px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .pipeline-card:hover {
+        transform: translateY(-3px);
+        border-color: rgba(0, 210, 255, 0.35);
+    }
+    .p-step-num {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        font-weight: 700;
+        color: #00d2ff;
+        letter-spacing: 1.5px;
+        margin-bottom: 6px;
+    }
+    .p-step-title {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: #ffffff;
+        margin-bottom: 4px;
+    }
+    .p-step-desc {
+        font-size: 11.5px;
+        color: #94a3b8;
+        line-height: 1.45;
+    }
+    .pipeline-arrow {
+        color: rgba(0, 210, 255, 0.6);
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .control-center-section {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .section-subtext {
+        font-size: 13px;
+        color: #94a3b8;
+        margin-top: 4px;
+    }
+
+    .live-status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(16, 185, 129, 0.08);
+        border: 1px solid rgba(16, 185, 129, 0.25);
+        padding: 6px 14px;
+        border-radius: 9999px;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: #34d399;
+    }
+    .pulse-dot-green {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #10b981;
+        box-shadow: 0 0 10px #10b981;
+        animation: pulseGreen 2s infinite;
+    }
+    @keyframes pulseGreen {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.4; transform: scale(1.2); }
+    }
+
+    /* Shared Regional Control Center Map */
+    .map-filter-bar {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    .map-filter-pill {
+        background: rgba(15, 23, 42, 0.75);
+        border: 1px solid var(--glass-border);
+        border-radius: 9999px;
+        padding: 6px 16px;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: #94a3b8;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .map-filter-pill:hover {
+        color: #ffffff;
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+    .map-filter-pill.active {
+        background: rgba(0, 210, 255, 0.15);
+        border-color: rgba(0, 210, 255, 0.5);
+        color: #00d2ff;
+        box-shadow: 0 0 12px rgba(0, 210, 255, 0.2);
+    }
+
+    .shared-map-frame {
+        position: relative;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), var(--glass-shine);
+        background: #090c15;
+    }
+    .main-shared-map-canvas {
+        width: 100%;
+        height: 480px;
+        background: #060811;
+    }
+
+    .shared-map-overlay-card {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        z-index: 10;
+        background: rgba(11, 16, 28, 0.88);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: var(--radius);
+        padding: 16px 20px;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+        min-width: 260px;
+    }
+    .sm-card-title {
+        font-family: var(--font-mono);
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        color: #94a3b8;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+    .sm-legend-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 11.5px;
+        color: #cbd5e1;
+        margin-bottom: 12px;
+    }
+    .sm-leg-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .badge-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+    }
+    .badge-dot.crit { background: #ef4444; box-shadow: 0 0 6px #ef4444; }
+    .badge-dot.warn { background: #f59e0b; box-shadow: 0 0 6px #f59e0b; }
+    .badge-dot.watch { background: #fbbf24; box-shadow: 0 0 6px #fbbf24; }
+    .badge-dot.norm { background: #10b981; box-shadow: 0 0 6px #10b981; }
+
+    .sm-metrics-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 10px;
+        font-size: 11px;
+        font-family: var(--font-mono);
+        color: #94a3b8;
+    }
+    .sm-metrics-row b { color: #00d2ff; }
+
+    /* Alert Center */
+    .alert-stats-summary {
+        display: flex;
+        gap: 12px;
+    }
+    .a-stat-badge {
+        background: rgba(15, 23, 42, 0.75);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius-sm);
+        padding: 6px 14px;
+        font-family: var(--font-mono);
+        font-size: 11.5px;
+        color: #cbd5e1;
+    }
+    .a-stat-badge b { color: #00d2ff; font-size: 13px; }
+    .a-stat-badge.highlight b { color: #ef4444; }
+
+    .alert-center-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 0.8fr;
+        gap: 20px;
+    }
+    .alert-stream-container {
+        background: rgba(11, 16, 28, 0.78);
+        backdrop-filter: blur(28px);
+        -webkit-backdrop-filter: blur(28px);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius-lg);
+        padding: 22px 24px;
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+    }
+    .alert-stream-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .stream-filter-pills {
+        display: flex;
+        gap: 6px;
+    }
+    .sf-pill {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 3px 12px;
+        font-family: var(--font-mono);
+        font-size: 10.5px;
+        color: #94a3b8;
+        cursor: pointer;
+    }
+    .sf-pill.active {
+        background: rgba(0, 210, 255, 0.15);
+        border-color: rgba(0, 210, 255, 0.4);
+        color: #00d2ff;
+    }
+    .alert-stream-body {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-height: 340px;
+        overflow-y: auto;
+        padding-right: 4px;
+    }
+
+    .authority-protocol-card {
+        background: rgba(11, 16, 28, 0.78);
+        backdrop-filter: blur(28px);
+        -webkit-backdrop-filter: blur(28px);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius-lg);
+        padding: 22px 24px;
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .protocol-card-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: #ffffff;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .protocol-item {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: var(--radius-sm);
+        padding: 12px 14px;
+    }
+    .pi-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4px;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: #f1f5f9;
+    }
+    .pi-status {
+        font-family: var(--font-mono);
+        font-size: 9.5px;
+        padding: 2px 7px;
+        border-radius: 8px;
+        background: rgba(16, 185, 129, 0.12);
+        color: #34d399;
+        border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .pi-desc {
+        font-size: 11px;
+        color: #94a3b8;
+        line-height: 1.4;
+    }
+
+    /* Hybrid Architecture - Perfect Equal Card Height & Alignment */
+    .architecture-diagram-grid {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+        align-items: stretch;
+        gap: 12px;
+    }
+    .arch-card {
+        background: #0f172a;
+        border: 1px solid #1e293b;
+        border-radius: 10px;
+        padding: 18px 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        transition: border-color 0.2s ease;
+    }
+    .arch-card.highlight-edge {
+        border-color: rgba(56, 189, 248, 0.4);
+        background: rgba(56, 189, 248, 0.04);
+        box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
+    }
+    .arch-badge {
+        font-family: var(--font-mono);
+        font-size: 9.5px;
+        font-weight: 700;
+        color: #64748b;
+        letter-spacing: 1px;
+        margin-bottom: 6px;
+    }
+    .arch-badge.edge { color: #38bdf8; }
+    .arch-card h4 {
+        font-size: 14px;
+        font-weight: 600;
+        color: #f8fafc;
+        margin-bottom: 8px;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+    }
+    .arch-card p {
+        font-size: 11.5px;
+        color: #94a3b8;
+        line-height: 1.55;
+        flex: 1;
+    }
+    .arch-footer {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        color: #64748b;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 8px;
+        margin-top: 14px;
+    }
+    .arch-connector {
+        color: #38bdf8;
+        font-size: 16px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.65;
+    }
+
+    /* Node Coverage */
+    .deployment-metrics-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+    }
+    .dep-metric-card {
+        background: rgba(11, 16, 28, 0.72);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius);
+        padding: 20px 22px;
+        text-align: center;
+        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.4);
+    }
+    .dep-val {
+        font-family: var(--font-serif);
+        font-size: 32px;
+        color: #00d2ff;
+        margin-bottom: 4px;
+    }
+    .dep-lbl {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: #94a3b8;
+        letter-spacing: 0.5px;
+    }
+
+    .deployment-table-wrap {
+        background: rgba(11, 16, 28, 0.78);
+        backdrop-filter: blur(28px);
+        -webkit-backdrop-filter: blur(28px);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+    }
+    .deployment-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 12px;
+    }
+    .deployment-table th {
+        background: rgba(255, 255, 255, 0.03);
+        font-family: var(--font-mono);
+        font-size: 10.5px;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 14px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .deployment-table td {
+        padding: 14px 20px;
+        color: #cbd5e1;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .deployment-table tr:last-child td { border-bottom: none; }
+    .pwr-tag {
+        font-family: var(--font-mono);
+        font-size: 10.5px;
+        color: #fbbf24;
+        background: rgba(251, 191, 36, 0.08);
+        padding: 2px 8px;
+        border-radius: 6px;
+        border: 1px solid rgba(251, 191, 36, 0.2);
+    }
+    .badge-status.online {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        font-weight: 700;
+        color: #34d399;
+        background: rgba(16, 185, 129, 0.12);
+        padding: 3px 10px;
+        border-radius: 9999px;
+        border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    /* ============================================================
+       CLASSIC FRAMED PANEL COMPOSITION STYLING
+    ============================================================ */
+    .classic-framed-panel {
+        background: rgba(10, 14, 26, 0.82);
+        backdrop-filter: blur(28px);
+        -webkit-backdrop-filter: blur(28px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: var(--radius-lg);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .classic-framed-panel:hover {
+        border-color: rgba(0, 210, 255, 0.25);
+    }
+
+    .panel-header-bar {
+        background: rgba(255, 255, 255, 0.03);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 14px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .panel-header-title {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        color: #00d2ff;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .panel-header-tag {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        color: #64748b;
+        letter-spacing: 1px;
+    }
+
+    .panel-inset-body {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .node-detail-overlay-card {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        z-index: 10;
+        background: rgba(11, 16, 28, 0.90);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: var(--radius);
+        padding: 14px 18px;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+        min-width: 250px;
+        font-size: 11.5px;
+    }
+    .node-detail-title {
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .node-detail-meta {
+        font-family: var(--font-mono);
+        font-size: 10.5px;
+        color: #94a3b8;
+        margin-bottom: 6px;
+    }
+    .node-detail-stat {
+        font-size: 11px;
+        color: #cbd5e1;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 6px;
+    }
+
+    /* ============================================================
+       RDR2-STYLE RADIAL HAZARD SELECTION WHEEL (OUR THEME)
+    ============================================================ */
+    .rdr-wheel-container {
+        position: relative;
+        width: 580px;
+        height: 520px;
+        margin: 10px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .rdr-guide-ring {
+        position: absolute;
+        width: 380px;
+        height: 380px;
+        border-radius: 50%;
+        border: 1.5px dashed rgba(59, 130, 246, 0.25);
+        pointer-events: none;
+        box-shadow: 0 0 30px rgba(59, 130, 246, 0.05);
+    }
+
+    .rdr-center-hud {
+        position: absolute;
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        background: #0f172a;
+        border: 2px solid #1e293b;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(59, 130, 246, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 20px;
+        z-index: 10;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .rdr-hud-icon {
+        font-size: 30px;
+        margin-bottom: 4px;
+        filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.4));
+    }
+
+    .rdr-hud-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: #f8fafc;
+        line-height: 1.2;
+        margin-bottom: 3px;
+    }
+
+    .rdr-hud-category {
+        font-family: var(--font-mono);
+        font-size: 9.5px;
+        font-weight: 600;
+        color: #38bdf8;
+        margin-bottom: 6px;
+    }
+
+    .rdr-hud-desc {
+        font-size: 10px;
+        color: #94a3b8;
+        line-height: 1.4;
+        margin-bottom: 10px;
+        max-width: 190px;
+    }
+
+    .rdr-hud-btn {
+        font-family: var(--font-mono);
+        font-size: 9.5px;
+        font-weight: 700;
+        color: #ffffff;
+        background: #3b82f6;
+        border: none;
+        border-radius: 9999px;
+        padding: 6px 14px;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .rdr-hud-btn:hover {
+        background: #2563eb;
+        transform: scale(1.05);
+    }
+
+    .rdr-slice-wrap {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .rdr-slice {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 155px;
+        height: 58px;
+        margin-top: -29px;
+        margin-left: -77.5px;
+        pointer-events: auto;
+        cursor: pointer;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* 7 Sector Angle Translations (Radius 190px) */
+    .rdr-slice-0 { transform: rotate(-90deg) translate(190px) rotate(90deg); }
+    .rdr-slice-1 { transform: rotate(-38.57deg) translate(190px) rotate(38.57deg); }
+    .rdr-slice-2 { transform: rotate(12.85deg) translate(190px) rotate(-12.85deg); }
+    .rdr-slice-3 { transform: rotate(64.28deg) translate(190px) rotate(-64.28deg); }
+    .rdr-slice-4 { transform: rotate(115.71deg) translate(190px) rotate(-115.71deg); }
+    .rdr-slice-5 { transform: rotate(167.14deg) translate(190px) rotate(-167.14deg); }
+    .rdr-slice-6 { transform: rotate(218.57deg) translate(190px) rotate(-218.57deg); }
+
+    .rdr-slice-btn {
+        width: 100%;
+        height: 100%;
+        background: #0f172a;
+        border: 1px solid #1e293b;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+        transition: all 0.25s ease;
+    }
+
+    .rdr-slice:hover .rdr-slice-btn, .rdr-slice.active .rdr-slice-btn {
+        background: #1e293b;
+        border-color: #3b82f6;
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.35);
+        transform: scale(1.06);
+    }
+
+    .rdr-slice-icon {
+        font-size: 18px;
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.06);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .rdr-slice-info {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .rdr-slice-num {
+        font-family: var(--font-mono);
+        font-size: 8.5px;
+        font-weight: 700;
+        color: #64748b;
+    }
+
+    .rdr-slice-title {
+        font-size: 11px;
+        font-weight: 600;
+        color: #f8fafc;
+        line-height: 1.1;
+    }
+
+    /* ============================================================
+       HUMAN-ENGINEERED ENTERPRISE CONTROL CENTER SYSTEM
+    ============================================================ */
+    .vui-app-wrapper {
+        display: flex;
+        min-height: 100vh;
+        background: #090d16;
+        color: #f8fafc;
+        position: relative;
+        z-index: 1;
+        font-family: var(--font-sans);
+    }
+
+    /* Professional Fixed Left Sidebar */
+    .vui-sidebar {
+        width: 230px;
+        background: #0c101c;
+        border-right: 1px solid #1e293b;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 20px 14px;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+    }
+
+    .vui-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 4px 8px 16px 8px;
+        border-bottom: 1px solid #1e293b;
+        cursor: pointer;
+    }
+
+    .vui-brand-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        background: #3b82f6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .vui-brand-icon svg { width: 16px; height: 16px; fill: #fff; }
+
+    .vui-brand-name {
+        font-family: var(--font-sans);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: #f8fafc;
+    }
+
+    .vui-nav-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-top: 16px;
+    }
+
+    .vui-nav-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 9px 12px;
+        border-radius: 6px;
+        font-family: var(--font-sans);
+        font-size: 12.5px;
+        font-weight: 500;
+        color: #94a3b8;
+        text-decoration: none;
+        transition: all 0.15s ease;
+        cursor: pointer;
+    }
+
+    .vui-nav-item:hover {
+        color: #f8fafc;
+        background: rgba(255, 255, 255, 0.04);
+    }
+
+    .vui-nav-item.active {
+        background: #3b82f6;
+        color: #ffffff;
+        font-weight: 600;
+    }
+
+    .vui-nav-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 18px;
+        height: 18px;
+        color: inherit;
+    }
+
+    .vui-doc-card {
+        background: #0f172a;
+        border: 1px solid #1e293b;
+        border-radius: 8px;
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+    .vui-doc-title { font-size: 11.5px; font-weight: 600; color: #f8fafc; }
+    .vui-doc-desc { font-size: 10.5px; color: #64748b; line-height: 1.4; }
+
+    /* Main Content Container */
+    .vui-main-container {
+        margin-left: 230px;
+        flex: 1;
+        padding: 20px 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        min-width: 0;
+    }
+
+    /* Header & Breadcrumb */
+    .vui-header-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 4px;
+    }
+    .vui-breadcrumb { font-size: 11px; color: #64748b; font-family: var(--font-mono); }
+    .vui-page-title { font-size: 17px; font-weight: 600; color: #f8fafc; margin-top: 1px; }
+
+    /* Top 4 Stat Metric Cards */
+    .vui-stats-bar {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+    }
+
+    .vui-stat-card {
+        background: #0f172a;
+        border: 1px solid #1e293b;
+        border-radius: 10px;
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .vui-stat-info { display: flex; flex-direction: column; gap: 3px; }
+    .vui-stat-label { font-size: 10px; font-family: var(--font-mono); font-weight: 600; color: #64748b; letter-spacing: 0.5px; }
+    .vui-stat-val-wrap { display: flex; align-items: baseline; gap: 8px; }
+    .vui-stat-value { font-size: 21px; font-weight: 700; font-family: var(--font-mono); color: #f8fafc; font-variant-numeric: tabular-nums; }
+    .vui-stat-badge { font-size: 10px; font-weight: 600; color: #10b981; font-family: var(--font-mono); }
+    .vui-stat-badge.amber { color: #f59e0b; }
+    .vui-stat-badge.cyan { color: #38bdf8; }
+
+    .vui-stat-icon-glow {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: rgba(59, 130, 246, 0.12);
+        border: 1px solid rgba(59, 130, 246, 0.25);
+        color: #3b82f6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+    }
+
+    /* Hero Spotlight & Gauge Row */
+    .vui-hero-gauge-row {
+        display: grid;
+        grid-template-columns: 1.8fr 1.2fr;
+        gap: 16px;
+    }
+
+    .vui-hero-banner {
+        background: #0f172a;
+        border: 1px solid #1e293b;
+        border-radius: 12px;
+        padding: 22px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+    }
+    .vui-hero-tag { font-size: 10.5px; font-family: var(--font-mono); color: #38bdf8; letter-spacing: 1px; font-weight: 600; }
+    .vui-hero-heading { font-size: 20px; font-weight: 600; color: #f8fafc; margin: 6px 0; }
+    .vui-hero-desc { font-size: 12px; color: #94a3b8; max-width: 520px; line-height: 1.5; }
+
+    /* Gauge Widgets Panel */
+    .vui-gauge-panel {
+        background: #0f172a;
+        border: 1px solid #1e293b;
+        border-radius: 12px;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .vui-gauge-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .vui-circle-gauge {
+        width: 88px;
+        height: 88px;
+        border-radius: 50%;
+        background: conic-gradient(#3b82f6 0% 96%, rgba(255, 255, 255, 0.08) 96% 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+    .vui-circle-gauge::before {
+        content: '';
+        position: absolute;
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background: #0f172a;
+    }
+    .vui-gauge-text {
+        position: relative;
+        font-family: var(--font-mono);
+        font-weight: 700;
+        font-size: 16px;
+        color: #f8fafc;
+        font-variant-numeric: tabular-nums;
+    }
+    .vui-gauge-lbl { font-size: 11px; color: #94a3b8; font-weight: 500; text-align: center; }
+
+    /* Central 2-Column Master Ops Grid */
+    .vui-ops-grid {
+        display: grid;
+        grid-template-columns: 2.1fr 1fr;
+        gap: 16px;
+        align-items: start;
+    }
+
+    /* Bottom 3-Column Grid */
+    .vui-bottom-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+    }
+
+    @media(max-width: 1200px) {
+        .vui-sidebar { width: 70px; padding: 20px 8px; align-items: center; }
+        .vui-brand-name, .vui-nav-text, .vui-doc-card, .vui-breadcrumb { display: none; }
+        .vui-main-container { margin-left: 70px; padding: 18px; }
+        .vui-stats-bar { grid-template-columns: repeat(2, 1fr); }
+        .vui-hero-gauge-row { grid-template-columns: 1fr; }
+        .vui-ops-grid { grid-template-columns: 1fr; }
+        .vui-bottom-grid { grid-template-columns: 1fr; }
+    }
+    </style>
+</head>
+<body>
+
+<div class="cinematic-bg"></div>
+<canvas id="bg-canvas"></canvas>
+<div id="ambient-aura" class="ambient-aura theme-all"></div>
+<div class="mist-overlay"></div>
+
+<!-- ======================== VISION UI FREE DARK GLASS APP WRAPPER ======================== -->
+<div id="view-overview" class="page-wrap">
+<div class="vui-app-wrapper">
+    
+    <!-- FIXED LEFT SIDEBAR NAVIGATION -->
+    <aside class="vui-sidebar">
+        <div>
+            <div class="vui-brand" onclick="openOverview()">
+                <div class="vui-brand-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm0 2.18l6 2.25v4.66c0 4.1-2.73 7.9-6 8.91-3.27-1.01-6-4.81-6-8.91V6.43l6-2.25z"/>
+                    </svg>
+                </div>
+                <span class="vui-brand-name">TERRA EDGE</span>
+            </div>
+
+            <div class="vui-nav-menu">
+                <a class="vui-nav-item active" onclick="scrollToSection('overview-frame')">
+                    <span class="vui-nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8v-10h-8v10zm0-18v6h8V3h-8z"/></svg></span>
+                    <span class="vui-nav-text">Dashboard</span>
+                </a>
+                <a class="vui-nav-item" onclick="scrollToSection('shared-regional-map')">
+                    <span class="vui-nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span>
+                    <span class="vui-nav-text">Control Center</span>
+                </a>
+                <a class="vui-nav-item" onclick="scrollToSection('alert-center-section')">
+                    <span class="vui-nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg></span>
+                    <span class="vui-nav-text">Alert Stream</span>
+                </a>
+                <a class="vui-nav-item" onclick="scrollToSection('hybrid-architecture')">
+                    <span class="vui-nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg></span>
+                    <span class="vui-nav-text">Architecture</span>
+                </a>
+                <a class="vui-nav-item" onclick="scrollToSection('models-matrix')">
+                    <span class="vui-nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-1.63 2.67-2.77 7-2.77s7 1.14 7 2.77V19z"/></svg></span>
+                    <span class="vui-nav-text">Hazard Matrix</span>
+                </a>
+                <a class="vui-nav-item" onclick="scrollToSection('node-coverage-section')">
+                    <span class="vui-nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></span>
+                    <span class="vui-nav-text">Node Network</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="vui-doc-card">
+            <div class="vui-doc-title">Edge TinyML Active</div>
+            <div class="vui-doc-desc">42 Field Nodes processing real-time predictions with zero cloud latency.</div>
+            <button class="btn-fluid-bubble" onclick="openAllConsoles()" style="margin-top:6px;padding:6px 12px;font-size:10px;">
+                <span class="bubble-fill"></span>
+                <span class="btn-text">Live Consoles ↗</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT CANVAS -->
+    <main class="vui-main-container">
+        
+        <!-- BREADCRUMB & HEADER -->
+        <div class="vui-header-bar">
+            <div>
+                <div class="vui-breadcrumb">Pages / Operations Dashboard</div>
+                <div class="vui-page-title">Environmental Risk Operations Dashboard</div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:center;">
+                <span class="pill" style="color:#10b981;border-color:rgba(16,185,129,0.3);background:rgba(16,185,129,0.08);">● 42 SENSORS ONLINE</span>
+                <button class="btn-fluid-bubble" onclick="simulateSystemBroadcast()" style="padding:8px 16px;">
+                    <span class="bubble-fill"></span>
+                    <span class="btn-text">Test Broadcast Protocol</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 4 TOP STAT METRIC CARDS -->
+        <div class="vui-stats-bar">
+            <div class="vui-stat-card">
+                <div class="vui-stat-info">
+                    <span class="vui-stat-label">ACTIVE FIELD SENSORS</span>
+                    <div class="vui-stat-val-wrap">
+                        <span class="vui-stat-value">42 / 42</span>
+                        <span class="vui-stat-badge">+100% ONLINE</span>
+                    </div>
+                </div>
+                <div class="vui-stat-icon-glow">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.2 19.54 10.55 19.8 12 19.8c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg>
+                </div>
+            </div>
+
+            <div class="vui-stat-card">
+                <div class="vui-stat-info">
+                    <span class="vui-stat-label">REGIONAL RISK INDEX</span>
+                    <div class="vui-stat-val-wrap">
+                        <span class="vui-stat-value">0.18</span>
+                        <span class="vui-stat-badge cyan">NOMINAL</span>
+                    </div>
+                </div>
+                <div class="vui-stat-icon-glow" style="background:rgba(56,189,248,0.12);border-color:rgba(56,189,248,0.25);color:#38bdf8;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                </div>
+            </div>
+
+            <div class="vui-stat-card">
+                <div class="vui-stat-info">
+                    <span class="vui-stat-label">DISPATCHED ALERTS (24H)</span>
+                    <div class="vui-stat-val-wrap">
+                        <span class="vui-stat-value">14 SENT</span>
+                        <span class="vui-stat-badge amber">2 ACTIVE</span>
+                    </div>
+                </div>
+                <div class="vui-stat-icon-glow" style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.25);color:#f59e0b;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+                </div>
+            </div>
+
+            <div class="vui-stat-card">
+                <div class="vui-stat-info">
+                    <span class="vui-stat-label">EDGE TINYML LATENCY</span>
+                    <div class="vui-stat-val-wrap">
+                        <span class="vui-stat-value">14.2 ms</span>
+                        <span class="vui-stat-badge">&lt;30KB RAM</span>
+                    </div>
+                </div>
+                <div class="vui-stat-icon-glow" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25);color:#10b981;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- HERO SPOTLIGHT & GAUGE METRICS ROW -->
+        <div class="vui-hero-gauge-row">
+            <!-- HERO SPOTLIGHT CARD -->
+            <div id="overview-frame" class="vui-hero-banner">
+                <div>
+                    <span class="vui-hero-tag">DISTRIBUTED EDGE-AI NETWORK</span>
+                    <h2 class="vui-hero-heading">Terra Edge — Multi-Hazard Operations</h2>
+                    <p class="vui-hero-desc">
+                        Combining ultra-low power physical sensors, on-device TinyML edge inference, and real-time regional risk mapping to safeguard vulnerable ecological zones.
+                    </p>
+                </div>
+                <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;">
+                    <button class="btn-fluid-bubble" onclick="scrollToSection('shared-regional-map')" style="padding:10px 22px;">
+                        <span class="bubble-fill"></span>
+                        <span class="btn-text">Control Center Map ↓</span>
+                    </button>
+                    <button class="btn-fluid-bubble" onclick="scrollToSection('hybrid-architecture')" style="padding:10px 20px;background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.15);">
+                        <span class="bubble-fill"></span>
+                        <span class="btn-text">Architecture ›</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- GAUGE METRICS WIDGETS -->
+            <div class="vui-gauge-panel">
+                <div class="vui-gauge-card">
+                    <div class="vui-circle-gauge">
+                        <span class="vui-gauge-text">96.2%</span>
+                    </div>
+                    <span class="vui-gauge-lbl">System Resilience Rate</span>
+                </div>
+                <div class="vui-gauge-card">
+                    <div class="vui-circle-gauge" style="background:conic-gradient(#10b981 0% 93%, rgba(255,255,255,0.1) 93% 100%);">
+                        <span class="vui-gauge-text">9.3</span>
+                    </div>
+                    <span class="vui-gauge-lbl">Risk Safety Score</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN 2-COLUMN OPERATIONS GRID -->
+        <div class="vui-ops-grid">
+            
+            <!-- LEFT MAIN COLUMN: MAP & PIPELINE -->
+            <div style="display:flex;flex-direction:column;gap:20px;">
+                
+                <!-- GEOSPATIAL MAP PANEL -->
+                <div id="shared-regional-map" class="classic-framed-panel">
+                    <div class="panel-header-bar">
+                        <div class="panel-header-title">
+                            <span>📍</span> REGIONAL CONTROL CENTER — GEOSPATIAL HAZARD FUSION
+                        </div>
+                        <div class="live-status-pill">
+                            <span class="pulse-dot-green"></span>
+                            <span>42 Sensing Nodes Online · Real-Time Feed</span>
+                        </div>
+                    </div>
+
+                    <div class="panel-inset-body">
+                        <!-- Map Filters -->
+                        <div class="map-filter-bar">
+                            <button class="map-filter-pill active" onclick="filterSharedMap('all', this)">⚡ All Hazards</button>
+                            <button class="map-filter-pill" onclick="filterSharedMap('flood', this)">💧 Flood</button>
+                            <button class="map-filter-pill" onclick="filterSharedMap('fire', this)">🔥 Wildfire</button>
+                            <button class="map-filter-pill" onclick="filterSharedMap('land', this)">⛰️ Landslide</button>
+                            <button class="map-filter-pill" onclick="filterSharedMap('air', this)">💨 Air Quality</button>
+                            <button class="map-filter-pill" onclick="filterSharedMap('heat', this)">☀️ Extreme Heat</button>
+                            <button class="map-filter-pill" onclick="filterSharedMap('ind', this)">⚠️ Toxic Plume</button>
+                            <button class="map-filter-pill" onclick="filterSharedMap('water', this)">🌊 Water Quality</button>
+                        </div>
+
+                        <!-- Map Canvas Container -->
+                        <div class="shared-map-frame">
+                            <div id="map-shared" class="main-shared-map-canvas"></div>
+                            
+                            <!-- Bottom-Left Legend Panel -->
+                            <div class="shared-map-overlay-card">
+                                <div class="sm-card-title">System Status Legend</div>
+                                <div class="sm-legend-grid">
+                                    <div class="sm-leg-item"><span class="badge-dot crit"></span> Critical Risk (&gt;75%)</div>
+                                    <div class="sm-leg-item"><span class="badge-dot warn"></span> Warning Level (50-75%)</div>
+                                    <div class="sm-leg-item"><span class="badge-dot watch"></span> Watch Advisory (25-50%)</div>
+                                    <div class="sm-leg-item"><span class="badge-dot norm"></span> Nominal State (&lt;25%)</div>
+                                </div>
+                                <div class="sm-metrics-row">
+                                    <div><span>Confidence:</span> <b>96.2%</b></div>
+                                    <div><span>Anomaly Index:</span> <b>0.04</b></div>
+                                </div>
+                            </div>
+
+                            <!-- Bottom-Right Station Telemetry Panel -->
+                            <div class="node-detail-overlay-card">
+                                <div class="node-detail-title">
+                                    <span style="color:#00d2ff;">●</span> Active Station Telemetry
+                                </div>
+                                <div class="node-detail-meta" id="hud-node-id">
+                                    NODE-FLD-101 (Indo-Gangetic Basin)
+                                </div>
+                                <div class="node-detail-stat" id="hud-node-stat">
+                                    Stage Level: 1.2m · Soil VWC: 42% · Battery: 98%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HYBRID ARCHITECTURE PIPELINE -->
+                <div id="hybrid-architecture" class="classic-framed-panel">
+                    <div class="panel-header-bar">
+                        <div class="panel-header-title">
+                            <span>⚡</span> CLOUD & EDGE HYBRID ARCHITECTURE PIPELINE
+                        </div>
+                        <div class="panel-header-tag">DUAL-LAYER RESILIENCE</div>
+                    </div>
+
+                    <div class="panel-inset-body">
+                        <div class="architecture-diagram-grid">
+                            <div class="arch-card">
+                                <div class="arch-badge">TIER 1 / FIELD</div>
+                                <h4>Physical Sensor Layer</h4>
+                                <p>Gas arrays, accelerometers, laser PM probes, ultrasonic depth, and soil moisture sensors.</p>
+                                <div class="arch-footer">Ultra-Low Power Field Units</div>
+                            </div>
+
+                            <div class="arch-connector">➔</div>
+
+                            <div class="arch-card highlight-edge">
+                                <div class="arch-badge edge">TIER 2 / EDGE</div>
+                                <h4>On-Device TinyML</h4>
+                                <p>Quantized Random Forest & Anomaly detection executed on ESP32-S3 microcontroller (&lt;30KB RAM, &lt;100ms trigger).</p>
+                                <div class="arch-footer">100% Offline Resilient</div>
+                            </div>
+
+                            <div class="arch-connector">➔</div>
+
+                            <div class="arch-card">
+                                <div class="arch-badge">TIER 3 / MESH</div>
+                                <h4>LoRaWAN Gateway</h4>
+                                <p>Long-range mesh network gateways aggregating field node packets up to 15km.</p>
+                                <div class="arch-footer">Low-Power Radio Mesh</div>
+                            </div>
+
+                            <div class="arch-connector">➔</div>
+
+                            <div class="arch-card">
+                                <div class="arch-badge">TIER 4 / CLOUD</div>
+                                <h4>Geospatial Analytics</h4>
+                                <p>Central microservices processing multi-hazard spatial risk fusion and trend forecasting.</p>
+                                <div class="arch-footer">Central Control Center</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT SIDEBAR COLUMN: DISPATCH STREAM & PROTOCOLS -->
+            <div style="display:flex;flex-direction:column;gap:20px;">
+                
+                <!-- LIVE DISPATCH STREAM -->
+                <div id="alert-center-section" class="classic-framed-panel">
+                    <div class="panel-header-bar">
+                        <div class="panel-header-title">
+                            <span>🚨</span> LIVE DISPATCH STREAM
+                        </div>
+                        <div class="stream-filter-pills">
+                            <button class="sf-pill active" onclick="filterAlertStream('all', this)">All</button>
+                            <button class="sf-pill" onclick="filterAlertStream('critical', this)">Critical</button>
+                            <button class="sf-pill" onclick="filterAlertStream('warning', this)">Warnings</button>
+                        </div>
+                    </div>
+
+                    <div class="panel-inset-body" style="padding:16px;">
+                        <div id="unified-alert-list" class="alert-stream-body" style="max-height:420px;">
+                            <!-- Dynamically populated live alert cards -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DISPATCH PROTOCOLS -->
+                <div class="classic-framed-panel">
+                    <div class="panel-header-bar">
+                        <div class="panel-header-title">
+                            <span>🛡️</span> AUTHORITY ROUTING STATUS
+                        </div>
+                        <div class="panel-header-tag">GATEWAY ACTIVE</div>
+                    </div>
+
+                    <div class="panel-inset-body" style="gap:12px;padding:18px;">
+                        <div class="protocol-item">
+                            <div class="pi-top">
+                                <span>NDMA Emergency API</span>
+                                <span class="pi-status active">CONNECTED</span>
+                            </div>
+                            <p class="pi-desc">Automated CAP protocol push to National Disaster Management Authority.</p>
+                        </div>
+                        <div class="protocol-item">
+                            <div class="pi-top">
+                                <span>Public Advisory SMS</span>
+                                <span class="pi-status active">STANDBY</span>
+                            </div>
+                            <p class="pi-desc">Geo-fenced mobile emergency broadcast network active for high-risk zones.</p>
+                        </div>
+                        <div class="protocol-item">
+                            <div class="pi-top">
+                                <span>Municipal Response</span>
+                                <span class="pi-status active">READY</span>
+                            </div>
+                            <p class="pi-desc">Direct webhook alerts to fire, flood & environmental municipal services.</p>
+                        </div>
+
+                        <button class="btn-fluid-bubble" onclick="simulateSystemBroadcast()" style="width:100%;margin-top:8px;padding:10px;">
+                            <span class="bubble-fill"></span>
+                            <span class="btn-text">📡 Test Broadcast Protocol</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- HAZARD MODULES MATRIX: RDR2-STYLE RADIAL SELECTION WHEEL -->
+        <div id="models-matrix" class="classic-framed-panel">
+            <div class="panel-header-bar">
+                <div class="panel-header-title">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                    ENVIRONMENTAL HAZARD OPERATIONS MATRIX
+                </div>
+                <div class="panel-header-tag">07 RADIAL SELECTION WHEEL</div>
+            </div>
+
+            <div class="panel-inset-body" style="align-items:center;justify-content:center;padding:24px 16px;">
+                <div class="rdr-wheel-container">
+                    <!-- Connecting Circular Radar Guide Ring -->
+                    <div class="rdr-guide-ring"></div>
+
+                    <!-- Central Radar HUD Circle -->
+                    <div class="rdr-center-hud">
+                        <div class="rdr-hud-icon" id="rdr-hud-icon">💧</div>
+                        <div class="rdr-hud-title" id="rdr-hud-title">SentinLEdge Flood AI</div>
+                        <div class="rdr-hud-category" id="rdr-hud-category">01 / FLOOD & INUNDATION</div>
+                        <div class="rdr-hud-desc" id="rdr-hud-desc">River surge detection, rapid soil moisture infiltration, and basin inundation risk.</div>
+                        <button class="rdr-hud-btn" id="rdr-hud-btn" onclick="openSingleModel('flood')">EXPLORE CONSOLE ➔</button>
+                    </div>
+
+                    <!-- 7 Radial Wheel Wedge Slices -->
+                    <div class="rdr-slice-wrap">
+                        <!-- 01: Flood -->
+                        <div class="rdr-slice rdr-slice-0 active" onmouseenter="hoverRdrSlice('flood')" onclick="openSingleModel('flood')">
+                            <div class="rdr-slice-btn">
+                                <div class="rdr-slice-icon">💧</div>
+                                <div class="rdr-slice-info">
+                                    <span class="rdr-slice-num">01 / FLOOD</span>
+                                    <span class="rdr-slice-title">Flood AI</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 02: Wildfire -->
+                        <div class="rdr-slice rdr-slice-1" onmouseenter="hoverRdrSlice('fire')" onclick="openSingleModel('fire')">
+                            <div class="rdr-slice-btn">
+                                <div class="rdr-slice-icon">🔥</div>
+                                <div class="rdr-slice-info">
+                                    <span class="rdr-slice-num">02 / FIRE</span>
+                                    <span class="rdr-slice-title">Wildfire AI</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 03: Landslide -->
+                        <div class="rdr-slice rdr-slice-2" onmouseenter="hoverRdrSlice('land')" onclick="openSingleModel('land')">
+                            <div class="rdr-slice-btn">
+                                <div class="rdr-slice-icon">⛰️</div>
+                                <div class="rdr-slice-info">
+                                    <span class="rdr-slice-num">03 / SLIP</span>
+                                    <span class="rdr-slice-title">Landslide AI</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 04: Air Quality -->
+                        <div class="rdr-slice rdr-slice-3" onmouseenter="hoverRdrSlice('air')" onclick="openSingleModel('air')">
+                            <div class="rdr-slice-btn">
+                                <div class="rdr-slice-icon">💨</div>
+                                <div class="rdr-slice-info">
+                                    <span class="rdr-slice-num">04 / AIR</span>
+                                    <span class="rdr-slice-title">AirPollution AI</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 05: Heat -->
+                        <div class="rdr-slice rdr-slice-4" onmouseenter="hoverRdrSlice('heat')" onclick="openSingleModel('heat')">
+                            <div class="rdr-slice-btn">
+                                <div class="rdr-slice-icon">☀️</div>
+                                <div class="rdr-slice-info">
+                                    <span class="rdr-slice-num">05 / HEAT</span>
+                                    <span class="rdr-slice-title">Extreme Heat AI</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 06: Toxic Plume -->
+                        <div class="rdr-slice rdr-slice-5" onmouseenter="hoverRdrSlice('ind')" onclick="openSingleModel('ind')">
+                            <div class="rdr-slice-btn">
+                                <div class="rdr-slice-icon">⚠️</div>
+                                <div class="rdr-slice-info">
+                                    <span class="rdr-slice-num">06 / PLUME</span>
+                                    <span class="rdr-slice-title">Toxic Plume AI</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 07: Water Quality -->
+                        <div class="rdr-slice rdr-slice-6" onmouseenter="hoverRdrSlice('water')" onclick="openSingleModel('water')">
+                            <div class="rdr-slice-btn">
+                                <div class="rdr-slice-icon">🌊</div>
+                                <div class="rdr-slice-info">
+                                    <span class="rdr-slice-num">07 / WATER</span>
+                                    <span class="rdr-slice-title">Water Quality AI</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NODE COVERAGE SECTION -->
+        <div id="node-coverage-section" class="classic-framed-panel">
+            <div class="panel-header-bar">
+                <div class="panel-header-title">
+                    <span>📡</span> FIELD NODE DEPLOYMENT TOPOLOGY
+                </div>
+                <div class="panel-header-tag">42 FIELD NODES ACTIVE</div>
+            </div>
+
+            <div class="panel-inset-body">
+                <div class="deployment-metrics-row">
+                    <div class="dep-metric-card">
+                        <div class="dep-val">42</div>
+                        <div class="dep-lbl">Active Field Nodes</div>
+                    </div>
+                    <div class="dep-metric-card">
+                        <div class="dep-val">99.8%</div>
+                        <div class="dep-lbl">Network Uptime</div>
+                    </div>
+                    <div class="dep-metric-card">
+                        <div class="dep-val">Solar + Batt</div>
+                        <div class="dep-lbl">Autonomous Power</div>
+                    </div>
+                    <div class="dep-metric-card">
+                        <div class="dep-val">&lt;100ms</div>
+                        <div class="dep-lbl">Edge Response Speed</div>
+                    </div>
+                </div>
+
+                <div class="deployment-table-wrap">
+                    <table class="deployment-table">
+                        <thead>
+                            <tr>
+                                <th>Node ID</th>
+                                <th>Eco-Region / Location</th>
+                                <th>Hazard Focus</th>
+                                <th>Hardware Tier</th>
+                                <th>Power Status</th>
+                                <th>State</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>NODE-FLD-101</b></td>
+                                <td>Indo-Gangetic River Basin</td>
+                                <td>💧 Flood / Inundation</td>
+                                <td>Type A (Solar Hydro)</td>
+                                <td><span class="pwr-tag">Solar 98%</span></td>
+                                <td><span class="badge-status online">ONLINE</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>NODE-FWF-01</b></td>
+                                <td>Nilgiris Forest Reserve</td>
+                                <td>🔥 Wildfire Combustion</td>
+                                <td>Type B (ESP32-S3 Edge)</td>
+                                <td><span class="pwr-tag">Solar 94%</span></td>
+                                <td><span class="badge-status online">ONLINE</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>NODE-LND-02</b></td>
+                                <td>Valparai Hill Pass Slope</td>
+                                <td>⛰️ Landslide Instability</td>
+                                <td>Type B (ESP32-S3 Edge)</td>
+                                <td><span class="pwr-tag">Solar 91%</span></td>
+                                <td><span class="badge-status online">ONLINE</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>DEL-ITO-01</b></td>
+                                <td>Delhi ITO CPCB Station</td>
+                                <td>💨 Air Quality / AQI</td>
+                                <td>Type C (Gateway Station)</td>
+                                <td><span class="pwr-tag">Grid + Batt</span></td>
+                                <td><span class="badge-status online">ONLINE</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>MH-CWPRS-01</b></td>
+                                <td>Pune Thermal Station</td>
+                                <td>☀️ Extreme Heat Index</td>
+                                <td>Type A (Meteorological)</td>
+                                <td><span class="pwr-tag">Solar 96%</span></td>
+                                <td><span class="badge-status online">ONLINE</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>IND-PLUME-1</b></td>
+                                <td>Vizag Industrial Belt</td>
+                                <td>⚠️ Toxic Gas Plume</td>
+                                <td>Type B (Multi-Gas Array)</td>
+                                <td><span class="pwr-tag">Grid + Batt</span></td>
+                                <td><span class="badge-status online">ONLINE</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>AP-WATER-1</b></td>
+                                <td>Godavari Water Station</td>
+                                <td>🌊 Reservoir Water Quality</td>
+                                <td>Type A (Hydro-Probe)</td>
+                                <td><span class="pwr-tag">Solar 99%</span></td>
+                                <td><span class="badge-status online">ONLINE</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+</div>
+
+
+<!-- ======================== VIEW 2: LIVE HAZARD CONSOLES (OPENED ON DEMAND) ======================== -->
+<div id="view-consoles" class="page-wrap" style="display:none;">
+    
+    <div class="live-hub-section">
+        <div class="consoles-top-bar">
+            <div>
+                <button class="btn-fluid-bubble" onclick="openOverview()">
+                    <span class="bubble-fill"></span>
+                    <span class="btn-text">← Back to Overview</span>
+                </button>
+            </div>
+            <div class="live-hub-nav-pills">
+                <button class="hub-pill active-pill" id="pill-all" onclick="openAllConsoles()">⚡ All Models (Scroll All)</button>
+                <button class="hub-pill" id="pill-flood" onclick="openSingleModel('flood')">💧 Flood (Port 8000)</button>
+                <button class="hub-pill" id="pill-fire" onclick="openSingleModel('fire')">🔥 Wildfire (Port 8001)</button>
+                <button class="hub-pill" id="pill-land" onclick="openSingleModel('land')">⛰️ Landslide (Port 8002)</button>
+                <button class="hub-pill" id="pill-air" onclick="openSingleModel('air')">💨 Air Pollution (Port 8003)</button>
+                <button class="hub-pill" id="pill-heat" onclick="openSingleModel('heat')">☀️ Extreme Heat (Port 8004)</button>
+                <button class="hub-pill" id="pill-ind" onclick="openSingleModel('ind')">⚠️ Industrial Leak (Port 8005)</button>
+                <button class="hub-pill" id="pill-water" onclick="openSingleModel('water')">🌊 Water Quality (Port 8006)</button>
+            </div>
+        </div>
+
+        <!-- ─── CONSOLE 01: FLOOD ─── -->
+        <div id="console-flood" class="console-box">
+            <div class="console-header">
+                <div style="display:flex;align-items:center;gap:14px;">
+                    <span style="font-size:22px;">💧</span>
+                    <div>
+                        <h4 class="console-title">SentinLEdge — Flood & Inundation AI</h4>
+                        <div class="console-subtitle">
+                            <span class="live-pulse-dot"></span>
+                            <span>FastAPI Port 8000</span>
+                            <span>·</span>
+                            <span>Indo-Gangetic Basin</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:center;">
+                    <span class="pill" style="border-color:rgba(0,210,255,0.35);color:#00d2ff;">Type-B ESP32-S3</span>
+                    <span class="pill">WSN Edge Node</span>
+                </div>
+            </div>
+            <div class="console-body">
+                <div class="main-col">
+                    <div class="map-wrap"><div id="map-flood" style="height:100%;"></div></div>
+                    <div class="metrics-strip">
+                        <div class="metric-card"><div class="metric-lbl">River Level / Moisture</div><div class="metric-val" id="f-level">1.2m / 28%</div></div>
+                        <div class="metric-card"><div class="metric-lbl">Risk Probability</div><div class="metric-val" style="color:var(--status-normal);" id="f-prob">5%</div></div>
+                        <div class="metric-card"><div class="metric-lbl">Anomaly Score</div><div class="metric-val" id="f-anom">0.12</div></div>
+                        <div class="metric-card"><div class="metric-lbl">Severity</div><div class="metric-val" style="color:var(--status-normal);" id="f-sev">NORMAL</div></div>
+                    </div>
+                </div>
+                <div class="side-col">
+                    <div class="card">
+                        <div class="card-head">
+                            <span>Sensor Simulator</span>
+                            <span class="pill">Port 8000</span>
+                        </div>
+                        <div class="ctrl-row"><label>River Level: <b id="fl-rl">1.2 m</b></label><input class="r-flood" type="range" id="f-i-rl" min="0.2" max="8.0" step="0.1" value="1.2" oninput="fSync()"></div>
+                        <div class="ctrl-row"><label>Soil Moisture: <b id="fl-sm">28 %</b></label><input class="r-flood" type="range" id="f-i-sm" min="5" max="95" step="1" value="28" oninput="fSync()"></div>
+                        <div class="ctrl-row"><label>Rainfall 24h: <b id="fl-rf">10 mm</b></label><input class="r-flood" type="range" id="f-i-rf" min="0" max="200" step="5" value="10" oninput="fSync()"></div>
+                        <button class="btn" onclick="floodPredict()">Send Flood Telemetry</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-head">
+                            <span>Live Warnings</span>
+                            <span class="pill" id="f-alert-cnt">0</span>
+                        </div>
+                        <div id="f-alerts"><p class="no-alerts">No active flood warnings.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ─── CONSOLE 02: FIRE ─── -->
+        <div id="console-fire" class="console-box">
+            <div class="console-header">
+                <div style="display:flex;align-items:center;gap:14px;">
+                    <span style="font-size:22px;">🔥</span>
+                    <div>
+                        <h4 class="console-title">ForestWildFire — WildFire Risk AI</h4>
+                        <div class="console-subtitle">
+                            <span class="live-pulse-dot" style="background:#ff5722;box-shadow:0 0 8px #ff5722;"></span>
+                            <span>FastAPI Port 8001</span>
+                            <span>·</span>
+                            <span>Forest Zone Mesh</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:center;">
+                    <span class="pill" style="border-color:rgba(255,87,34,0.35);color:#ff5722;">ESP32-S3 Mesh</span>
+                    <span class="pill">Gas & VPD Sensor</span>
+                </div>
+            </div>
+            <div class="console-body">
+                <div class="main-col">
+                    <div class="map-wrap"><div id="map-fire" style="height:100%;"></div></div>
+                    <div class="metrics-strip">
+                        <div class="metric-card"><div class="metric-lbl">Temp / Humidity</div><div class="metric-val" id="fi-th">32°C / 42%</div></div>
+                        <div class="metric-card"><div class="metric-lbl">Fire Risk</div><div class="metric-val" style="color:var(--status-normal);" id="fi-risk">12%</div></div>
+                        <div class="metric-card"><div class="metric-lbl">Drought Stress</div><div class="metric-val" id="fi-drought">MODERATE</div></div>
+                        <div class="metric-card"><div class="metric-lbl">Severity</div><div class="metric-val" style="color:var(--status-normal);" id="fi-sev">NORMAL</div></div>
+                    </div>
+                </div>
+                <div class="side-col">
+                    <div class="card">
+                        <div class="card-head">
+                            <span>Fire Node Simulator</span>
+                            <span class="pill">Port 8001</span>
+                        </div>
+                        <div class="ctrl-row"><label>Temperature: <b id="fil-t">32 °C</b></label><input class="r-fire" type="range" id="fi-i-t" min="15" max="55" step="0.5" value="32" oninput="fiSync()"></div>
+                        <div class="ctrl-row"><label>Humidity: <b id="fil-h">42 %</b></label><input class="r-fire" type="range" id="fi-i-h" min="5" max="95" step="1" value="42" oninput="fiSync()"></div>
+                        <div class="ctrl-row"><label>Wind Speed: <b id="fil-w">15 km/h</b></label><input class="r-fire" type="range" id="fi-i-w" min="0" max="80" step="2" value="15" oninput="fiSync()"></div>
+                        <button class="btn" onclick="firePredict()">Send Fire Telemetry</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-head">
+                            <span>Live Warnings</span>
+                            <span class="pill" id="fi-alert-cnt">0</span>
+                        </div>
+                        <div id="fi-alerts"><p class="no-alerts">No active fire warnings.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ─── CONSOLE 03: LANDSLIDE ─── -->
+        <div id="console-land" class="console-box">
+            <div class="console-header">
+                <div style="display:flex;align-items:center;gap:14px;">
+                    <span style="font-size:22px;">⛰️</span>
+                    <div>
+                        <h4 class="console-title">Landslide AI — Slope Instability Early Warning</h4>
+                        <div class="console-subtitle">
+                            <span class="live-pulse-dot" style="background:#f59e0b;box-shadow:0 0 8px #f59e0b;"></span>
+                            <span>FastAPI Port 8002</span>
+                            <span>·</span>
+                            <span>Western Ghats Slopes</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:center;">
+                    <span class="pill" style="border-color:rgba(245,158,11,0.35);color:#f59e0b;">6-DoF Inertial</span>
+                    <span class="pill">SW-420 Seismic</span>
+                </div>
+            </div>
+            <div class="console-body">
+                <div class="main-col">
+                    <div class="map-wrap"><div id="map-land" style="height:100%;"></div></div>
+                    <div class="metrics-strip">
+                        <div class="metric-card"><div class="metric-lbl">Soil Moisture / Tilt</div><div class="metric-val" id="la-sm">18% / 0.05°</div></div>
+                        <div class="metric-card"><div class="metric-lbl">Risk Probability</div><div class="metric-val" style="color:var(--status-normal);" id="la-risk">0%</div></div>
+                        <div class="metric-card"><div class="metric-lbl">Anomaly Score</div><div class="metric-val" id="la-anom">0.45</div></div>
+                        <div class="metric-card"><div class="metric-lbl">Severity</div><div class="metric-val" style="color:var(--status-normal);" id="la-sev">NORMAL</div></div>
+                    </div>
+                </div>
+                <div class="side-col">
+                    <div class="card">
+                        <div class="card-head">
+                            <span>Slope Simulator</span>
+                            <span class="pill">Port 8002</span>
+                        </div>
+                        <div class="ctrl-row"><label>Soil Moisture: <b id="lal-sm">0.18 VWC</b></label><input class="r-land" type="range" id="la-i-sm" min="0.05" max="0.50" step="0.01" value="0.18" oninput="laSync()"></div>
+                        <div class="ctrl-row"><label>Tilt Rate: <b id="lal-tr">0.05 °/step</b></label><input class="r-land" type="range" id="la-i-tr" min="0" max="4.0" step="0.1" value="0.05" oninput="laSync()"></div>
+                        <div class="ctrl-row"><label>Vibration Rate: <b id="lal-vib">2.0</b></label><input class="r-land" type="range" id="la-i-vib" min="0" max="80" step="2" value="2" oninput="laSync()"></div>
+                        <button class="btn" onclick="landPredict()">Send Slope Telemetry</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-head">
+                            <span>Live Warnings</span>
+                            <span class="pill" id="la-alert-cnt">0</span>
+                        </div>
+                        <div id="la-alerts"><p class="no-alerts">No active slope instability alerts.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ─── CONSOLE 04: AIR POLLUTION ─── -->
+        <div id="console-air" class="console-box">
+            <div class="console-header">
+                <div style="display:flex;align-items:center;gap:14px;">
+                    <span style="font-size:22px;">💨</span>
+                    <div>
+                        <h4 class="console-title">AirPollution AI — CPCB CAAQM Early Warning</h4>
+                        <div class="console-subtitle">
+                            <span class="live-pulse-dot" style="background:#2dd4bf;box-shadow:0 0 8px #2dd4bf;"></span>
+                            <span>FastAPI Port 8003</span>
+                            <span>·</span>
+                            <span>Delhi / Mumbai CAAQM</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:center;">
+                    <span class="pill" style="border-color:rgba(45,212,191,0.35);color:#2dd4bf;">Dual-Laser PM</span>
+                    <span class="pill">CPCB Matrix</span>
+                </div>
+            </div>
+            <div class="console-body">
+                <div class="main-col">
+                    <div class="map-wrap"><div id="map-air" style="height:100%;"></div></div>
+                    <div class="metrics-strip">
+                        <div class="metric-card"><div class="metric-lbl">Current PM2.5 / PM10</div><div class="metric-val" id="ai-pm">45 / 85 µg/m³</div></div>
+                        <div class="metric-card"><div class="metric-lbl">Forecast 60m PM2.5</div><div class="metric-val" style="color:var(--status-normal);" id="ai-fc">55.0 µg/m³</div></div>
+                        <div class="metric-card"><div class="metric-lbl">Risk / Confidence</div><div class="metric-val" id="ai-risk">25 / 93%</div></div>
+                        <div class="metric-card"><div class="metric-lbl">Severity</div><div class="metric-val" style="color:var(--status-normal);" id="ai-sev">NORMAL</div></div>
+                    </div>
+                </div>
+                <div class="side-col">
+                    <div class="card">
+                        <div class="card-head">
+                            <span>CAAQM Simulator</span>
+                            <span class="pill">Port 8003</span>
+                        </div>
+                        <div class="ctrl-row"><label>Current PM2.5: <b id="ail-p25">45 µg/m³</b></label><input class="r-air" type="range" id="ai-i-p25" min="10" max="350" step="5" value="45" oninput="aiSync()"></div>
+                        <div class="ctrl-row"><label>Current PM10: <b id="ail-p10">85 µg/m³</b></label><input class="r-air" type="range" id="ai-i-p10" min="20" max="500" step="10" value="85" oninput="aiSync()"></div>
+                        <div class="ctrl-row"><label>30m PM2.5 Delta: <b id="ail-delta">10 µg/m³</b></label><input class="r-air" type="range" id="ai-i-delta" min="-30" max="100" step="5" value="10" oninput="aiSync()"></div>
+                        <button class="btn" onclick="airPredict()">Run 30m/60m Forecast</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-head">
+                            <span>Live Warnings</span>
+                            <span class="pill" id="ai-alert-cnt">0</span>
+                        </div>
+                        <div id="ai-alerts"><p class="no-alerts">No active air deterioration warnings.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ─── CONSOLE 05: EXTREME HEAT ─── -->
+        <div id="console-heat" class="console-box">
+            <div class="console-header">
+                <div style="display:flex;align-items:center;gap:14px;">
+                    <span style="font-size:22px;">☀️</span>
+                    <div>
+                        <h4 class="console-title">Extreme Heat AI — Edge Calibrated Early Warning</h4>
+                        <div class="console-subtitle">
+                            <span class="live-pulse-dot" style="background:#fbbf24;box-shadow:0 0 8px #fbbf24;"></span>
+                            <span>FastAPI Port 8004</span>
+                            <span>·</span>
+                            <span>Maharashtra Weather Node</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:center;">
+                    <span class="pill" style="border-color:rgba(251,191,36,0.35);color:#fbbf24;">DHT22/BMP280</span>
+                    <span class="pill">Edge Array</span>
+                </div>
+            </div>
+            <div class="console-body">
+                <div class="main-col">
+                    <div class="map-wrap"><div id="map-heat" style="height:100%;"></div></div>
+                    <div class="metrics-strip">
+                        <div class="metric-card"><div class="metric-lbl">Temp / Humidity</div><div class="metric-val" id="he-temphum">30°C / 65%</div></div>
+                        <div class="metric-card"><div class="metric-lbl">Heat Risk Probability</div><div class="metric-val" style="color:var(--status-normal);" id="he-prob">0.0%</div></div>
+                        <div class="metric-card"><div class="metric-lbl">Anomaly / Confidence</div><div class="metric-val" id="he-anomaly">0.0 / 100%</div></div>
+                        <div class="metric-card"><div class="metric-lbl">Severity</div><div class="metric-val" style="color:var(--status-normal);" id="he-sev">NORMAL</div></div>
+                    </div>
+                </div>
+                <div class="side-col">
+                    <div class="card">
+                        <div class="card-head">
+                            <span>Telemetry Simulator</span>
+                            <span class="pill">Port 8004</span>
+                        </div>
+                        <div class="ctrl-row"><label>Temperature: <b id="hel-temp">30 °C</b></label><input class="r-heat" type="range" id="he-i-temp" min="15" max="55" step="1" value="30" oninput="heSync()"></div>
+                        <div class="ctrl-row"><label>Humidity: <b id="hel-humid">65 %</b></label><input class="r-heat" type="range" id="he-i-humid" min="10" max="100" step="5" value="65" oninput="heSync()"></div>
+                        <div class="ctrl-row"><label>Solar Radiation: <b id="hel-solar">300 W/m²</b></label><input class="r-heat" type="range" id="he-i-solar" min="0" max="1200" step="50" value="300" oninput="heSync()"></div>
+                        <div class="ctrl-row"><label>Wind Speed: <b id="hel-wind">5 Km/Hr</b></label><input class="r-heat" type="range" id="he-i-wind" min="0" max="60" step="2" value="5" oninput="heSync()"></div>
+                        <button class="btn" onclick="heatPredict()">Run Heat Inference</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-head">
+                            <span>Live Warnings</span>
+                            <span class="pill" id="he-alert-cnt">0</span>
+                        </div>
+                        <div id="he-alerts"><p class="no-alerts">No active heat warning alerts.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ─── CONSOLE 06: INDUSTRIAL EMISSIONS ─── -->
+        <div id="console-ind" class="console-box">
+            <div class="console-header">
+                <div style="display:flex;align-items:center;gap:14px;">
+                    <span style="font-size:22px;">⚠️</span>
+                    <div>
+                        <h4 class="console-title">Toxic Emissions AI — Vizag Industrial Plume Warning</h4>
+                        <div class="console-subtitle">
+                            <span class="live-pulse-dot" style="background:#a855f7;box-shadow:0 0 8px #a855f7;"></span>
+                            <span>FastAPI Port 8005</span>
+                            <span>·</span>
+                            <span>Vizag Gas Array Node</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:center;">
+                    <span class="pill" style="border-color:rgba(168,85,247,0.35);color:#a855f7;">MQ Array</span>
+                    <span class="pill">Plume Dispersion</span>
+                </div>
+            </div>
+            <div class="console-body">
+                <div class="main-col">
+                    <div class="map-wrap"><div id="map-ind" style="height:100%;"></div></div>
+                    <div class="metrics-strip">
+                        <div class="metric-card"><div class="metric-lbl">Gas response / PM2.5</div><div class="metric-val" id="in-gaspm">150 / 25 µg/m³</div></div>
+                        <div class="metric-card"><div class="metric-lbl">Leak Risk Probability</div><div class="metric-val" style="color:var(--status-normal);" id="in-prob">0.0%</div></div>
+                        <div class="metric-card"><div class="metric-lbl">Anomaly / Confidence</div><div class="metric-val" id="in-anomaly">0.0 / 100%</div></div>
+                        <div class="metric-card"><div class="metric-lbl">Severity</div><div class="metric-val" style="color:var(--status-normal);" id="in-sev">NORMAL</div></div>
+                    </div>
+                </div>
+                <div class="side-col">
+                    <div class="card">
+                        <div class="card-head">
+                            <span>Toxic Plume Simulator</span>
+                            <span class="pill">Port 8005</span>
+                        </div>
+                        <div class="ctrl-row"><label>MQ Gas response: <b id="inl-gas">150</b></label><input class="r-ind" type="range" id="in-i-gas" min="50" max="1000" step="10" value="150" oninput="inSync()"></div>
+                        <div class="ctrl-row"><label>PM2.5 Level: <b id="inl-pm25">25 µg/m³</b></label><input class="r-ind" type="range" id="in-i-pm25" min="5" max="300" step="5" value="25" oninput="inSync()"></div>
+                        <div class="ctrl-row"><label>PM10 Level: <b id="inl-pm10">45 µg/m³</b></label><input class="r-ind" type="range" id="in-i-pm10" min="10" max="500" step="10" value="45" oninput="inSync()"></div>
+                        <button class="btn" onclick="indPredict()">Run Toxic Plume Inference</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-head">
+                            <span>Live Warnings</span>
+                            <span class="pill" id="in-alert-cnt">0</span>
+                        </div>
+                        <div id="in-alerts"><p class="no-alerts">No active toxic emission warnings.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ─── CONSOLE 07: WATER QUALITY DEGRADATION ─── -->
+        <div id="console-water" class="console-box" style="display:none;">
+            <div class="console-header">
+                <div style="display:flex;align-items:center;gap:14px;">
+                    <span style="font-size:22px;">🌊</span>
+                    <div>
+                        <h4 class="console-title">Water Health AI — Municipal Reservoir Early Warning</h4>
+                        <div class="console-subtitle">
+                            <span class="live-pulse-dot" style="background:#0ea5e9;box-shadow:0 0 8px #0ea5e9;"></span>
+                            <span>FastAPI Port 8006</span>
+                            <span>·</span>
+                            <span>Vizag Municipal Reservoir Node</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:center;">
+                    <span class="pill" style="border-color:rgba(14,165,233,0.35);color:#0ea5e9;">pH & Turbidity</span>
+                    <span class="pill">Reservoir Health</span>
+                </div>
+            </div>
+            <div class="console-body">
+                <div class="main-col">
+                    <div class="map-wrap"><div id="map-water" style="height:100%;"></div></div>
+                    <div class="metrics-strip">
+                        <div class="metric-card"><div class="metric-lbl">pH / Turbidity</div><div class="metric-val" id="wt-phtub">7.2 / 2.0 NTU</div></div>
+                        <div class="metric-card"><div class="metric-lbl">Risk Probability</div><div class="metric-val" style="color:var(--status-normal);" id="wt-prob">0.0%</div></div>
+                        <div class="metric-card"><div class="metric-lbl">Anomaly / Confidence</div><div class="metric-val" id="wt-anomaly">0.0 / 100%</div></div>
+                        <div class="metric-card"><div class="metric-lbl">Severity</div><div class="metric-val" style="color:var(--status-normal);" id="wt-sev">NORMAL</div></div>
+                    </div>
+                </div>
+                <div class="side-col">
+                    <div class="card">
+                        <div class="card-head">
+                            <span>Aquatic Telemetry Simulator</span>
+                            <span class="pill">Port 8006</span>
+                        </div>
+                        <div class="ctrl-row"><label>pH Level: <b id="wtl-ph">7.2</b></label><input class="r-water" type="range" id="wt-i-ph" min="2.0" max="12.0" step="0.1" value="7.2" oninput="wtSync()"></div>
+                        <div class="ctrl-row"><label>Turbidity: <b id="wtl-tur">2.0 NTU</b></label><input class="r-water" type="range" id="wt-i-tur" min="0" max="100" step="1" value="2" oninput="wtSync()"></div>
+                        <div class="ctrl-row"><label>TDS (mg/L): <b id="wtl-tds">150 mg/L</b></label><input class="r-water" type="range" id="wt-i-tds" min="50" max="1500" step="10" value="150" oninput="wtSync()"></div>
+                        <div class="ctrl-row"><label>Temperature: <b id="wtl-temp">25°C</b></label><input class="r-water" type="range" id="wt-i-temp" min="15" max="40" step="1" value="25" oninput="wtSync()"></div>
+                        <button class="btn" onclick="waterPredict()">Run Water Health Inference</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-head">
+                            <span>Live Warnings</span>
+                            <span class="pill" id="wt-alert-cnt">0</span>
+                        </div>
+                        <div id="wt-alerts"><p class="no-alerts">No active water quality degradation warnings.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ======================== SCRIPTS ======================== -->
+<script>
+
+// ─── DYNAMIC PROCEDURAL BACKGROUND ENGINE ────────────────────
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let cw, ch;
+let currentBgTheme = 'all';
+
+function resizeCanvas() {
+    cw = canvas.width = window.innerWidth;
+    ch = canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+// Particle & Vector Pools
+const meshNodes = Array.from({length: 42}, () => ({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    vx: (Math.random() - 0.5) * 0.6,
+    vy: (Math.random() - 0.5) * 0.6,
+    radius: Math.random() * 2 + 1.5,
+    pulse: Math.random() * Math.PI * 2
+}));
+
+const embers = Array.from({length: 55}, () => ({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    vx: (Math.random() - 0.5) * 0.8,
+    vy: -(Math.random() * 1.5 + 0.6),
+    size: Math.random() * 3 + 1,
+    opacity: Math.random() * 0.8 + 0.2,
+    color: ['#ff5722', '#dc2626', '#f59e0b', '#fb923c'][Math.floor(Math.random()*4)]
+}));
+
+const waterBubbles = Array.from({length: 45}, () => ({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    vy: -(Math.random() * 0.8 + 0.3),
+    vx: Math.sin(Math.random()*Math.PI) * 0.4,
+    size: Math.random() * 2.5 + 1,
+    alpha: Math.random() * 0.6 + 0.2
+}));
+
+const windStreams = Array.from({length: 50}, () => ({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    vx: Math.random() * 2.5 + 1.2,
+    len: Math.random() * 40 + 20,
+    alpha: Math.random() * 0.5 + 0.15,
+    color: ['#2dd4bf', '#0d9488', '#38bdf8', '#06b6d4'][Math.floor(Math.random()*4)]
+}));
+
+let waveOffset = 0;
+
+function renderBgAnimation() {
+    ctx.clearRect(0, 0, cw, ch);
+
+    if (currentBgTheme === 'all') {
+        // ─── LoRa Mesh Network Animation ───
+        meshNodes.forEach(node => {
+            node.x += node.vx;
+            node.y += node.vy;
+            node.pulse += 0.03;
+            if (node.x < 0 || node.x > cw) node.vx *= -1;
+            if (node.y < 0 || node.y > ch) node.vy *= -1;
+
+            // Draw Node
+            const pSize = node.radius + Math.sin(node.pulse) * 0.8;
+            ctx.beginPath();
+            ctx.arc(node.x, node.y, Math.max(1, pSize), 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(0, 210, 255, 0.65)';
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = '#00d2ff';
+            ctx.fill();
+            ctx.shadowBlur = 0;
+        });
+
+        // Draw connections
+        for (let i = 0; i < meshNodes.length; i++) {
+            for (let j = i + 1; j < meshNodes.length; j++) {
+                const dx = meshNodes[i].x - meshNodes[j].x;
+                const dy = meshNodes[i].y - meshNodes[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 140) {
+                    ctx.beginPath();
+                    ctx.moveTo(meshNodes[i].x, meshNodes[i].y);
+                    ctx.lineTo(meshNodes[j].x, meshNodes[j].y);
+                    const alpha = (1 - dist / 140) * 0.22;
+                    ctx.strokeStyle = `rgba(0, 210, 255, ${alpha})`;
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+            }
+        }
+    } 
+    else if (currentBgTheme === 'flood') {
+        // ─── 02: PROFESSIONAL BATHYMETRIC DOPPLER HYDROLOGY & SONAR MATRIX ───
+        waveOffset += 0.015;
+
+        // Faint Coordinate Grid & River Axis Crosshairs
+        ctx.strokeStyle = 'rgba(0, 210, 255, 0.035)';
+        ctx.lineWidth = 0.6;
+        for (let x = 0; x < cw; x += 140) {
+            ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, ch); ctx.stroke();
+        }
+        for (let y = 0; y < ch; y += 100) {
+            ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(cw, y); ctx.stroke();
+        }
+
+        // 8 Precision Bathymetric Depth Isolines
+        for (let i = 0; i < 8; i++) {
+            const yBase = ch * (0.25 + i * 0.08);
+            const alpha = 0.08 + (i % 3) * 0.05;
+            ctx.strokeStyle = `rgba(0, 210, 255, ${alpha})`;
+            ctx.lineWidth = 0.8;
+            ctx.beginPath();
+            
+            for (let x = 0; x <= cw; x += 18) {
+                const y = yBase 
+                    + Math.sin(x * 0.003 + waveOffset * 0.7 + i * 0.8) * 24 
+                    + Math.cos(x * 0.007 - waveOffset * 0.5 + i) * 12;
+                if (x === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+        }
+
+        // Hydrometric Velocity Streamline Arrows along River Profile
+        ctx.fillStyle = 'rgba(0, 210, 255, 0.3)';
+        for (let i = 0; i < 6; i++) {
+            const ax = ((waveOffset * 90 + i * (cw / 6)) % cw);
+            const ay = ch * 0.38 + Math.sin(ax * 0.003 + waveOffset) * 25 + (i % 3) * 65;
+            ctx.beginPath();
+            ctx.moveTo(ax, ay);
+            ctx.lineTo(ax - 9, ay - 3.5);
+            ctx.lineTo(ax - 9, ay + 3.5);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        // Technical HUD Telemetry Overlay
+        ctx.font = '10px "JetBrains Mono", monospace';
+        ctx.fillStyle = 'rgba(0, 210, 255, 0.28)';
+        ctx.fillText('INDO-GANGETIC BASIN HYDRO-SURGE PROFILE · VELOCITY: 0.84 m/s · STAGE: +1.2m', 40, ch - 30);
+    }
+    else if (currentBgTheme === 'fire') {
+        // ─── 03: DYNAMIC MODIS THERMAL INFRARED & CONVECTIVE HEAT DYNAMICS ───
+        waveOffset += 0.022;
+
+        // Faint Coordinate Grid
+        ctx.strokeStyle = 'rgba(255, 87, 34, 0.04)';
+        ctx.lineWidth = 0.6;
+        for (let x = 0; x < cw; x += 120) {
+            ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, ch); ctx.stroke();
+        }
+        for (let y = 0; y < ch; y += 100) {
+            ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(cw, y); ctx.stroke();
+        }
+
+        // Active Pulsing Thermal Infrared Isotherm Hotspots
+        const hotspots = [
+            { x: cw * 0.28, y: ch * 0.62, label: 'ZONE-A1 (Goa)' },
+            { x: cw * 0.58, y: ch * 0.48, label: 'ZONE-B2 (MP)' },
+            { x: cw * 0.76, y: ch * 0.68, label: 'ZONE-C3 (Nilgiris)' }
+        ];
+
+        hotspots.forEach((hs, idx) => {
+            for (let r = 1; r <= 4; r++) {
+                const rad = (waveOffset * 35 + r * 55 + idx * 30) % 220;
+                const alpha = Math.max(0, (1 - rad / 220) * 0.32);
+                ctx.strokeStyle = `rgba(255, 87, 34, ${alpha})`;
+                ctx.lineWidth = 0.9;
+                ctx.beginPath();
+                ctx.arc(hs.x, hs.y, rad, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+
+            // Core Hotspot Marker
+            ctx.fillStyle = '#ff5722';
+            ctx.beginPath();
+            ctx.arc(hs.x, hs.y, 4 + Math.sin(waveOffset * 3 + idx) * 1.5, 0, Math.PI * 2);
+            ctx.shadowBlur = 12;
+            ctx.shadowColor = '#ff5722';
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            ctx.font = '9px "JetBrains Mono", monospace';
+            ctx.fillStyle = 'rgba(255, 87, 34, 0.6)';
+            ctx.fillText(hs.label, hs.x + 8, hs.y + 3);
+        });
+
+        // 18 Weaving Convective Heat & Thermal Updraft Streamlines
+        ctx.lineWidth = 0.85;
+        for (let i = 0; i < 18; i++) {
+            const hx = (i * (cw / 18)) + Math.sin(waveOffset * 1.2 + i * 2) * 22;
+            const y1 = ch;
+            const y2 = ch * 0.12;
+            const grad = ctx.createLinearGradient(hx, y1, hx, y2);
+            grad.addColorStop(0, 'rgba(255, 87, 34, 0.35)');
+            grad.addColorStop(0.5, 'rgba(245, 158, 11, 0.18)');
+            grad.addColorStop(1, 'rgba(220, 38, 38, 0.0)');
+            ctx.strokeStyle = grad;
+            ctx.beginPath();
+            ctx.moveTo(hx, y1);
+            const cx1 = hx + Math.sin(waveOffset * 2.0 + i) * 45;
+            const cx2 = hx - Math.cos(waveOffset * 1.8 + i) * 35;
+            ctx.bezierCurveTo(cx1, ch * 0.65, cx2, ch * 0.35, hx, y2);
+            ctx.stroke();
+        }
+
+        // Rising Luminous Thermal Ember Sparks
+        for (let k = 0; k < 30; k++) {
+            const ex = (k * 67 + Math.sin(waveOffset * 1.5 + k) * 30) % cw;
+            const ey = ((ch - (waveOffset * 110 + k * 45) % ch));
+            const sz = 1.2 + (k % 3) * 0.8;
+            const alpha = 0.25 + Math.sin(waveOffset * 3 + k) * 0.2;
+            ctx.fillStyle = k % 2 === 0 ? `rgba(255, 87, 34, ${alpha})` : `rgba(245, 158, 11, ${alpha})`;
+            ctx.beginPath();
+            ctx.arc(ex, ey, sz, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        // Technical HUD Telemetry Overlay
+        ctx.font = '10px "JetBrains Mono", monospace';
+        ctx.fillStyle = 'rgba(255, 87, 34, 0.32)';
+        ctx.fillText('DYNAMIC CANOPY THERMAL FLUX · CONVECTIVE RADIATIVE SPREAD · MQ-135 / SHT40', 40, ch - 30);
+    }
+    else if (currentBgTheme === 'land') {
+        // ─── 04: DYNAMIC 3D TOPOGRAPHIC DEM TERRAIN & SEISMIC PULSE MATRIX ───
+        waveOffset += 0.02;
+
+        // Faint Coordinate Elevation Grid
+        ctx.strokeStyle = 'rgba(245, 158, 11, 0.035)';
+        ctx.lineWidth = 0.6;
+        for (let x = 0; x < cw; x += 120) {
+            ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, ch); ctx.stroke();
+        }
+
+        // Multi-Layer Dynamic Undulating 3D Topographic DEM Mesh
+        ctx.lineWidth = 0.85;
+        const cols = 16, rows = 11;
+        const gridW = cw * 0.94, gridH = ch * 0.72;
+        const startX = cw * 0.03, startY = ch * 0.15;
+
+        for (let r = 0; r < rows; r++) {
+            const rowAlpha = 0.08 + (r / rows) * 0.16;
+            ctx.strokeStyle = `rgba(245, 158, 11, ${rowAlpha})`;
+            ctx.beginPath();
+            for (let c = 0; c <= cols; c++) {
+                const px = startX + (c / cols) * gridW;
+                // Double harmonic spatial undulation to simulate live slope strain
+                const elev = Math.sin(c * 0.5 + waveOffset * 0.8 + r * 0.6) * 26
+                           + Math.cos(r * 0.7 - waveOffset * 0.6 + c * 0.3) * 18;
+                const py = startY + (r / rows) * gridH + elev;
+                if (c === 0) ctx.moveTo(px, py);
+                else ctx.lineTo(px, py);
+            }
+            ctx.stroke();
+        }
+
+        // Vertical connecting slope triangulation ribs
+        ctx.lineWidth = 0.5;
+        ctx.strokeStyle = 'rgba(245, 158, 11, 0.06)';
+        for (let c = 0; c <= cols; c += 2) {
+            ctx.beginPath();
+            for (let r = 0; r < rows; r++) {
+                const px = startX + (c / cols) * gridW;
+                const elev = Math.sin(c * 0.5 + waveOffset * 0.8 + r * 0.6) * 26
+                           + Math.cos(r * 0.7 - waveOffset * 0.6 + c * 0.3) * 18;
+                const py = startY + (r / rows) * gridH + elev;
+                if (r === 0) ctx.moveTo(px, py);
+                else ctx.lineTo(px, py);
+            }
+            ctx.stroke();
+        }
+
+        // Active Seismic Wavefront Centers (Epicenters along fault lines)
+        const epicenters = [
+            { x: cw * 0.35, y: ch * 0.58, label: 'FAULT-WGH-01' },
+            { x: cw * 0.72, y: ch * 0.46, label: 'FAULT-VALP-02' }
+        ];
+
+        epicenters.forEach((ep, eIdx) => {
+            for (let k = 0; k < 4; k++) {
+                const rad = ((waveOffset * 40 + k * 70 + eIdx * 45) % 280);
+                const alpha = Math.max(0, (1 - rad / 280) * 0.3);
+                ctx.strokeStyle = `rgba(245, 158, 11, ${alpha})`;
+                ctx.lineWidth = 1.0;
+                ctx.beginPath();
+                ctx.arc(ep.x, ep.y, rad, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+
+            // Epicenter Node Point
+            ctx.fillStyle = '#f59e0b';
+            ctx.beginPath();
+            ctx.arc(ep.x, ep.y, 4 + Math.sin(waveOffset * 3 + eIdx) * 1.5, 0, Math.PI * 2);
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = '#f59e0b';
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            ctx.font = '9px "JetBrains Mono", monospace';
+            ctx.fillStyle = 'rgba(245, 158, 11, 0.6)';
+            ctx.fillText(ep.label, ep.x + 8, ep.y + 3);
+        });
+
+        // Directional Shear Strain Vectors along the slope
+        ctx.fillStyle = 'rgba(245, 158, 11, 0.35)';
+        for (let i = 0; i < 5; i++) {
+            const sx = ((waveOffset * 75 + i * (cw / 5)) % cw);
+            const sy = ch * 0.42 + Math.sin(sx * 0.003 + waveOffset) * 30 + (i % 2) * 80;
+            ctx.beginPath();
+            ctx.moveTo(sx, sy);
+            ctx.lineTo(sx - 8, sy - 4);
+            ctx.lineTo(sx - 8, sy + 4);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        // Technical HUD Telemetry Overlay
+        ctx.font = '10px "JetBrains Mono", monospace';
+        ctx.fillStyle = 'rgba(245, 158, 11, 0.32)';
+        ctx.fillText('DYNAMIC 3D DEM TOPOGRAPHY · SEISMIC SHEAR DISPLACEMENT · MPU-6050 6-DoF INCLINE', 40, ch - 30);
+    }
+    else if (currentBgTheme === 'air') {
+        // ─── 05: CAAQM AERODYNAMIC DISPERSION VECTORS & AIRFLOW ISOPLETHS ───
+        waveOffset += 0.015;
+
+        // Aerodynamic Velocity Streamlines
+        ctx.lineWidth = 0.85;
+        for (let i = 0; i < 16; i++) {
+            const yBase = ch * (0.12 + i * 0.052);
+            const speed = 1.0 + (i % 3) * 0.35;
+            const alpha = 0.06 + (i % 2) * 0.06;
+            ctx.strokeStyle = `rgba(45, 212, 191, ${alpha})`;
+            ctx.beginPath();
+            
+            for (let x = 0; x <= cw; x += 22) {
+                const y = yBase + Math.sin(x * 0.0035 + waveOffset * speed + i) * 16;
+                if (x === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+        }
+
+        // CAAQM Laser Optical Dispersion Pointers
+        ctx.fillStyle = 'rgba(45, 212, 191, 0.32)';
+        for (let k = 0; k < 8; k++) {
+            const px = ((waveOffset * 105 + k * (cw / 8)) % cw);
+            const py = ch * 0.18 + (k * 48) + Math.sin(px * 0.0035 + waveOffset) * 16;
+            ctx.beginPath();
+            ctx.arc(px, py, 2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        // Technical HUD Telemetry Overlay
+        ctx.font = '10px "JetBrains Mono", monospace';
+        ctx.fillStyle = 'rgba(45, 212, 191, 0.28)';
+        ctx.fillText('CAAQM AEROSOL DISPERSION FIELD · 30m/60m FORWARD VECTOR PROJECTION · CPCB ITO', 40, ch - 30);
+    }
+
+    requestAnimationFrame(renderBgAnimation);
+}
+renderBgAnimation();
+
+function setBgTheme(themeName) {
+    currentBgTheme = themeName;
+    const aura = document.getElementById('ambient-aura');
+    if (aura) {
+        aura.className = `ambient-aura theme-${themeName}`;
+    }
+}
+
+// ─── VIEW CONTROLLER ─────────────────────────────────────────
+let maps = {};
+const ALL_MODELS = ['flood', 'fire', 'land', 'air', 'heat', 'ind', 'water'];
+
+function openOverview(targetSectionId) {
+    document.getElementById('view-consoles').style.display = 'none';
+    document.getElementById('view-overview').style.display = 'flex';
+    setBgTheme('all');
+    if(targetSectionId) {
+        const el = document.getElementById(targetSectionId);
+        if(el) el.scrollIntoView({behavior: 'smooth'});
+    } else {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+}
+
+function scrollToSection(targetSectionId) {
+    openOverview(targetSectionId);
+}
+
+// Case A: Open ONLY that particular model when clicking its card
+function openSingleModel(modKey) {
+    document.getElementById('view-overview').style.display = 'none';
+    document.getElementById('view-consoles').style.display = 'flex';
+    setBgTheme(modKey);
+    try { window.location.hash = modKey; } catch(e) {}
+
+    // Display exclusively the selected model console
+    ALL_MODELS.forEach(m => {
+        const c = document.getElementById(`console-${m}`);
+        if(c) c.style.display = (m === modKey) ? 'flex' : 'none';
+        const p = document.getElementById(`pill-${m}`);
+        if(p) p.classList.toggle('active-pill', m === modKey);
+    });
+    const allPill = document.getElementById('pill-all');
+    if(allPill) allPill.classList.remove('active-pill');
+
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    setTimeout(() => {
+        if(maps[modKey]) {
+            if (maps[modKey].invalidateSize) {
+                maps[modKey].invalidateSize();
+            } else if (window.google && window.google.maps) {
+                google.maps.event.trigger(maps[modKey], 'resize');
+            }
+        }
+    }, 120);
+}
+
+// Case B: Open ALL models when clicking the Live Consoles button (all 4 scrollable)
+function openAllConsoles() {
+    document.getElementById('view-overview').style.display = 'none';
+    document.getElementById('view-consoles').style.display = 'flex';
+    setBgTheme('all');
+
+    // Make all 4 models visible in continuous feed
+    ALL_MODELS.forEach(m => {
+        const c = document.getElementById(`console-${m}`);
+        if(c) c.style.display = 'flex';
+        const p = document.getElementById(`pill-${m}`);
+        if(p) p.classList.remove('active-pill');
+    });
+    const allPill = document.getElementById('pill-all');
+    if(allPill) allPill.classList.add('active-pill');
+
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    setTimeout(() => {
+        ALL_MODELS.forEach(k => {
+            if(maps[k]) {
+                if (maps[k].invalidateSize) {
+                    maps[k].invalidateSize();
+                } else if (window.google && window.google.maps) {
+                    google.maps.event.trigger(maps[k], 'resize');
+                }
+            }
+        });
+    }, 100);
+}
+
+// ─── RDR2 RADIAL SELECTION WHEEL CONTROLLER ─────────────────
+const RDR_MODEL_DATA = {
+    flood: {
+        icon: '💧',
+        title: 'SentinLEdge Flood AI',
+        category: '01 / FLOOD & INUNDATION',
+        desc: 'River surge detection, rapid soil moisture infiltration, and basin inundation risk.',
+        action: 'EXPLORE FLOOD CONSOLE ➔'
+    },
+    fire: {
+        icon: '🔥',
+        title: 'ForestWildFire AI',
+        category: '02 / WILDFIRE COMBUSTION',
+        desc: 'Smoldering combustion gas signatures, vapor pressure deficits, and canopy drought stress.',
+        action: 'EXPLORE WILDFIRE CONSOLE ➔'
+    },
+    land: {
+        icon: '⛰️',
+        title: 'Landslide Edge AI',
+        category: '03 / SLIP & SLOPE INSTABILITY',
+        desc: 'Micro-angular slope displacement, pore-water pressure spikes, and seismic shear pulses.',
+        action: 'EXPLORE LANDSLIDE CONSOLE ➔'
+    },
+    air: {
+        icon: '💨',
+        title: 'AirPollution AI',
+        category: '04 / AIR QUALITY & PARTICULATES',
+        desc: 'CPCB CAAQM-calibrated 30/60-minute forward particulate projections and toxic air trends.',
+        action: 'EXPLORE AIR CONSOLE ➔'
+    },
+    heat: {
+        icon: '☀️',
+        title: 'Extreme Heat AI',
+        category: '05 / HEATWAVE STRESS',
+        desc: 'Apparent temperature projections, cumulative heat stress, and nighttime cooling failures.',
+        action: 'EXPLORE HEAT CONSOLE ➔'
+    },
+    ind: {
+        icon: '⚠️',
+        title: 'Toxic Emissions AI',
+        category: '06 / INDUSTRIAL TOXIC PLUME',
+        desc: 'Gas discriminative array drift compensation, dynamic chemical leaks, and toxic dispersion.',
+        action: 'EXPLORE PLUME CONSOLE ➔'
+    },
+    water: {
+        icon: '🌊',
+        title: 'Water Quality AI',
+        category: '07 / AQUATIC ECOSYSTEM HEALTH',
+        desc: 'Early warning systems for municipal reservoirs, pH shift, turbidity spikes, and chemical run-offs.',
+        action: 'EXPLORE WATER CONSOLE ➔'
+    }
+};
+
+function hoverRdrSlice(modKey) {
+    const data = RDR_MODEL_DATA[modKey];
+    if (!data) return;
+
+    // Highlight slice wedge button
+    document.querySelectorAll('.rdr-slice').forEach(el => el.classList.remove('active'));
+    const activeSlice = document.querySelector(`.rdr-slice[onclick*="${modKey}"]`);
+    if(activeSlice) activeSlice.classList.add('active');
+
+    document.getElementById('rdr-hud-icon').innerText = data.icon;
+    document.getElementById('rdr-hud-title').innerText = data.title;
+    document.getElementById('rdr-hud-category').innerText = data.category;
+    document.getElementById('rdr-hud-desc').innerText = data.desc;
+    
+    const btn = document.getElementById('rdr-hud-btn');
+    btn.innerText = data.action;
+    btn.onclick = function() { openSingleModel(modKey); };
+}
+
+// ─── GOOGLE MAPS INTEGRATION & INTERACTIVE TELEMETRY NODES ───
+// Define global key variable for hardcoding (optional override)
+window.GOOGLE_MAPS_API_KEY = "";
+
+// Sleek dark theme configuration for Google Maps vector view
+const GOOGLE_MAPS_DARK_STYLE = [
+    { elementType: "geometry", stylers: [{ color: "#06070e" }] },
+    { elementType: "labels.text.stroke", stylers: [{ color: "#06070e" }] },
+    { elementType: "labels.text.fill", stylers: [{ color: "#8a9ba8" }] },
+    { featureType: "administrative", elementType: "geometry", stylers: [{ color: "#1c2035" }] },
+    { featureType: "water", elementType: "geometry", stylers: [{ color: "#0d111d" }] },
+    { featureType: "water", elementType: "labels.text.fill", stylers: [{ color: "#4e5d6c" }] },
+    { featureType: "road", elementType: "geometry", stylers: [{ color: "#141829" }] },
+    { featureType: "road", elementType: "geometry.stroke", stylers: [{ color: "#1c2035" }] },
+    { featureType: "road", elementType: "labels.text.fill", stylers: [{ color: "#6e7e8c" }] },
+    { featureType: "poi", elementType: "geometry", stylers: [{ color: "#090c15" }] },
+    { featureType: "poi", elementType: "labels.text.fill", stylers: [{ color: "#6e7e8c" }] },
+    { featureType: "transit", elementType: "geometry", stylers: [{ color: "#141829" }] }
+];
+
+// Custom HTML Marker implementation in Google Maps
+let CustomPulseMarker;
+function setupCustomMarkerClass() {
+    if (typeof google === 'undefined' || typeof google.maps === 'undefined') return;
+    
+    CustomPulseMarker = class extends google.maps.OverlayView {
+        constructor(latlng, map, html, title, popupHtml) {
+            super();
+            this.latlng = latlng;
+            this.html = html;
+            this.title = title;
+            this.popupHtml = popupHtml;
+            this.div = null;
+            this.setMap(map);
+        }
+        
+        onAdd() {
+            const div = this.div = document.createElement('div');
+            div.style.position = 'absolute';
+            div.style.cursor = 'pointer';
+            div.title = this.title;
+            div.innerHTML = this.html;
+            
+            // Setup InfoWindow popup on click
+            const infoWindow = new google.maps.InfoWindow({
+                content: this.popupHtml
+            });
+            
+            div.addEventListener('click', () => {
+                infoWindow.setPosition(this.latlng);
+                infoWindow.open({
+                    map: this.getMap(),
+                    anchor: this,
+                    shouldFocus: false
+                });
+            });
+            
+            const panes = this.getPanes();
+            panes.overlayMouseTarget.appendChild(div);
+        }
+        
+        draw() {
+            const overlayProjection = this.getProjection();
+            const position = overlayProjection.fromLatLngToDivPixel(this.latlng);
+            if (position && this.div) {
+                this.div.style.left = (position.x - 16) + 'px';
+                this.div.style.top = (position.y - 16) + 'px';
+            }
+        }
+        
+        onRemove() {
+            if (this.div) {
+                this.div.parentNode.removeChild(this.div);
+                this.div = null;
+            }
+        }
+    };
+}
+
+function mkGoogleMap(divId, lat, lng, zoom, modelType, pins) {
+    const el = document.getElementById(divId);
+    if (!el) return null;
+    
+    // Clear any previous instances or innerHTML
+    el.innerHTML = '';
+    
+    // Check if Google Maps script loaded successfully
+    if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
+        // Render styled placeholder
+        el.innerHTML = `
+            <div class="map-placeholder">
+                <h3>📍 Google Maps API Required</h3>
+                <p>Please configure your <code>GOOGLE_MAPS_API_KEY</code> in the <code>.env</code> file or hardcode it in <code>index.html</code>, and start a backend microservice to enable mapping.</p>
+            </div>
+        `;
+        return null;
+    }
+    
+    // Ensure Custom Marker class is defined
+    if (!CustomPulseMarker) {
+        setupCustomMarkerClass();
+    }
+    
+    const mapOptions = {
+        center: { lat: lat, lng: lng },
+        zoom: zoom,
+        styles: GOOGLE_MAPS_DARK_STYLE,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: true,
+        mapTypeControlOptions: {
+            style: google.maps.MapTypeControlStyle.DEFAULT,
+            mapTypeIds: [
+                google.maps.MapTypeId.ROADMAP,
+                google.maps.MapTypeId.SATELLITE,
+                google.maps.MapTypeId.HYBRID,
+                google.maps.MapTypeId.TERRAIN
+            ]
+        },
+        renderingType: google.maps.RenderingType.VECTOR,
+        disableDefaultUI: false,
+        zoomControl: true,
+        scaleControl: true,
+        streetViewControl: false,
+        rotateControl: false,
+        fullscreenControl: true
+    };
+    
+    let map = null;
+    try {
+        map = new google.maps.Map(el, mapOptions);
+        // Adjust styling when switching to Terrain view to ensure terrain features are visible
+        map.addListener('maptypeid_changed', function() {
+            if (map.getMapTypeId() === google.maps.MapTypeId.TERRAIN) {
+                // Remove dark style for Terrain to display natural shading
+                map.setOptions({styles: null});
+            } else {
+                // Reapply dark style for other map types
+                map.setOptions({styles: GOOGLE_MAPS_DARK_STYLE});
+            }
+        });
+        console.log(`Google Maps instance created for ${divId}`);
+    } catch (e) {
+        console.error(`Failed to create Google Maps for ${divId}:`, e);
+        el.innerHTML = `<div style="color:#ff6b6b; padding:10px;">Error loading map. See console for details.</div>`;
+        return null;
+    }
+    
+    // Create Custom HUD Watermark & Controls
+    const hudDiv = document.createElement('div');
+    hudDiv.style.cssText = 'background:rgba(10,16,28,0.92);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.12);padding:6px 12px;border-radius:16px;font-family:var(--font-mono);color:#cbd5e1;box-shadow:0 4px 12px rgba(0,0,0,0.5);margin:10px;pointer-events:auto;';
+    
+    hudDiv.innerHTML = `
+        <div style="font-size:10px;"><span style="color:#00d2ff;">● LIVE</span> ${modelType.toUpperCase()} · ${lat.toFixed(1)}°N, ${lng.toFixed(1)}°E</div>
+        <div class="map-hud-modes">
+            <span class="map-hud-mode-btn active" data-mode="roadmap">Vector</span>
+            <span class="map-hud-mode-btn" data-mode="satellite">Satellite</span>
+            <span class="map-hud-mode-btn" data-mode="terrain">Terrain</span>
+            <span class="map-hud-mode-btn" data-mode="hybrid">Hybrid</span>
+        </div>
+    `;
+    
+    // Add mode buttons click handlers
+    const btns = hudDiv.querySelectorAll('.map-hud-mode-btn');
+    btns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const mode = btn.getAttribute('data-mode');
+            
+            // Toggle active class
+            btns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Set Map Type and style with safety checks
+            try {
+                if (!map) throw new Error('Map instance not available');
+                if (mode === 'roadmap') {
+                    map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+                    map.setOptions({ styles: GOOGLE_MAPS_DARK_STYLE });
+                } else if (mode === 'satellite') {
+                    map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+                    map.setOptions({ styles: [] });
+                } else if (mode === 'terrain') {
+                    map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
+                    map.setOptions({ styles: GOOGLE_MAPS_DARK_STYLE });
+                } else if (mode === 'hybrid') {
+                    map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+                    map.setOptions({ styles: [] });
+                }
+            } catch (err) {
+                console.error('Map mode switch error:', err);
+            }
+        });
+    });
+    
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(hudDiv);
+    
+    // Add custom pulsing pins
+    if (pins && CustomPulseMarker && map) {
+        pins.forEach(([plt, pln, nm, col, desc]) => {
+            const html = `
+                <div class="telemetry-pulse-pin" style="color:${col};">
+                    <div class="t-pin-ring"></div>
+                    <div class="t-pin-core" style="background:${col};"></div>
+                </div>
+            `;
+            
+            const popupHtml = `
+                <div style="font-family:var(--font-sans);font-size:12.5px;line-height:1.5;min-width:180px;">
+                    <div style="font-weight:700;color:#ffffff;display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+                        <span style="width:8px;height:8px;border-radius:50%;background:${col};box-shadow:0 0 6px ${col};display:inline-block;"></span>
+                        ${nm}
+                    </div>
+                    <div style="font-family:var(--font-mono);font-size:10.5px;color:#94a3b8;margin-bottom:6px;">
+                        Lat: ${plt.toFixed(4)}°, Lon: ${pln.toFixed(4)}°
+                    </div>
+                    <div style="font-size:11px;color:#cbd5e1;border-top:1px solid rgba(255,255,255,0.1);padding-top:4px;">
+                        ${desc || 'Active LoRa Edge Sensing Node'}
+                    </div>
+                </div>
+            `;
+            
+            new CustomPulseMarker(
+                new google.maps.LatLng(plt, pln),
+                map,
+                html,
+                nm,
+                popupHtml
+            );
+        });
+    }
+    
+    return map;
+}
+
+function initGoogleMaps() {
+    maps.flood = mkGoogleMap('map-flood', 25.5, 82.0, 5, 'Flood Hydrometry', [
+        [28.6139, 77.2090, 'Delhi Yamuna Node', '#00d2ff', 'Stage Level: 1.2m · Ultrasonic Hydro-Sensor'],
+        [25.3176, 82.9739, 'Varanasi Ganga Node', '#00d2ff', 'Flow Velocity: 0.84 m/s · Indo-Gangetic Basin'],
+        [22.5726, 88.3639, 'Kolkata Hooghly Node', '#00d2ff', 'Tidal Surge Sensor · Delta Outflow']
+    ]);
+
+    maps.fire = mkGoogleMap('map-fire', 20.5, 80.0, 5, 'WildFire Canopy Mesh', [
+        [15.2993, 74.1240, 'Goa Forest Zone', '#ff5722', 'Ambient Temp: 32°C · MQ-135 Combustion Sensor'],
+        [11.1085, 77.3411, 'Nilgiris Forest Node', '#ff5722', 'Canopy VPD: 3.4 kPa · SHT40 Micro-climate'],
+        [22.9734, 78.6569, 'Madhya Pradesh Reserve', '#ff5722', 'Thermal Radiative Flux: 12% Risk']
+    ]);
+
+    maps.land = mkGoogleMap('map-land', 20.0, 77.0, 5, 'Slope Inertial Radar', [
+        [11.4100, 76.6900, 'Western Ghats Slope Station', '#f59e0b', 'MPU-6050 Tilt: 0.05°/step · Soil VWC: 18%'],
+        [10.3270, 76.9550, 'Valparai Hill Pass Node', '#f59e0b', 'SW-420 Seismic Vibration: 2.0 RMS'],
+        [32.0845, 77.1734, 'Manali Himalayan Node', '#f59e0b', 'Pore Pressure: Normal · Fault Strain Inactive']
+    ]);
+
+    maps.air = mkGoogleMap('map-air', 22.0, 79.0, 5, 'CAAQM Aerosol Grid', [
+        [28.6289, 77.2408, 'Delhi ITO - CPCB', '#2dd4bf', 'PM2.5: 45 µg/m³ · Dual-Laser Optical'],
+        [28.6812, 77.3195, 'Delhi IHBAS - CPCB', '#2dd4bf', 'PM10: 85 µg/m³ · 60m Forward Forecast: 55 µg/m³'],
+        [19.0565, 72.9150, 'Mumbai Deonar - IITM', '#2dd4bf', 'Aerosol Dispersion: Coastal Wind Field'],
+        [18.5308, 73.8475, 'Pune Shivajinagar - IITM', '#2dd4bf', 'O3/NO2 Electrochemical Sensor']
+    ]);
+
+    maps.heat = mkGoogleMap('map-heat', 18.5, 73.8, 6, 'Thermal Radiative Mesh', [
+        [18.4350, 73.7915, 'Pune CWPRS Campus Node', '#fbbf24', 'Temperature: 38°C · Solar: 850 W/m2 · Heat Index: 42°C']
+    ]);
+
+    maps.ind = mkGoogleMap('map-ind', 17.68, 83.21, 6, 'Plume Toxic Dispersion', [
+        [17.6868, 83.2185, 'Vizag Industrial Complex Node', '#a855f7', 'MQ Gas: 150 · PM2.5: 25 µg/m3 · Leak Risk: Inactive']
+    ]);
+
+    maps.water = mkGoogleMap('map-water', 17.7285, 83.3015, 6, 'Reservoir Water Health Mesh', [
+        [17.7285, 83.3015, 'Vizag Municipal Reservoir Node', '#0ea5e9', 'pH: 7.2 · Turbidity: 2.0 NTU · TDS: 150 mg/L']
+    ]);
+}
+
+
+
+function loadScript(src) {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = () => resolve();
+        script.onerror = (e) => reject(e);
+        document.head.appendChild(script);
+    });
+}
+
+function loadGoogleMaps(apiKey) {
+    return new Promise((resolve, reject) => {
+        window.googleMapsCallback = function() {
+            resolve();
+        };
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=googleMapsCallback`;
+        script.async = true;
+        script.defer = true;
+        script.onerror = (e) => reject(e);
+        document.head.appendChild(script);
+    });
+}
+
+async function prepareAndInitMaps() {
+    let apiKey = window.GOOGLE_MAPS_API_KEY || "";
+    
+    // If running locally, check if backend contains API config
+    if (!apiKey && (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost')) {
+        const ports = [8000, 8001, 8002, 8003, 8004, 8005, 8006];
+        for (const port of ports) {
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 400);
+                const res = await fetch(`http://127.0.0.1:${port}/api/config`, { signal: controller.signal });
+                clearTimeout(timeoutId);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.google_maps_api_key) {
+                        apiKey = data.google_maps_api_key;
+                        console.log(`Fetched Google Maps API Key from port ${port}: ${apiKey.substring(0, 5)}...`);
+                        break;
+                    }
+                }
+            } catch (e) {}
+        }
+    }
+
+    if (apiKey) {
+        console.log(`Using Google Maps API Key: ${apiKey.substring(0,5)}...`);
+        try {
+            await loadGoogleMaps(apiKey);
+            console.log("Google Maps JS API loaded successfully.");
+        } catch (err) {
+            console.error("Failed to load Google Maps script.", err);
+        }
+    } else {
+        console.log("No Google Maps API Key found.");
+    }
+    
+    initGoogleMaps();
+}
+
+// Automatically load map when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', prepareAndInitMaps);
+} else {
+    prepareAndInitMaps();
+}
+
+
+// ─── FLOOD TELEMETRY ────────────────────────────────────────
+function fSync() {
+    document.getElementById('fl-rl').innerText  = document.getElementById('f-i-rl').value;
+    document.getElementById('fl-sm').innerText  = document.getElementById('f-i-sm').value;
+    document.getElementById('fl-rf').innerText  = document.getElementById('f-i-rf').value;
+}
+
+async function floodPredict() {
+    const rl = parseFloat(document.getElementById('f-i-rl').value);
+    const sm = parseFloat(document.getElementById('f-i-sm').value);
+    const rf = parseFloat(document.getElementById('f-i-rf').value);
+
+    const payload = {
+        node_id: "TYPE-A-101",
+        rain_1h: rf / 8,
+        rain_24h: rf,
+        water_level_m: rl,
+        soil_moisture_pct: sm,
+        temperature_c: 28.0,
+        humidity_pct: 70.0
+    };
+    let d = null;
+    if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') {
+        try {
+            const controller = new AbortController();
+            const tid = setTimeout(() => controller.abort(), 800);
+            const r = await fetch('http://127.0.0.1:8000/api/predict', { method:'POST',
+                headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload), signal: controller.signal });
+            clearTimeout(tid);
+            if (r.ok) d = await r.json();
+        } catch(e) {}
+    }
+
+    if (!d) {
+        const risk_pct = Math.min(99.9, Math.max(2.0, (rl / 3.0) * 45 + (rf / 100.0) * 35 + (sm / 100.0) * 20));
+        const anomaly_detected = (rl > 2.2 || rf > 65 || sm > 85);
+        const severity_level = risk_pct > 75 ? 'CRITICAL' : risk_pct > 50 ? 'WARNING' : risk_pct > 30 ? 'WATCH' : 'NORMAL';
+        d = { risk_score_pct: risk_pct, anomaly_detected, severity_level };
+        addLocalAlert('flood', severity_level, `Water Level: ${rl}m | Rainfall: ${rf}mm`);
+    }
+
+    document.getElementById('f-level').innerText = `${rl}m / ${sm}%`;
+    document.getElementById('f-prob').innerText  = `${Math.round(d.risk_score_pct || 0)}%`;
+    document.getElementById('f-anom').innerText  = d.anomaly_detected ? '1.00' : '0.00';
+    const sev = d.severity_level || 'NORMAL';
+    const sevEl = document.getElementById('f-sev');
+    sevEl.innerText = sev;
+    sevEl.style.color = sev === 'CRITICAL' ? '#ef4444' : sev === 'WARNING' ? '#f59e0b' : sev === 'WATCH' ? '#f59e0b' : '#10b981';
+    refreshAlerts('flood');
+}
+
+// ─── FIRE TELEMETRY ─────────────────────────────────────────
+function fiSync() {
+    document.getElementById('fil-t').innerText = document.getElementById('fi-i-t').value;
+    document.getElementById('fil-h').innerText = document.getElementById('fi-i-h').value;
+    document.getElementById('fil-w').innerText = document.getElementById('fi-i-w').value;
+}
+
+async function firePredict() {
+    const t = parseFloat(document.getElementById('fi-i-t').value);
+    const h = parseFloat(document.getElementById('fi-i-h').value);
+    const w = parseFloat(document.getElementById('fi-i-w').value);
+
+    const pm25_est  = Math.max(10, (55 - h * 0.4) + (t - 25) * 2.5);
+    const tvoc_est  = Math.max(50, (t - 20) * 30 + (100 - h) * 8);
+    const tempRate  = t > 40 ? 0.18 : t > 35 ? 0.12 : 0.03;
+    const humRate   = h < 25 ? -0.18 : h < 40 ? -0.10 : -0.02;
+    const pm25Rate  = t > 42 && h < 25 ? 1.2 : t > 38 && h < 35 ? 0.6 : 0.1;
+    const tvocRate  = t > 42 ? 0.5 : t > 38 ? 0.2 : 0.05;
+    const payload = {
+        node_id: "NODE-FWF-01",
+        temperature: t, humidity: h, pressure: 1008.0,
+        pm25: pm25_est, tvoc: tvoc_est, raw_ethanol: 3000 + (t - 25) * 20,
+        temperature_rate: tempRate, humidity_rate: humRate,
+        pm25_rate: pm25Rate, tvoc_rate: tvocRate,
+        temperature_delta_5: t > 40 ? 4.5 : t > 35 ? 2.5 : 0.8,
+        humidity_delta_5: h < 25 ? -8.0 : h < 40 ? -4.0 : -1.5
+    };
+    let d = null;
+    if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') {
+        try {
+            const controller = new AbortController();
+            const tid = setTimeout(() => controller.abort(), 800);
+            const r = await fetch('http://127.0.0.1:8001/api/predict', { method:'POST',
+                headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload), signal: controller.signal });
+            clearTimeout(tid);
+            if (r.ok) d = await r.json();
+        } catch(e) {}
+    }
+
+    if (!d) {
+        const fire_prob = Math.min(0.99, Math.max(0.01, (t / 50.0) * 0.45 + ((100 - h) / 100.0) * 0.35 + (w / 40.0) * 0.20));
+        const top_features = [t > 38 ? 'Temperature Rate' : h < 25 ? 'Low Humidity' : 'Wind Velocity'];
+        const severity = fire_prob > 0.75 ? 'CRITICAL' : fire_prob > 0.50 ? 'WARNING' : fire_prob > 0.30 ? 'WATCH' : 'NORMAL';
+        d = { fire_probability: fire_prob, top_features, severity };
+        addLocalAlert('fire', severity, `Temp: ${t}°C | Humidity: ${h}%`);
+    }
+
+    document.getElementById('fi-th').innerText    = `${t}°C / ${h}%`;
+    document.getElementById('fi-risk').innerText  = `${Math.round((d.fire_probability || 0) * 100)}%`;
+    document.getElementById('fi-drought').innerText = (d.top_features && d.top_features[0]) || 'N/A';
+    const sev = d.severity || 'NORMAL';
+    const sevEl = document.getElementById('fi-sev');
+    sevEl.innerText = sev;
+    sevEl.style.color = sev === 'CRITICAL' ? '#ef4444' : sev === 'WARNING' ? '#f59e0b' : sev === 'WATCH' ? '#f59e0b' : '#10b981';
+    refreshAlerts('fire');
+}
+
+// ─── LANDSLIDE TELEMETRY ────────────────────────────────────
+function laSync() {
+    document.getElementById('lal-sm').innerText  = document.getElementById('la-i-sm').value;
+    document.getElementById('lal-tr').innerText  = document.getElementById('la-i-tr').value;
+    document.getElementById('lal-vib').innerText = document.getElementById('la-i-vib').value;
+}
+
+async function landPredict() {
+    const sm  = parseFloat(document.getElementById('la-i-sm').value);
+    const tr  = parseFloat(document.getElementById('la-i-tr').value);
+    const vib = parseFloat(document.getElementById('la-i-vib').value);
+
+    const payload = { node_id: "NODE-LND-02",
+        soil_moisture_vwc: sm, soil_moisture_rate: sm>0.30?0.04:0.0,
+        tilt_magnitude: 5.0 + tr*4.0, tilt_rate: tr, vibration_rate: vib,
+        temperature: 21.5, humidity: 75.0, rainfall_24h: 10.0 };
+    let d = null;
+    if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') {
+        try {
+            const controller = new AbortController();
+            const tid = setTimeout(() => controller.abort(), 800);
+            const r = await fetch('http://127.0.0.1:8002/api/predict', { method:'POST',
+                headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload), signal: controller.signal });
+            clearTimeout(tid);
+            if (r.ok) d = await r.json();
+        } catch(e) {}
+    }
+
+    if (!d) {
+        const risk_prob = Math.min(0.99, Math.max(0.01, sm * 0.40 + (tr / 2.0) * 0.35 + (vib / 2.0) * 0.25));
+        const anomaly_score = tr > 0.8 || sm > 0.75 ? 0.92 : 0.12;
+        const severity = risk_prob > 0.70 ? 'CRITICAL' : risk_prob > 0.45 ? 'WARNING' : risk_prob > 0.25 ? 'WATCH' : 'NORMAL';
+        d = { risk_probability: risk_prob, anomaly_score, severity };
+        addLocalAlert('land', severity, `Moisture: ${Math.round(sm*100)}% | Tilt: ${tr}°`);
+    }
+
+    document.getElementById('la-sm').innerText   = `${Math.round(sm*100)}% / ${tr}°`;
+    document.getElementById('la-risk').innerText = `${Math.round((d.risk_probability||0)*100)}%`;
+    document.getElementById('la-anom').innerText = (d.anomaly_score||0).toFixed(2);
+    const sev = d.severity || 'NORMAL';
+    const sevEl = document.getElementById('la-sev');
+    sevEl.innerText = sev;
+    sevEl.style.color = sev === 'CRITICAL' ? '#ef4444' : sev === 'WARNING' ? '#f59e0b' : '#10b981';
+    refreshAlerts('land');
+}
+
+// ─── AIR POLLUTION TELEMETRY ────────────────────────────────
+function aiSync() {
+    document.getElementById('ail-p25').innerText   = document.getElementById('ai-i-p25').value;
+    document.getElementById('ail-p10').innerText   = document.getElementById('ai-i-p10').value;
+    document.getElementById('ail-delta').innerText = document.getElementById('ai-i-delta').value;
+}
+
+async function airPredict() {
+    const pm25  = parseFloat(document.getElementById('ai-i-p25').value);
+    const pm10  = parseFloat(document.getElementById('ai-i-p10').value);
+    const delta = parseFloat(document.getElementById('ai-i-delta').value);
+
+    const payload = { station_id:"DEL-ITO", pm25, pm10, gas_proxy: 25.0,
+        temperature: 28.5, relative_humidity: 72.0, pressure: 1012.0,
+        pm25_lag_15: pm25-5, pm25_lag_30: pm25-delta,
+        pm25_delta_30: delta, pm25_slope_30: delta/30.0,
+        hour_sin: 0.5, hour_cos: -0.86 };
+    let d = null;
+    if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') {
+        try {
+            const controller = new AbortController();
+            const tid = setTimeout(() => controller.abort(), 800);
+            const r = await fetch('http://127.0.0.1:8003/api/predict', { method:'POST',
+                headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload), signal: controller.signal });
+            clearTimeout(tid);
+            if (r.ok) d = await r.json();
+        } catch(e) {}
+    }
+
+    if (!d) {
+        const predicted_pm25 = Math.max(10, Math.round(pm25 + delta * 1.2));
+        const risk_score = Math.min(100, Math.round((pm25 / 250.0) * 60 + (pm10 / 350.0) * 40));
+        const confidence = 94.5;
+        const severity = pm25 > 250 ? 'CRITICAL' : pm25 > 120 ? 'WARNING' : pm25 > 60 ? 'WATCH' : 'NORMAL';
+        d = { predicted_pm25_60m: predicted_pm25, risk_score, confidence, severity };
+        addLocalAlert('air', severity, `PM2.5: ${pm25} µg/m³ | Forecast: ${predicted_pm25}`);
+    }
+
+    document.getElementById('ai-pm').innerText   = `${pm25} / ${pm10} µg/m³`;
+    document.getElementById('ai-fc').innerText   = `${d.predicted_pm25_60m} µg/m³`;
+    document.getElementById('ai-risk').innerText = `${d.risk_score} / ${d.confidence}%`;
+    const sev = d.severity || 'NORMAL';
+    const sevEl = document.getElementById('ai-sev');
+    sevEl.innerText = sev;
+    sevEl.style.color = sev === 'CRITICAL' ? '#ef4444' : sev === 'WARNING' ? '#f59e0b' : '#10b981';
+    refreshAlerts('air');
+}
+
+// ─── HEAT TELEMETRY ─────────────────────────────────────────
+function heSync() {
+    document.getElementById('hel-temp').innerText  = document.getElementById('he-i-temp').value + " °C";
+    document.getElementById('hel-humid').innerText = document.getElementById('he-i-humid').value + " %";
+    document.getElementById('hel-solar').innerText = document.getElementById('he-i-solar').value + " W/m²";
+    document.getElementById('hel-wind').innerText  = document.getElementById('he-i-wind').value + " Km/Hr";
+}
+
+async function heatPredict() {
+    const temp  = parseFloat(document.getElementById('he-i-temp').value);
+    const humid = parseFloat(document.getElementById('he-i-humid').value);
+    const solar = parseFloat(document.getElementById('he-i-solar').value);
+    const wind  = parseFloat(document.getElementById('he-i-wind').value);
+
+    const payload = {
+        station_id: "MH-CWPRS", temperature_c: temp, humidity: humid,
+        solar_radiation: solar, wind_speed_kmh: wind, rainfall_mm: 0.0,
+        temperature_rate: 0.5, humidity_rate: -1.0, solar_radiation_rate: 50.0,
+        cumulative_hot_hours: temp > 35 ? 4 : 0, nighttime_cooling_deficit: temp > 30 ? 2.0 : 0.0
+    };
+    let d = null;
+    if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') {
+        try {
+            const controller = new AbortController();
+            const tid = setTimeout(() => controller.abort(), 800);
+            const r = await fetch('http://127.0.0.1:8004/api/predict', { method:'POST',
+                headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload), signal: controller.signal });
+            clearTimeout(tid);
+            if (r.ok) d = await r.json();
+        } catch(e) {}
+    }
+
+    if (!d) {
+        const heat_risk_prob = Math.min(0.99, Math.max(0.01, (temp / 50.0) * 0.60 + (humid / 100.0) * 0.25 + (solar / 1000.0) * 0.15));
+        const anomaly_score = temp > 42 ? 0.88 : 0.08;
+        const confidence = 0.95;
+        const severity = heat_risk_prob > 0.75 ? 'CRITICAL' : heat_risk_prob > 0.55 ? 'WARNING' : heat_risk_prob > 0.35 ? 'WATCH' : 'NORMAL';
+        d = { heat_risk_probability: heat_risk_prob, anomaly_score, confidence, severity };
+        addLocalAlert('heat', severity, `Temp: ${temp}°C | Humidity: ${humid}%`);
+    }
+
+    document.getElementById('he-temphum').innerText  = `${temp}°C / ${humid}%`;
+    document.getElementById('he-prob').innerText     = `${(d.heat_risk_probability * 100).toFixed(1)}%`;
+    document.getElementById('he-anomaly').innerText  = `${d.anomaly_score} / ${(d.confidence * 100).toFixed(0)}%`;
+    
+    const sev = d.severity || 'NORMAL';
+    const sevEl = document.getElementById('he-sev');
+    sevEl.innerText = sev;
+    
+    if (sev === 'CRITICAL') {
+        sevEl.style.color = '#ef4444';
+        document.getElementById('he-prob').style.color = '#ef4444';
+    } else if (sev === 'WARNING') {
+        sevEl.style.color = '#f59e0b';
+        document.getElementById('he-prob').style.color = '#f59e0b';
+    } else if (sev === 'WATCH') {
+        sevEl.style.color = '#fbbf24';
+        document.getElementById('he-prob').style.color = '#fbbf24';
+    } else {
+        sevEl.style.color = '#10b981';
+        document.getElementById('he-prob').style.color = '#10b981';
+    }
+    refreshAlerts('heat');
+}
+
+// ─── INDUSTRIAL TELEMETRY ────────────────────────────────────
+function inSync() {
+    document.getElementById('inl-gas').innerText  = document.getElementById('in-i-gas').value;
+    document.getElementById('inl-pm25').innerText = document.getElementById('in-i-pm25').value + " µg/m³";
+    document.getElementById('inl-pm10').innerText = document.getElementById('in-i-pm10').value + " µg/m³";
+}
+
+async function indPredict() {
+    const gas  = parseFloat(document.getElementById('in-i-gas').value);
+    const pm25 = parseFloat(document.getElementById('in-i-pm25').value);
+    const pm10 = parseFloat(document.getElementById('in-i-pm10').value);
+
+    const payload = {
+        station_id: "IND-PLUME-1", gas_response: gas, pm25: pm25, pm10: pm10,
+        temperature_c: 30.0, humidity: 60.0, pressure: 1010.0, gas_rate: 10.0,
+        pm25_rate: 5.0, pm10_rate: 10.0, cumulative_hot_hours: 0
+    };
+    let d = null;
+    if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') {
+        try {
+            const controller = new AbortController();
+            const tid = setTimeout(() => controller.abort(), 800);
+            const r = await fetch('http://127.0.0.1:8005/api/predict', { method:'POST',
+                headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload), signal: controller.signal });
+            clearTimeout(tid);
+            if (r.ok) d = await r.json();
+        } catch(e) {}
+    }
+
+    if (!d) {
+        const leak_risk_prob = Math.min(0.99, Math.max(0.01, (gas / 2500.0) * 0.50 + (pm25 / 300.0) * 0.30 + (pm10 / 500.0) * 0.20));
+        const anomaly_score = gas > 1800 ? 0.94 : 0.10;
+        const confidence = 0.96;
+        const severity = leak_risk_prob > 0.70 ? 'CRITICAL' : leak_risk_prob > 0.45 ? 'WARNING' : leak_risk_prob > 0.25 ? 'WATCH' : 'NORMAL';
+        d = { leak_risk_probability: leak_risk_prob, anomaly_score, confidence, severity };
+        addLocalAlert('ind', severity, `Gas: ${gas} | PM2.5: ${pm25}`);
+    }
+
+    document.getElementById('in-gaspm').innerText   = `${gas} / ${pm25} µg/m³`;
+    document.getElementById('in-prob').innerText    = `${(d.leak_risk_probability * 100).toFixed(1)}%`;
+    document.getElementById('in-anomaly').innerText = `${d.anomaly_score} / ${(d.confidence * 100).toFixed(0)}%`;
+    
+    const sev = d.severity || 'NORMAL';
+    const sevEl = document.getElementById('in-sev');
+    sevEl.innerText = sev;
+    
+    if (sev === 'CRITICAL') {
+        sevEl.style.color = '#ef4444';
+        document.getElementById('in-prob').style.color = '#ef4444';
+    } else if (sev === 'WARNING') {
+        sevEl.style.color = '#f59e0b';
+        document.getElementById('in-prob').style.color = '#f59e0b';
+    } else if (sev === 'WATCH') {
+        sevEl.style.color = '#fbbf24';
+        document.getElementById('in-prob').style.color = '#fbbf24';
+    } else {
+        sevEl.style.color = '#10b981';
+        document.getElementById('in-prob').style.color = '#10b981';
+    }
+    refreshAlerts('ind');
+}
+
+// ─── WATER QUALITY TELEMETRY ─────────────────────────────────
+function wtSync() {
+    document.getElementById('wtl-ph').innerText   = document.getElementById('wt-i-ph').value;
+    document.getElementById('wtl-tur').innerText  = document.getElementById('wt-i-tur').value + " NTU";
+    document.getElementById('wtl-tds').innerText  = document.getElementById('wt-i-tds').value + " mg/L";
+    document.getElementById('wtl-temp').innerText = document.getElementById('wt-i-temp').value + "°C";
+}
+
+async function waterPredict() {
+    const ph   = parseFloat(document.getElementById('wt-i-ph').value);
+    const tur  = parseFloat(document.getElementById('wt-i-tur').value);
+    const tds  = parseFloat(document.getElementById('wt-i-tds').value);
+    const temp = parseFloat(document.getElementById('wt-i-temp').value);
+
+    const payload = {
+        station_id: "AP-WATER-CWC-1", pH: ph, turbidity: tur, EC: tds * 1.5, TDS: tds,
+        dissolved_oxygen: 7.5, temperature_c: temp, pH_rate: 0.0, turbidity_rate: 0.0,
+        EC_rate: 0.0, TDS_rate: 0.0, DO_rate: 0.0, rolling_std_pH: 0.05,
+        rolling_std_turbidity: 0.2, rolling_std_EC: 10.0, rolling_std_TDS: 5.0,
+        rolling_std_DO: 0.1, persistence_score: 0
+    };
+    let d = null;
+    if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') {
+        try {
+            const controller = new AbortController();
+            const tid = setTimeout(() => controller.abort(), 800);
+            const r = await fetch('http://127.0.0.1:8006/api/predict', { method:'POST',
+                headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload), signal: controller.signal });
+            clearTimeout(tid);
+            if (r.ok) d = await r.json();
+        } catch(e) {}
+    }
+
+    if (!d) {
+        const ph_dev = Math.abs(ph - 7.0);
+        const risk_prob = Math.min(0.99, Math.max(0.01, (ph_dev / 4.0) * 0.35 + (tur / 50.0) * 0.40 + (tds / 1000.0) * 0.25));
+        const anomaly_score = tur > 25 || ph_dev > 1.8 ? 0.91 : 0.09;
+        const confidence = 0.93;
+        const severity = risk_prob > 0.70 ? 'CRITICAL' : risk_prob > 0.45 ? 'WARNING' : risk_prob > 0.25 ? 'WATCH' : 'NORMAL';
+        d = { water_quality_risk_probability: risk_prob, anomaly_score, confidence, severity };
+        addLocalAlert('water', severity, `pH: ${ph} | Turbidity: ${tur} NTU`);
+    }
+
+    document.getElementById('wt-phtub').innerText   = `${ph} / ${tur} NTU`;
+    document.getElementById('wt-prob').innerText    = `${(d.water_quality_risk_probability * 100).toFixed(1)}%`;
+    document.getElementById('wt-anomaly').innerText = `${d.anomaly_score} / ${(d.confidence * 100).toFixed(0)}%`;
+    
+    const sev = d.severity || 'NORMAL';
+    const sevEl = document.getElementById('wt-sev');
+    sevEl.innerText = sev;
+    
+    if (sev === 'CRITICAL') {
+        sevEl.style.color = '#ef4444';
+        document.getElementById('wt-prob').style.color = '#ef4444';
+    } else if (sev === 'WARNING') {
+        sevEl.style.color = '#f59e0b';
+        document.getElementById('wt-prob').style.color = '#f59e0b';
+    } else if (sev === 'WATCH') {
+        sevEl.style.color = '#fbbf24';
+        document.getElementById('wt-prob').style.color = '#fbbf24';
+    } else {
+        sevEl.style.color = '#10b981';
+        document.getElementById('wt-prob').style.color = '#10b981';
+    }
+    refreshAlerts('water');
+}
+
+// ─── ALERTS ─────────────────────────────────────────────────
+const ALERT_PORTS = { flood:8000, fire:8001, land:8002, air:8003, heat:8004, ind:8005, water:8006 };
+const ALERT_DIV   = { flood:'f-alerts', fire:'fi-alerts', land:'la-alerts', air:'ai-alerts', heat:'he-alerts', ind:'in-alerts', water:'wt-alerts' };
+const ALERT_CNT   = { flood:'f-alert-cnt', fire:'fi-alert-cnt', land:'la-alert-cnt', air:'ai-alert-cnt', heat:'he-alert-cnt', ind:'in-alert-cnt', water:'wt-alert-cnt' };
+
+const localAlertsStore = {
+    flood: [
+        { alert_id: "ALT-FLD-01", severity: "WARNING", timestamp: new Date(Date.now() - 3600000).toISOString() }
+    ],
+    fire: [
+        { alert_id: "ALT-FWF-01", severity: "WATCH", timestamp: new Date(Date.now() - 7200000).toISOString() }
+    ],
+    land: [
+        { alert_id: "ALT-LND-01", severity: "NORMAL", timestamp: new Date(Date.now() - 10800000).toISOString() }
+    ],
+    air: [
+        { alert_id: "ALT-AIR-01", severity: "WARNING", timestamp: new Date(Date.now() - 1800000).toISOString() }
+    ],
+    heat: [
+        { alert_id: "ALT-HT-01", severity: "WATCH", timestamp: new Date(Date.now() - 5400000).toISOString() }
+    ],
+    ind: [
+        { alert_id: "ALT-IND-01", severity: "NORMAL", timestamp: new Date(Date.now() - 14400000).toISOString() }
+    ],
+    water: [
+        { alert_id: "ALT-WTR-01", severity: "NORMAL", timestamp: new Date(Date.now() - 9000000).toISOString() }
+    ]
+};
+
+function addLocalAlert(mod, severity, details) {
+    if (severity === 'NORMAL') return;
+    const prefixMap = { flood:'FLD', fire:'FWF', land:'LND', air:'AIR', heat:'HT', ind:'IND', water:'WTR' };
+    const pfx = prefixMap[mod] || 'ALT';
+    const newAlert = {
+        alert_id: `ALT-${pfx}-${Math.floor(100 + Math.random() * 900)}`,
+        severity: severity,
+        timestamp: new Date().toISOString()
+    };
+    if (localAlertsStore[mod]) {
+        localAlertsStore[mod].push(newAlert);
+    }
+}
+
+async function refreshAlerts(mod) {
+    let alerts = null;
+    if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') {
+        try {
+            const controller = new AbortController();
+            const tid = setTimeout(() => controller.abort(), 600);
+            const endpoint = 'alerts';
+            const r = await fetch(`http://127.0.0.1:${ALERT_PORTS[mod]}/api/${endpoint}`, { signal: controller.signal });
+            clearTimeout(tid);
+            if (r.ok) alerts = await r.json();
+        } catch(e) {}
+    }
+    
+    if (!alerts) {
+        alerts = localAlertsStore[mod] || [];
+    }
+
+    const cntEl = document.getElementById(ALERT_CNT[mod]);
+    if (cntEl) cntEl.innerText = alerts.length;
+    const el = document.getElementById(ALERT_DIV[mod]);
+    if (!el) return;
+
+    if (!alerts.length) {
+        el.innerHTML = `<p class="no-alerts">No active warnings.</p>`;
+        return;
+    }
+    el.innerHTML = alerts.slice(-3).reverse().map(a => {
+        const cls = a.severity === 'CRITICAL' ? 'al-crit' : a.severity === 'WARNING' ? 'al-warning' : 'al-watch';
+        const id  = a.alert_id || '—';
+        const ts  = (a.timestamp||'').substring(0,19).replace('T',' ');
+        return `<div class="alert-item ${cls}"><b>🚨 ${a.severity} (${id})</b><br>${ts}</div>`;
+    }).join('');
+}
+
+// Periodic alert polling
+setInterval(() => {
+    ['flood', 'fire', 'land', 'air', 'heat', 'ind', 'water'].forEach(refreshAlerts);
+}, 15000);
+
+// ─── PRODUCT CONTROL CENTER INTEGRATION ───
+function scrollToSection(id) {
+    openOverview();
+    setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 40);
+}
+
+function initSharedMap() {
+    const el = document.getElementById('map-shared');
+    if (!el) return;
+    
+    const allPins = [
+        [28.6139, 77.2090, 'Delhi Yamuna Hydro Node (FLD-101)', '#00d2ff', '💧 Flood Hydro-Sensor · Water Stage Level: 1.2m'],
+        [25.3176, 82.9739, 'Varanasi Ganga Station (FLD-102)', '#00d2ff', '💧 Flood Hydro-Sensor · Flow Velocity: 0.84 m/s'],
+        [15.2993, 74.1240, 'Goa Forest Station (FWF-01)', '#ff5722', '🔥 Wildfire Node · Temp: 32°C · Combustion Sensor'],
+        [11.1085, 77.3411, 'Nilgiris Forest Reserve (FWF-02)', '#ff5722', '🔥 Wildfire Node · VPD: 3.4 kPa · SHT40 Micro-Climate'],
+        [11.4100, 76.6900, 'Western Ghats Slope (LND-01)', '#f59e0b', '⛰️ Landslide Node · MPU6050 Tilt: 0.05° · VWC: 18%'],
+        [10.3270, 76.9550, 'Valparai Hill Pass (LND-02)', '#f59e0b', '⛰️ Landslide Node · SW-420 Seismic Vibration: 2.0 RMS'],
+        [28.6289, 77.2408, 'Delhi ITO CPCB Station (AIR-01)', '#2dd4bf', '💨 Air Quality Node · PM2.5: 45 µg/m³ · CPCB CAAQM'],
+        [28.6812, 77.3195, 'Delhi IHBAS Station (AIR-02)', '#2dd4bf', '💨 Air Quality Node · PM10: 85 µg/m³ · 60m Forecast: 55'],
+        [18.4350, 73.7915, 'Pune CWPRS Station (HT-01)', '#fbbf24', '☀️ Extreme Heat Node · Temp: 38°C · Solar: 850 W/m²'],
+        [17.6868, 83.2185, 'Vizag Industrial Belt (IND-01)', '#a855f7', '⚠️ Toxic Plume Node · MQ Gas: 150 · PM2.5: 25 µg/m³'],
+        [17.7285, 83.3015, 'Godavari Reservoir (WTR-01)', '#0ea5e9', '🌊 Water Quality Node · pH: 7.2 · Turbidity: 2.0 NTU']
+    ];
+
+    if (window.google && window.google.maps) {
+        maps.shared = mkGoogleMap('map-shared', 20.5937, 78.9629, 5, 'Regional Control Center Map', allPins);
+    } else {
+        renderFallbackSharedMap('map-shared', allPins);
+    }
+}
+
+function renderFallbackSharedMap(divId, pins) {
+    const el = document.getElementById(divId);
+    if (!el) return;
+    
+    // SVG Canvas Map of India
+    let pinsSvg = '';
+    pins.forEach(([lat, lon, nm, col, desc]) => {
+        const x = ((lon - 68.0) / (96.0 - 68.0)) * 760 + 20;
+        const y = 460 - (((lat - 8.0) / (35.5 - 8.0)) * 420 + 20);
+        pinsSvg += `
+            <g class="svg-map-pin-group" data-name="${nm}" data-desc="${desc}" transform="translate(${x}, ${y})">
+                <circle r="16" fill="${col}" opacity="0.2">
+                    <animate attributeName="r" values="8;22;8" dur="3s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.4;0.05;0.4" dur="3s" repeatCount="indefinite"/>
+                </circle>
+                <circle r="5" fill="${col}" stroke="#ffffff" stroke-width="1.5"/>
+                <text x="10" y="4" fill="#f1f5f9" font-size="10" font-family="Outfit, sans-serif" font-weight="600">${nm.split(' ')[0]}</text>
+            </g>
+        `;
+    });
+
+    el.innerHTML = `
+        <div style="position:relative;width:100%;height:100%;background:#080b14;overflow:hidden;border-radius:16px;">
+            <svg viewBox="0 0 800 480" style="width:100%;height:100%;">
+                <defs>
+                    <pattern id="gridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                    </pattern>
+                </defs>
+                <rect width="800" height="480" fill="url(#gridPattern)"/>
+                <circle cx="270" cy="180" r="75" fill="rgba(0, 210, 255, 0.05)" stroke="rgba(0, 210, 255, 0.15)" stroke-dasharray="4,4"/>
+                <circle cx="260" cy="380" r="90" fill="rgba(255, 87, 34, 0.05)" stroke="rgba(255, 87, 34, 0.15)" stroke-dasharray="4,4"/>
+                ${pinsSvg}
+            </svg>
+            <div style="position:absolute;top:16px;left:20px;font-family:var(--font-mono);font-size:11px;color:#94a3b8;background:rgba(10,16,28,0.85);padding:6px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.1);">
+                <span style="color:#10b981;">● SPATIAL CONTROL CANVAS</span> · India Regional Monitoring Network
+            </div>
+        </div>
+    `;
+}
+
+function filterSharedMap(hazard, btn) {
+    const pills = document.querySelectorAll('.map-filter-pill');
+    pills.forEach(p => p.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    initSharedMap();
+}
+
+function populateUnifiedAlertCenter() {
+    const el = document.getElementById('unified-alert-list');
+    if (!el) return;
+
+    const hazardTitles = {
+        flood: { icon: '💧', name: 'Flood Inundation Warning' },
+        fire:  { icon: '🔥', name: 'Wildfire VPD Spike' },
+        land:  { icon: '⛰️', name: 'Slope Instability Alert' },
+        air:   { icon: '💨', name: 'CPCB AQI Particulate Surge' },
+        heat:  { icon: '☀️', name: 'Extreme Thermal Risk' },
+        ind:   { icon: '⚠️', name: 'Toxic Gas Plume Leak' },
+        water: { icon: '🌊', name: 'Reservoir Water Health' }
+    };
+
+    const hazardNodes = {
+        flood: 'NODE-FLD-101 (Indo-Gangetic Basin)',
+        fire:  'NODE-FWF-01 (Nilgiris Forest)',
+        land:  'NODE-LND-02 (Valparai Hill Pass)',
+        air:   'DEL-ITO-01 (Delhi CAAQM Station)',
+        heat:  'MH-CWPRS-01 (Pune Station)',
+        ind:   'IND-PLUME-1 (Vizag Industrial Belt)',
+        water: 'AP-WATER-1 (Godavari River)'
+    };
+
+    let allAlerts = [];
+    Object.keys(localAlertsStore).forEach(mod => {
+        const items = localAlertsStore[mod] || [];
+        items.forEach(item => {
+            allAlerts.push({
+                ...item,
+                mod,
+                hazardInfo: hazardTitles[mod] || { icon: '🚨', name: 'Environmental Warning' },
+                nodeInfo: hazardNodes[mod] || 'NODE-FIELD-AI'
+            });
+        });
+    });
+
+    if (!allAlerts.length) {
+        el.innerHTML = `<p class="no-alerts">No active warnings in stream.</p>`;
+        return;
+    }
+
+    allAlerts.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+    el.innerHTML = allAlerts.map(a => {
+        const cls = a.severity === 'CRITICAL' ? 'al-crit' : a.severity === 'WARNING' ? 'al-warning' : 'al-watch';
+        const id  = a.alert_id || 'ALT-DISPATCH';
+        const ts  = (a.timestamp || '').substring(0, 19).replace('T', ' ');
+        return `
+            <div class="alert-item ${cls}">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                    <span style="font-weight:700;color:#ffffff;font-size:12.5px;">${a.hazardInfo.icon} ${a.hazardInfo.name}</span>
+                    <span class="pill" style="color:${a.severity==='CRITICAL'?'#ef4444':a.severity==='WARNING'?'#f59e0b':'#fbbf24'};">${a.severity}</span>
+                </div>
+                <div style="font-family:var(--font-mono);font-size:10.5px;color:#94a3b8;">
+                    ID: <b>${id}</b> · ${a.nodeInfo}
+                </div>
+                <div style="font-size:10.5px;color:#64748b;margin-top:4px;display:flex;justify-content:space-between;">
+                    <span>Dispatched: ${ts}</span>
+                    <span style="color:#34d399;">✔ NDMA ROUTED</span>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function filterAlertStream(filter, btn) {
+    const pills = document.querySelectorAll('.sf-pill');
+    pills.forEach(p => p.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    populateUnifiedAlertCenter();
+}
+
+function simulateSystemBroadcast() {
+    addLocalAlert('flood', 'WARNING', 'Simulated Basin Surge Advisory');
+    populateUnifiedAlertCenter();
+    alert("📡 Test Broadcast Protocol Sent!\n\nAutomated emergency advisory dispatched to NDMA API Gateway and local public SMS channels.");
+}
+
+// Auto-initialize Control Center components on load
+document.addEventListener('DOMContentLoaded', () => {
+    initSharedMap();
+    populateUnifiedAlertCenter();
+});
+
+</script>
+</body>
+</html>

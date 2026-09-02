@@ -1,0 +1,4538 @@
+[
+  {
+    "station_id": "15th_mile-nongthymmai_byrnihat_-meghalaya_pcb",
+    "station_name": "15th Mile-Nongthymmai, Byrnihat -Meghalaya PCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "32bungalows_bhilai_-_cecb",
+    "station_name": "32Bungalows, Bhilai - CECB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "_indira_nagar_raebareli_-_ntpc_unchahar",
+    "station_name": " Indira Nagar, Raebareli - NTPC Unchahar",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "adarsh_nagar_jaipur_-_rspcb",
+    "station_name": "Adarsh Nagar, Jaipur - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "aiims_raipur_-_cecb",
+    "station_name": "AIIMS, Raipur - CECB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "airport_area_indore_-_imc",
+    "station_name": "Airport Area, Indore - IMC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ambazari_nagpur_-_mpcb",
+    "station_name": "Ambazari, Nagpur - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ambedkar_nagar_nellore_-_appcb_",
+    "station_name": "Ambedkar Nagar, Nellore - APPCB ",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "amity_university_panchgaon_-_iitm",
+    "station_name": "Amity University, Panchgaon - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "anand_kala_kshetram_rajamahendravaram_-_appcb",
+    "station_name": "Anand Kala Kshetram, Rajamahendravaram - APPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "anand_nagar_raebareli_-_uppcb",
+    "station_name": "Anand Nagar, Raebareli - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "anand_vihar_delhi_-_dpcc",
+    "station_name": "Anand Vihar, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "anand_vihar_hapur_-_uppcb",
+    "station_name": "Anand Vihar, Hapur - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "anthoni_pillai_nagar_gummidipoondi_-_tnpcb",
+    "station_name": "Anthoni Pillai Nagar, Gummidipoondi - TNPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ardhali_bazar_varanasi_-_uppcb",
+    "station_name": "Ardhali Bazar, Varanasi - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "arumbakkam_chennai_-_tnpcb",
+    "station_name": "Arumbakkam, Chennai - TNPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "arya_nagar_bahadurgarh_-_hspcb",
+    "station_name": "Arya Nagar, Bahadurgarh - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "asansol_court_area_asansol_-_wbpcb",
+    "station_name": "Asansol Court Area, Asansol - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ashok_nagar_udaipur_-_rspcb",
+    "station_name": "Ashok Nagar, Udaipur - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ashok_vihar_delhi_-_dpcc",
+    "station_name": "Ashok Vihar, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ashta_vinayak_nagar_hingoli_-_mpcb",
+    "station_name": "Ashta Vinayak Nagar, Hingoli - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "aya_nagar_delhi_-_iitm",
+    "station_name": "Aya Nagar, Delhi - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "b_r_ambedkar_university_lucknow_-_uppcb",
+    "station_name": "B R Ambedkar University, Lucknow - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ballygunge_kolkata_-_wbpcb",
+    "station_name": "Ballygunge, Kolkata - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "bamboliya_baran_-_rspcb",
+    "station_name": "Bamboliya, Baran - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "bandhavgar_colony_satna_-_birla_cement",
+    "station_name": "Bandhavgar Colony, Satna - Birla Cement",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "bandra_kurla_complex_mumbai_-_iitm",
+    "station_name": "Bandra Kurla Complex, Mumbai - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "bandra_kurla_complex_mumbai_-_mpcb",
+    "station_name": "Bandra Kurla Complex, Mumbai - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "bapuji_nagar_bengaluru_-_kspcb",
+    "station_name": "Bapuji Nagar, Bengaluru - KSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "bapunagar_vadodara_-_nexteng_enviro",
+    "station_name": "Bapunagar, Vadodara - Nexteng Enviro",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "bardowali_agartala_-_tripura_spcb",
+    "station_name": "Bardowali, Agartala - Tripura SPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "barsua_iron_ore_mines_tensa_-_ospcb",
+    "station_name": "Barsua Iron Ore Mines, Tensa - OSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "bata_chowk_nalbari_-_pcba",
+    "station_name": "Bata Chowk, Nalbari - PCBA",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "bawana_delhi_-_dpcc",
+    "station_name": "Bawana, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "belur_math_howrah_-_wbpcb",
+    "station_name": "Belur Math, Howrah - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "bhatagaon_new_isbt_raipur_-_cecb",
+    "station_name": "Bhatagaon New ISBT, Raipur - CECB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "bhayandar_west_mira-bhayandar_-_mpcb",
+    "station_name": "Bhayandar West, Mira-Bhayandar - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "bhelupur_varanasi_-_uppcb",
+    "station_name": "Bhelupur, Varanasi - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "bhoiwada_dungarpur_-_rspcb",
+    "station_name": "Bhoiwada, Dungarpur - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "bhopal_chauraha_dewas_-_mppcb",
+    "station_name": "Bhopal Chauraha, Dewas - MPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "bhosari_pune_-_iitm",
+    "station_name": "Bhosari, Pune - IITM",
+    "total_observations": 37600,
+    "start_timestamp": "2024-01-01 00:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 3.78,
+    "pm10_missing_pct": 2.77
+  },
+  {
+    "station_id": "bidhannagar_kolkata_-_wbpcb",
+    "station_name": "Bidhannagar, Kolkata - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "bir_beed_-_mpcb",
+    "station_name": "Bir, Beed - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "bolinj_virar_-_mpcb",
+    "station_name": "Bolinj, Virar - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "bollaram_industrial_area_hyderabad_-_tspcb",
+    "station_name": "Bollaram Industrial Area, Hyderabad - TSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "borivali_east_mumbai_-_iitm",
+    "station_name": "Borivali East, Mumbai - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "botanical_garden_howrah_-_wbpcb",
+    "station_name": "Botanical Garden, Howrah - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "buddha_colony_muzaffarpur_-_bspcb",
+    "station_name": "Buddha Colony, Muzaffarpur - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "buddhi_vihar_moradabad_-_uppcb",
+    "station_name": "Buddhi Vihar, Moradabad - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "burari_crossing_delhi_-_iitm",
+    "station_name": "Burari Crossing, Delhi - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "byculla_mumbai_-_bmc",
+    "station_name": "Byculla, Mumbai - BMC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "cantonment_area_delhi_-_dpcc",
+    "station_name": "Cantonment Area, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "cbd_belapur_belapur_-_mpcb",
+    "station_name": "CBD Belapur, Belapur - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "cda_area_cuttack_-_ospcb",
+    "station_name": "CDA Area, Cuttack - OSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "central_academy_for_sfs_byrnihat_-_pcba",
+    "station_name": "Central Academy for SFS, Byrnihat - PCBA",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "central_university_hyderabad_-_tspcb",
+    "station_name": "Central University, Hyderabad - TSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "chakala-andheri_east_mumbai_-_iitm",
+    "station_name": "Chakala-Andheri East, Mumbai - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "chandkheda_ahmedabad_-_iitm",
+    "station_name": "Chandkheda, Ahmedabad - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "chandni_chowk_delhi_-_iitm",
+    "station_name": "Chandni Chowk, Delhi - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "chauhan_colony_chandrapur_-_mpcb",
+    "station_name": "Chauhan Colony, Chandrapur - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "chembur_mumbai_-_mpcb",
+    "station_name": "Chembur, Mumbai - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "chhatrapati_shivaji_intl._airport_(t2)_mumbai_-_mpcb",
+    "station_name": "Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "chhoti_gwaltoli_indore_-_mppcb",
+    "station_name": "Chhoti Gwaltoli, Indore - MPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "chikkaballapur_rural_chikkaballapur_-_kspcb",
+    "station_name": "Chikkaballapur Rural, Chikkaballapur - KSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "chinchpada_ambernath_-_mpcb",
+    "station_name": "Chinchpada, Ambernath - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "chinna_bharatham_colony_srikakulam_-_appcb",
+    "station_name": "Chinna Bharatham Colony, Srikakulam - APPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "chitragupta_nagar_siwan_-_bspcb",
+    "station_name": "Chitragupta Nagar, Siwan - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "christianpatty_nagaon_-_pcba",
+    "station_name": "Christianpatty, Nagaon - PCBA",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "city_center_gwalior_-_mppcb",
+    "station_name": "City Center, Gwalior - MPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "city_railway_station_bengaluru_-_kspcb",
+    "station_name": "City Railway Station, Bengaluru - KSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "civic_center_bhilai_-_bhilai_steel_plant",
+    "station_name": "Civic Center, Bhilai - Bhilai Steel Plant",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "civil_line_jalandhar_-_ppcb",
+    "station_name": "Civil Line, Jalandhar - PPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "civil_lines__ajmer_-_rspcb",
+    "station_name": "Civil Lines,  Ajmer - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "civil_lines_bareilly_-_uppcb",
+    "station_name": "Civil Lines, Bareilly - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "civil_lines_sagar_-_mppcb",
+    "station_name": "Civil Lines, Sagar - MPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "collector_office_yadgir_-_kspcb",
+    "station_name": "Collector Office, Yadgir - KSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "collectorate_gaya_-_bspcb",
+    "station_name": "Collectorate, Gaya - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "collectorate_jodhpur_-_rspcb",
+    "station_name": "Collectorate, Jodhpur - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "commonwealth_sports_complex_delhi_-_dpcc",
+    "station_name": "Commonwealth Sports Complex, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "corporation_ground_thrissur_-_kerala_pcb",
+    "station_name": "Corporation Ground, Thrissur - Kerala PCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "crri_mathura_road_delhi_-_iitm",
+    "station_name": "CRRI Mathura Road, Delhi - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "dabuna_nayagarh_-_ospcb",
+    "station_name": "Dabuna, Nayagarh - OSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "dada_peer_sasaram_-_bspcb",
+    "station_name": "Dada Peer, Sasaram - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "dadupura_fatehpur_sikri_-_uppcb",
+    "station_name": "Dadupura, Fatehpur Sikri - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "darshan_nagar_chhapra_-_bspcb",
+    "station_name": "Darshan Nagar, Chhapra - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "dasnagar_howrah_-_wbpcb",
+    "station_name": "Dasnagar, Howrah - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "deen_dayal_nagar_gwalior_-_mppcb",
+    "station_name": "Deen Dayal Nagar, Gwalior - MPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "deonar_mumbai_-_iitm",
+    "station_name": "Deonar, Mumbai - IITM",
+    "total_observations": 70177,
+    "start_timestamp": "2024-01-01 00:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 35.43,
+    "pm10_missing_pct": 34.44
+  },
+  {
+    "station_id": "deopur_dhule_-_mpcb",
+    "station_name": "Deopur, Dhule - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "dhankawadi_pune_-_iitm",
+    "station_name": "Dhankawadi, Pune - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "dhanmandi_kota_-_rspcb",
+    "station_name": "Dhanmandi, Kota - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "dhoinda_rajsamand_-_rspcb",
+    "station_name": "Dhoinda, Rajsamand - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "digari_kalan_jodhpur_-_rspcb",
+    "station_name": "Digari Kalan, Jodhpur - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "district_court_eluru_-_appcb",
+    "station_name": "District Court, Eluru - APPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "divisional_forest_office_rairangpur_-_ospcb",
+    "station_name": "Divisional Forest Office, Rairangpur - OSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "dm_office_kachari_chowk_bhagalpur_-_bspcb",
+    "station_name": "DM Office_Kachari Chowk, Bhagalpur - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "dnyaneshwar_nagar_solapur_-_mpcb",
+    "station_name": "Dnyaneshwar Nagar, Solapur - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "doon_university_dehradun_-_ukpcb",
+    "station_name": "Doon University, Dehradun - UKPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "dr._karni_singh_shooting_range_delhi_-_dpcc",
+    "station_name": "Dr. Karni Singh Shooting Range, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "drm_office_danapur_patna_-_bspcb",
+    "station_name": "DRM Office Danapur, Patna - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "dtu_delhi_-_cpcb",
+    "station_name": "DTU, Delhi - CPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "dwarka-sector_8_delhi_-_dpcc_",
+    "station_name": "Dwarka-Sector 8, Delhi - DPCC ",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ecil_kapra_hyderabad_-_tspcb",
+    "station_name": "ECIL Kapra, Hyderabad - TSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "eco_herbal_park_moradabad_-_uppcb",
+    "station_name": "Eco Herbal Park, Moradabad - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "employment_office_moradabad_-_uppcb",
+    "station_name": "Employment Office, Moradabad - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "evelyn_lodge_asansol_-_wbpcb",
+    "station_name": "Evelyn Lodge, Asansol - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "f-block_sirsa_-_hspcb",
+    "station_name": "F-Block, Sirsa - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ferro_chrome_colony_byasanagar_-_ospcb",
+    "station_name": "Ferro Chrome Colony, Byasanagar - OSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "fertilizer_township_rourkela_-_ospcb",
+    "station_name": "Fertilizer Township, Rourkela - OSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "forest_office_barbil_-_ospcb",
+    "station_name": "Forest Office, Barbil - OSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "forest_rest_house_manguraha_-_bspcb",
+    "station_name": "Forest Rest House, Manguraha - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "fort_william_kolkata_-_wbpcb",
+    "station_name": "Fort William, Kolkata - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "fti_kidwai_nagar_kanpur_-_uppcb",
+    "station_name": "FTI Kidwai Nagar, Kanpur - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "gandak_colony_motihari_-_bspcb",
+    "station_name": "Gandak Colony, Motihari - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ganga_nagar_meerut_-_uppcb",
+    "station_name": "Ganga Nagar, Meerut - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "gangapur_road_nashik_-_mpcb",
+    "station_name": "Gangapur Road, Nashik - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "gangineni_cheruvu_chittoor_-_appcb",
+    "station_name": "Gangineni Cheruvu, Chittoor - APPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "gavalinagar_pimpri_chinchwad_-_mpcb",
+    "station_name": "Gavalinagar, Pimpri Chinchwad - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "general_hospital_mandikhera(nuh)_-_hspcb",
+    "station_name": "General Hospital, Mandikhera(Nuh) - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ghatkopar_mumbai_-_bmc",
+    "station_name": "Ghatkopar, Mumbai - BMC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ghusuri_howrah_-_wbpcb",
+    "station_name": "Ghusuri, Howrah - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "gidc_ankleshwar_-_gpcb",
+    "station_name": "GIDC, Ankleshwar - GPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "gidc_nandesari_-_nandesari_ind._association",
+    "station_name": "GIDC, Nandesari - Nandesari Ind. Association",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "gift_city_gandhinagar_-_iitm",
+    "station_name": "GIFT City, Gandhinagar - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "girls_college_sivasagar_-_pcba",
+    "station_name": "Girls College, Sivasagar - PCBA",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "gm_office_brajrajnagar_-_ospcb",
+    "station_name": "GM Office, Brajrajnagar - OSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "gobind_pura_yamuna_nagar_-_hspcb",
+    "station_name": "Gobind Pura, Yamuna Nagar - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "gokul_nagar_bhiwandi_-_mpcb",
+    "station_name": "Gokul Nagar, Bhiwandi - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "golden_temple_amritsar_-_ppcb",
+    "station_name": "Golden Temple, Amritsar - PPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "gole_bazar_katni_-_mppcb",
+    "station_name": "Gole Bazar, Katni - MPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "gomti_nagar_lucknow_-_uppcb",
+    "station_name": "Gomti Nagar, Lucknow - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "govindh_bhavan_colony_jabalpur_-_jmc",
+    "station_name": "Govindh Bhavan Colony, Jabalpur - JMC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "govindpuram_ghaziabad_-_uppcb",
+    "station_name": "Govindpuram, Ghaziabad - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "govt._high_school_shikarpur_patna_-_bspcb",
+    "station_name": "Govt. High School Shikarpur, Patna - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "govt._higher_secondary_school_milupara_-_cecb",
+    "station_name": "Govt. Higher Secondary School, Milupara - CECB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "gulzarpet_anantapur_-_appcb",
+    "station_name": "Gulzarpet, Anantapur - APPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "gurdeo_nagar_aurangabad_-_bspcb",
+    "station_name": "Gurdeo Nagar, Aurangabad - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "gvm_corporation_visakhapatnam_-_appcb",
+    "station_name": "GVM Corporation, Visakhapatnam - APPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "gyaspur_ahmedabad_-_iitm",
+    "station_name": "Gyaspur, Ahmedabad - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "h.b._colony_bhiwani_-_hspcb",
+    "station_name": "H.B. Colony, Bhiwani - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "hadapsar_pune_-_iitm",
+    "station_name": "Hadapsar, Pune - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "hakimapada_angul_-_ospcb",
+    "station_name": "Hakimapada, Angul - OSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "hardev_nagar_bathinda_-_ppcb",
+    "station_name": "Hardev Nagar, Bathinda - PPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "hathkhoj_bhilai_-_cecb",
+    "station_name": "Hathkhoj, Bhilai - CECB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "hb_colony_vijayawada_-_appcb",
+    "station_name": "HB Colony, Vijayawada - APPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "hebbal_1st_stage_mysuru_-_kspcb",
+    "station_name": "Hebbal 1st Stage, Mysuru - KSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "hebbal_bengaluru_-_kspcb",
+    "station_name": "Hebbal, Bengaluru - KSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "himuda_complex_phase-1_baddi_-_hppcb",
+    "station_name": "HIMUDA Complex Phase-1, Baddi - HPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "hirawadi_nashik_-_mpcb",
+    "station_name": "Hirawadi, Nashik - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "hombegowda_nagar_bengaluru_-_kspcb",
+    "station_name": "Hombegowda Nagar, Bengaluru - KSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "housing_board_hanumangarh_-_rspcb",
+    "station_name": "Housing Board, Hanumangarh - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "huda_sector_fatehabad_-_hspcb",
+    "station_name": "Huda Sector, Fatehabad - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "icrisat_patancheru_hyderabad_-_tspcb",
+    "station_name": "ICRISAT Patancheru, Hyderabad - TSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ida_pashamylaram_hyderabad_-_tspcb",
+    "station_name": "IDA Pashamylaram, Hyderabad - TSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "idgah_hills_bhopal_-_mppcb",
+    "station_name": "Idgah Hills, Bhopal - MPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "iesd_banaras_hindu_university_varanasi_-_uppcb",
+    "station_name": "IESD Banaras Hindu University, Varanasi - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "igi_airport_(t3)_delhi_-_iitm",
+    "station_name": "IGI Airport (T3), Delhi - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ignou_maidan_garhi_delhi_-_dpcc",
+    "station_name": "IGNOU_Maidan Garhi, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ihbas_dilshad_garden_delhi_-_cpcb",
+    "station_name": "IHBAS, Dilshad Garden, Delhi - CPCB",
+    "total_observations": 70177,
+    "start_timestamp": "2024-01-01 00:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 11.1,
+    "pm10_missing_pct": 10.82
+  },
+  {
+    "station_id": "iiphg_lekawada_gandhinagar_-_iitm",
+    "station_name": "IIPHG Lekawada, Gandhinagar - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "iit_delhi_delhi_-_iitm",
+    "station_name": "IIT Delhi, Delhi - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "iitg_guwahati_-_pcba",
+    "station_name": "IITG, Guwahati - PCBA",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "iith_kandi_hyderabad_-_tspcb",
+    "station_name": "IITH Kandi, Hyderabad - TSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "imd_lodhi_road_delhi_-_iitm",
+    "station_name": "IMD Lodhi Road, Delhi - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "indira_colony_vistar_pali_-_rspcb",
+    "station_name": "Indira Colony Vistar, Pali - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "indirapuram_ghaziabad_-_uppcb",
+    "station_name": "Indirapuram, Ghaziabad - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "indra_nagar_jhunjhunu_-_rspcb",
+    "station_name": "Indra Nagar, Jhunjhunu - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "industrial_area_hajipur_-_bspcb",
+    "station_name": "Industrial Area, Hajipur - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ito_delhi_-_cpcb",
+    "station_name": "ITO, Delhi - CPCB",
+    "total_observations": 68985,
+    "start_timestamp": "2024-01-01 00:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 5.92,
+    "pm10_missing_pct": 5.65
+  },
+  {
+    "station_id": "jadavpur_kolkata_-_wbpcb",
+    "station_name": "Jadavpur, Kolkata - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "jagamohanpur_keonjhar_-_ospcb",
+    "station_name": "Jagamohanpur, Keonjhar - OSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "jahangirpuri_delhi_-_dpcc",
+    "station_name": "Jahangirpuri, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "jai_bhim_nagar_meerut_-_uppcb",
+    "station_name": "Jai Bhim Nagar, Meerut - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "jawahar_nagar_puducherry_-_ppcc",
+    "station_name": "Jawahar Nagar, Puducherry - PPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "jawaharlal_nehru_stadium_delhi_-_dpcc",
+    "station_name": "Jawaharlal Nehru Stadium, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "jayanagar_5th_block_bengaluru_-_kspcb",
+    "station_name": "Jayanagar 5th Block, Bengaluru - KSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "jhalamand_jodhpur_-_rspcb",
+    "station_name": "Jhalamand, Jodhpur - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "jhunsi_prayagraj_-_uppcb",
+    "station_name": "Jhunsi, Prayagraj - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "jigani_bengaluru_-_kspcb",
+    "station_name": "Jigani, Bengaluru - KSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "jigar_colony_moradabad_-_uppcb",
+    "station_name": "Jigar Colony, Moradabad - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "jn_stadium_shillong_-_meghalaya_pcb",
+    "station_name": "JN Stadium, Shillong - Meghalaya PCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "jnu_delhi_-_dpcc",
+    "station_name": "JNU, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kalabhavan_dharwad_-_kspcb",
+    "station_name": "Kalabhavan, Dharwad - KSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kalal_majra_khanna_-_ppcb",
+    "station_name": "Kalal Majra, Khanna - PPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kalidaspur_balasore_-_ospcb",
+    "station_name": "Kalidaspur, Balasore - OSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kalindi_kunj_khurja_-_uppcb",
+    "station_name": "Kalindi Kunj, Khurja - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kalu_nagar_dombivli_-_mpcb",
+    "station_name": "Kalu Nagar, Dombivli - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kalyana_nagara_chikkamagaluru_-_kspcb",
+    "station_name": "Kalyana Nagara, Chikkamagaluru - KSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kamalnath_nagar_bettiah_-_bspcb",
+    "station_name": "Kamalnath Nagar, Bettiah - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kamble_tarf_birwadi_mahad_-_mpcb",
+    "station_name": "Kamble Tarf Birwadi, Mahad - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kandivali_west_mumbai_-_bmc",
+    "station_name": "Kandivali West, Mumbai - BMC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kareemganj_gaya_-_bspcb",
+    "station_name": "Kareemganj, Gaya - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kariavattom_thiruvananthapuram_-_kerala_pcb",
+    "station_name": "Kariavattom, Thiruvananthapuram - Kerala PCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "karni_colony_nagaur_-_rspcb",
+    "station_name": "Karni Colony, Nagaur - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kasarvadavali_thane_-_mpcb",
+    "station_name": "Kasarvadavali, Thane - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kashiram_nagar_moradabad_-_uppcb",
+    "station_name": "Kashiram Nagar, Moradabad - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "katargam_surat_-_nexteng_enviro",
+    "station_name": "Katargam, Surat - Nexteng Enviro",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "katraj_dairy_pune_-_mpcb",
+    "station_name": "Katraj Dairy, Pune - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "katrap_badlapur_-_mpcb",
+    "station_name": "Katrap, Badlapur - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kendriya_vidyalaya_lucknow_-_cpcb",
+    "station_name": "Kendriya Vidyalaya, Lucknow - CPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "khadakpada_kalyan_-_mpcb",
+    "station_name": "Khadakpada, Kalyan - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "khaira_boisar_-_mpcb",
+    "station_name": "Khaira, Boisar - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kharahiya_basti_araria_-_bspcb",
+    "station_name": "Kharahiya Basti, Araria - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "khatikan_mohalla_dausa_-_rspcb",
+    "station_name": "Khatikan Mohalla, Dausa - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "khb_colony_karwar_-_kspcb",
+    "station_name": "KHB Colony, Karwar - KSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kherwadi_bandra_east_mumbai_-_mpcb",
+    "station_name": "Kherwadi_Bandra East, Mumbai - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "khindipada-bhandup_west_mumbai_-_iitm",
+    "station_name": "Khindipada-Bhandup West, Mumbai - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "khrew_pampore_-_jkpcc",
+    "station_name": "Khrew, Pampore - JKPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "khunmoh_srinagar_-_jkpcc",
+    "station_name": "Khunmoh, Srinagar - JKPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "knowledge_park_-_iii_greater_noida_-_uppcb",
+    "station_name": "Knowledge Park - III, Greater Noida - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "knowledge_park_-_v_greater_noida_-_uppcb",
+    "station_name": "Knowledge Park - V, Greater Noida - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kodungaiyur_chennai_-_tnpcb",
+    "station_name": "Kodungaiyur, Chennai - TNPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kompally_municipal_office_hyderabad_-_tspcb",
+    "station_name": "Kompally Municipal Office, Hyderabad - TSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kopripada-vashi_navi_mumbai_-_mpcb",
+    "station_name": "Kopripada-Vashi, Navi Mumbai - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "koyana_nagar_satara_-_mpcb",
+    "station_name": "Koyana Nagar, Satara - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "krishak_nagar_raipur_-_cecb",
+    "station_name": "Krishak Nagar, Raipur - CECB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "krishna_nagar_bharatpur_-_rspcb",
+    "station_name": "Krishna Nagar, Bharatpur - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kudikadu_cuddalore_-_tnpcb",
+    "station_name": "Kudikadu, Cuddalore - TNPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kukrail_picnic_spot-1_lucknow_-_uppcb",
+    "station_name": "Kukrail Picnic Spot-1, Lucknow - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "kurla_mumbai_-_mpcb",
+    "station_name": "Kurla, Mumbai - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "lalbagh_lucknow_-_cpcb",
+    "station_name": "Lalbagh, Lucknow - CPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "lgbi_airport_guwahati_-_pcba",
+    "station_name": "LGBI Airport, Guwahati - PCBA",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "lingaraj_nagar_hubballi_-_kspcb",
+    "station_name": "Lingaraj Nagar, Hubballi - KSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "lingraj_mandir_bhubaneswar_-_ospcb",
+    "station_name": "Lingraj Mandir, Bhubaneswar - OSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "lohiyanagar_begusarai_-_bspcb",
+    "station_name": "Lohiyanagar, Begusarai - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "loni_ghaziabad_-_uppcb",
+    "station_name": "Loni, Ghaziabad - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "madan_mohan_malaviya_university_of_technology_gorakhpur_-_uppcb",
+    "station_name": "Madan Mohan Malaviya University of Technology, Gorakhpur - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "maguda_nagar_indore_-_imc",
+    "station_name": "Maguda Nagar, Indore - IMC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mahabir_colliery_asansol_-_wbpcb",
+    "station_name": "Mahabir Colliery, Asansol - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mahal_nagpur_-_mpcb",
+    "station_name": "Mahal, Nagpur - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mahape_navi_mumbai_-_mpcb",
+    "station_name": "Mahape, Navi Mumbai - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "maharaj_bada_gwalior_-_mppcb",
+    "station_name": "Maharaj Bada, Gwalior - MPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mahashweta_nagar_ujjain_-_mppcb",
+    "station_name": "Mahashweta Nagar, Ujjain - MPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mahatma_basaveswar_colony_kalaburgi_-_kspcb",
+    "station_name": "Mahatma Basaveswar Colony, Kalaburgi - KSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mahesh_nagar_malegaon_-_mpcb",
+    "station_name": "Mahesh Nagar, Malegaon - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mahishkapur_road_b-zone_durgapur_-_wbpcb",
+    "station_name": "Mahishkapur Road_B-Zone, Durgapur - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "major_dhyan_chand_national_stadium_delhi_-_dpcc",
+    "station_name": "Major Dhyan Chand National Stadium, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "malad_west_mumbai_-_iitm",
+    "station_name": "Malad West, Mumbai - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "maldahiya_varanasi_-_uppcb",
+    "station_name": "Maldahiya, Varanasi - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "manali_chennai_-_cpcb",
+    "station_name": "Manali, Chennai - CPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "manali_village_chennai_-_tnpcb",
+    "station_name": "Manali Village, Chennai - TNPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mandir_marg_delhi_-_dpcc",
+    "station_name": "Mandir Marg, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mandor_jodhpur_-_rspcb",
+    "station_name": "Mandor, Jodhpur - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mangala_bilaspur_-_ntpc",
+    "station_name": "Mangala, Bilaspur - NTPC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "maninagar_ahmedabad_-_gpcb",
+    "station_name": "Maninagar, Ahmedabad - GPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "manoharpur_agra_-_uppcb",
+    "station_name": "Manoharpur, Agra - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mansarovar_sector-12_jaipur_-_rspcb",
+    "station_name": "Mansarovar Sector-12, Jaipur - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "marhatal_jabalpur_-_mppcb",
+    "station_name": "Marhatal, Jabalpur - MPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mariam_nagar_purnia_-_bspcb",
+    "station_name": "Mariam Nagar, Purnia - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "masoom_colony_parbhani_-_mpcb",
+    "station_name": "Masoom Colony, Parbhani - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mavdi_rajkot_-_nexteng_enviro_",
+    "station_name": "Mavdi, Rajkot - Nexteng Enviro ",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mayaganj_bhagalpur_-_bspcb",
+    "station_name": "Mayaganj, Bhagalpur - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mazgaon_mumbai_-_iitm",
+    "station_name": "Mazgaon, Mumbai - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "md_university_rohtak_-_hspcb",
+    "station_name": "MD University, Rohtak - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "meelavittan_thoothukudi_-_tnpcb",
+    "station_name": "Meelavittan, Thoothukudi - TNPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "meher_colony_baripada_-_ospcb",
+    "station_name": "Meher Colony, Baripada - OSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mhada_colony_pune_-_iitm",
+    "station_name": "Mhada Colony, Pune - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "midc_ambad_nashik_-_mpcb",
+    "station_name": "MIDC Ambad, Nashik - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "midc_chilkalthana_aurangabad_-_mpcb",
+    "station_name": "MIDC Chilkalthana, Aurangabad - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "midc_khutala_chandrapur_-_mpcb",
+    "station_name": "MIDC Khutala, Chandrapur - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "miet_college_meerut_-_uppcb",
+    "station_name": "MIET College, Meerut - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mini_secretariat_charkhi_dadri_-_hspcb",
+    "station_name": "Mini Secretariat, Charkhi Dadri - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mirchaibari_katihar_-_bspcb",
+    "station_name": "Mirchaibari, Katihar - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mit-daudpur_kothi_muzaffarpur_-_bspcb",
+    "station_name": "MIT-Daudpur Kothi, Muzaffarpur - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mm_ground_bikaner_-_rspcb",
+    "station_name": "MM Ground, Bikaner - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "model_town_patiala_-_ppcb",
+    "station_name": "Model Town, Patiala - PPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "more_chowk_waluj_aurangabad_-_mpcb",
+    "station_name": "More Chowk Waluj, Aurangabad - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "moti_doongri_alwar_-_rspcb",
+    "station_name": "Moti Doongri, Alwar - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "motilal_nehru_nit_prayagraj_-_uppcb",
+    "station_name": "Motilal Nehru NIT, Prayagraj - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mudtra_sili_jalore_-_rspcb",
+    "station_name": "Mudtra Sili, Jalore - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mulund_west_mumbai_-_mpcb",
+    "station_name": "Mulund West, Mumbai - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "mundka_delhi_-_dpcc",
+    "station_name": "Mundka, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "municipal_corporation_office_dharuhera_-__hspcb",
+    "station_name": "Municipal Corporation Office, Dharuhera -  HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "muradpur_patna_-_bspcb",
+    "station_name": "Muradpur, Patna - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "murthal_sonipat_-_hspcb",
+    "station_name": "Murthal, Sonipat - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "nacharam_tsiic_iala_hyderabad_-_tspcb",
+    "station_name": "Nacharam_TSIIC IALA, Hyderabad - TSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "nagar_nigam_prayagraj_-_uppcb",
+    "station_name": "Nagar Nigam, Prayagraj - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "nagla_bhau_firozabad_-_uppcb",
+    "station_name": "Nagla Bhau, Firozabad - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "naharlagun_naharlagun_-_apspcb",
+    "station_name": "Naharlagun, Naharlagun - APSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "najafgarh_delhi_-_dpcc",
+    "station_name": "Najafgarh, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "narela_delhi_-_dpcc",
+    "station_name": "Narela, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "nathu_colony_ballabgarh_-_hspcb",
+    "station_name": "Nathu Colony, Ballabgarh - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "navy_nagar-colaba_mumbai_-_iitm",
+    "station_name": "Navy Nagar-Colaba, Mumbai - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "nawapara_secl_colony_chhal_-_cecb",
+    "station_name": "Nawapara SECL Colony, Chhal - CECB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "nayapura_kota_-_rspcb",
+    "station_name": "Nayapura, Kota - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "nehru_nagar_delhi_-_dpcc",
+    "station_name": "Nehru Nagar, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "nehru_nagar_kanpur_-_uppcb",
+    "station_name": "Nehru Nagar, Kanpur - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "nerul_navi_mumbai_-_mpcb",
+    "station_name": "Nerul, Navi Mumbai - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "new_anaj_mandi_khairthal_-_rspcb",
+    "station_name": "New Anaj Mandi, Khairthal - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "new_colony_bundi_-_rspcb",
+    "station_name": "New Colony, Bundi - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "new_dm_office_arrah_-_bspcb",
+    "station_name": "New DM Office, Arrah - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "new_industrial_town_faridabad_-_hspcb",
+    "station_name": "New Industrial Town, Faridabad - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "new_malakpet_hyderabad_-_tspcb",
+    "station_name": "New Malakpet, Hyderabad - TSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "new_mandi_muzaffarnagar_-_uppcb",
+    "station_name": "New Mandi, Muzaffarnagar - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "new_tehsil_shamli_-_uppcb",
+    "station_name": "New Tehsil, Shamli - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "nise_gwal_pahari_gurugram_-_iitm",
+    "station_name": "NISE Gwal Pahari, Gurugram - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "north_campus_du_delhi_-_iitm",
+    "station_name": "North Campus, DU, Delhi - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "nsi_kalyanpur_kanpur_-_uppcb",
+    "station_name": "NSI Kalyanpur, Kanpur - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "nsit_dwarka_delhi_-_cpcb",
+    "station_name": "NSIT Dwarka, Delhi - CPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "nsut_jaffarpur_delhi_-_dpcc",
+    "station_name": "NSUT Jaffarpur, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "okhla_phase-2_delhi_-_dpcc",
+    "station_name": "Okhla Phase-2, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "old_city_sri_ganganagar_-_rspcb",
+    "station_name": "Old City, Sri Ganganagar - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "old_midc_jalna_-_mpcb",
+    "station_name": "Old MIDC, Jalna - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "omex_eternity_vrindavan_-_uppcb",
+    "station_name": "Omex Eternity, Vrindavan - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "op_jindal_industrial_park_tumidih_-_cecb",
+    "station_name": "OP Jindal Industrial Park, Tumidih - CECB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "op_jindal_school_kunjemura_-_cecb",
+    "station_name": "OP Jindal School, Kunjemura - CECB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "opp_gpo_civil_lines_nagpur_-_mpcb",
+    "station_name": "Opp GPO Civil Lines, Nagpur - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "padmapukur_howrah_-_wbpcb",
+    "station_name": "Padmapukur, Howrah - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "pali_dungra_mathura_-_uppcb",
+    "station_name": "Pali Dungra, Mathura - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "pallavpuram_phase_2_meerut_-_uppcb",
+    "station_name": "Pallavpuram Phase 2, Meerut - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "pan_bazaar_guwahati_-_pcba",
+    "station_name": "Pan Bazaar, Guwahati - PCBA",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "panchal_nagar_gadag_-_kspcb",
+    "station_name": "Panchal Nagar, Gadag - KSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "panchawati_pashan_pune_-_iitm",
+    "station_name": "Panchawati_Pashan, Pune - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "pandav_nagari_nashik_-_mpcb",
+    "station_name": "Pandav Nagari, Nashik - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "park_street_wakad_pimpri_chinchwad_-_mpcb",
+    "station_name": "Park Street Wakad, Pimpri Chinchwad - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "paryavaran_parisar_bhopal_-_mppcb",
+    "station_name": "Paryavaran Parisar, Bhopal - MPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "patia_bhubaneswar_-_ospcb",
+    "station_name": "Patia, Bhubaneswar - OSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "patparganj_delhi_-_dpcc",
+    "station_name": "Patparganj, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "patti_mehar_ambala_-_hspcb",
+    "station_name": "Patti Mehar, Ambala - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "pcbl_residential_complex_durgapur_-_wbpcb",
+    "station_name": "PCBL Residential Complex, Durgapur - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "peenya_bengaluru_-_cpcb",
+    "station_name": "Peenya, Bengaluru - CPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "perungudi_chennai_-_tnpcb",
+    "station_name": "Perungudi, Chennai - TNPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "phase-1_gidc_vapi_-_gpcb",
+    "station_name": "Phase-1 GIDC, Vapi - GPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "phase-4_gidc_vatva_-_gpcb",
+    "station_name": "Phase-4 GIDC, Vatva - GPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "pimpleshwar_mandir_kalyan_-_mpcb",
+    "station_name": "Pimpleshwar Mandir, Kalyan - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "plammoodu_thiruvananthapuram_-_kerala_pcb",
+    "station_name": "Plammoodu, Thiruvananthapuram - Kerala PCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "police_commissionerate_jaipur_-_rspcb",
+    "station_name": "Police Commissionerate, Jaipur - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "police_line_saharsa_-_bspcb",
+    "station_name": "Police Line, Saharsa - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "police_lines_jind_-_hspcb",
+    "station_name": "Police Lines, Jind - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "powai_mumbai_-_mpcb",
+    "station_name": "Powai, Mumbai - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "prabhat_colony_jalgaon_-_mpcb",
+    "station_name": "Prabhat Colony, Jalgaon - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "pragati_nagar_pratapgarh_-_rspcb",
+    "station_name": "Pragati Nagar, Pratapgarh - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "prashant_garden_khora_-_uppcb",
+    "station_name": "Prashant Garden, Khora - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "pratap_nagar_bhilwara_-_rspcb",
+    "station_name": "Pratap Nagar, Bhilwara - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "priyambada_housing_estate_haldia_-_wbpcb",
+    "station_name": "Priyambada Housing Estate, Haldia - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "punjabi_bagh_delhi_-_dpcc",
+    "station_name": "Punjabi Bagh, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "pusa_delhi_-_dpcc",
+    "station_name": "Pusa, Delhi - DPCC",
+    "total_observations": 70177,
+    "start_timestamp": "2024-01-01 00:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 3.62,
+    "pm10_missing_pct": 3.68
+  },
+  {
+    "station_id": "pusa_delhi_-_iitm",
+    "station_name": "Pusa, Delhi - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "pwd_junction_kohima_-_npcb",
+    "station_name": "PWD Junction, Kohima - NPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "r_k_puram_delhi_-_dpcc",
+    "station_name": "R K Puram, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "rabindra_bharati_university_kolkata_-_wbpcb",
+    "station_name": "Rabindra Bharati University, Kolkata - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "rabindra_sarobar_kolkata_-_wbpcb",
+    "station_name": "Rabindra Sarobar, Kolkata - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "rachnakar_colony_aurangabad_-_mpcb",
+    "station_name": "Rachnakar Colony, Aurangabad - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "radhakishan_pura_sikar_-_rspcb",
+    "station_name": "Radhakishan Pura, Sikar - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "raghunathpali_rourkela_-_ospcb",
+    "station_name": "Raghunathpali, Rourkela - OSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "raikhad_ahmedabad_-_iitm",
+    "station_name": "Raikhad, Ahmedabad - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "railway_colony_barmer_-_rspcb",
+    "station_name": "Railway Colony, Barmer - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "railway_colony_guwahati_-_pcba",
+    "station_name": "Railway Colony, Guwahati - PCBA",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "raja_ganj_dholpur_-_rspcb",
+    "station_name": "Raja Ganj, Dholpur - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "rajanpur_gajraula_-_uppcb",
+    "station_name": "Rajanpur, Gajraula - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "rajbagh_srinagar_-_jkpcc",
+    "station_name": "Rajbagh, Srinagar - JKPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "rajbansi_nagar_patna_-_bspcb",
+    "station_name": "Rajbansi Nagar, Patna - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "rajendra_nagar_bareilly_-_uppcb",
+    "station_name": "Rajendra Nagar, Bareilly - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "rajendra_nagar_north_guntur_-_appcb",
+    "station_name": "Rajendra Nagar North, Guntur - APPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "rajiv_gandhi_park_vijayawada_-_appcb",
+    "station_name": "Rajiv Gandhi Park, Vijayawada - APPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "rajiv_nagar_vijayawada_-_appcb",
+    "station_name": "Rajiv Nagar, Vijayawada - APPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "rajlaxmi_nagar_jhalawar_-_rspcb",
+    "station_name": "Rajlaxmi Nagar, Jhalawar - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "rakhial_ahmedabad_-_iitm",
+    "station_name": "Rakhial, Ahmedabad - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ram_nagar_nagpur_-_mpcb",
+    "station_name": "Ram Nagar, Nagpur - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "rama_rao_peta_kakinada_-_appcb",
+    "station_name": "Rama Rao Peta, Kakinada - APPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ramachandrapuram_hyderabad_-_tspcb",
+    "station_name": "Ramachandrapuram, Hyderabad - TSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ramdaspeth_akola_-_mpcb",
+    "station_name": "Ramdaspeth, Akola - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "rampur_korba_-_cecb",
+    "station_name": "Rampur, Korba - CECB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ratandeep_housing_society_solapur_-_mpcb",
+    "station_name": "Ratandeep Housing Society, Solapur - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ratanpura_rupnagar_-_ambuja_cements",
+    "station_name": "Ratanpura, Rupnagar - Ambuja Cements",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "rati_talai_banswara_-_rspcb",
+    "station_name": "Rati Talai, Banswara - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "regional_park_indore_-_imc",
+    "station_name": "Regional Park, Indore - IMC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "residency_area_indore_-_imc",
+    "station_name": "Residency Area, Indore - IMC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "revenue_colony-shivajinagar_pune_-_iitm",
+    "station_name": "Revenue Colony-Shivajinagar, Pune - IITM",
+    "total_observations": 62594,
+    "start_timestamp": "2024-01-01 08:30:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 6.35,
+    "pm10_missing_pct": 5.11
+  },
+  {
+    "station_id": "riico_ind._area_iii_bhiwadi_-_rspcb",
+    "station_name": "RIICO Ind. Area III, Bhiwadi - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "riico_sitapura_jaipur_-_rspcb",
+    "station_name": "RIICO Sitapura, Jaipur - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "rimt_university_mandi_gobindgarh_-_ppcb",
+    "station_name": "RIMT University, Mandi Gobindgarh - PPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "rishi_nagar_kaithal_-_hspcb",
+    "station_name": "Rishi Nagar, Kaithal - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "rohini_delhi_-_dpcc",
+    "station_name": "Rohini, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "rohta_agra_-_uppcb",
+    "station_name": "Rohta, Agra - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "royapuram_chennai_-_tnpcb",
+    "station_name": "Royapuram, Chennai - TNPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sac_isro_bopal_ahmedabad_-_iitm",
+    "station_name": "SAC ISRO Bopal, Ahmedabad - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sac_isro_satellite_ahmedabad_-_iitm",
+    "station_name": "SAC ISRO Satellite, Ahmedabad - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sadanand_nagar_mehsana_-_nexteng_enviro",
+    "station_name": "Sadanand Nagar, Mehsana - Nexteng Enviro",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sadar_bazar_jaisalmer_-_rspcb",
+    "station_name": "Sadar Bazar, Jaisalmer - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sahilara_maihar_-_kjs_cements",
+    "station_name": "Sahilara, Maihar - KJS Cements",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sahu_nagar_sawai_madhopur_-_rspcb",
+    "station_name": "Sahu Nagar, Sawai Madhopur - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "samanpura_patna_-_bspcb",
+    "station_name": "Samanpura, Patna - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "samrat_ashok_udhyan_jodhpur_-_rspcb",
+    "station_name": "Samrat Ashok Udhyan, Jodhpur - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sanathnagar_hyderabad_-_tspcb",
+    "station_name": "Sanathnagar, Hyderabad - TSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sanjay_nagar_ghaziabad_-_uppcb",
+    "station_name": "Sanjay Nagar, Ghaziabad - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sanjay_palace_agra_-_uppcb",
+    "station_name": "Sanjay Palace, Agra - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sanpada_navi_mumbai_-_mpcb",
+    "station_name": "Sanpada, Navi Mumbai - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sardar_patel_inter_college_baghpat_-_uppcb",
+    "station_name": "Sardar Patel Inter College, Baghpat - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sardar_patel_nagar_dhanbad_-_jspcb",
+    "station_name": "Sardar Patel Nagar, Dhanbad - JSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "satyawati_vihar_karauli_-_rspcb",
+    "station_name": "Satyawati Vihar, Karauli - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "savta_mali_nagar_pimpri-chinchwad_-_iitm",
+    "station_name": "Savta Mali Nagar, Pimpri-Chinchwad - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sawe_wadi_latur_-_mpcb",
+    "station_name": "Sawe Wadi, Latur - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "science_center_surat_-_smc",
+    "station_name": "Science Center, Surat - SMC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sdm_office_khagra_kishanganj_-_bspcb",
+    "station_name": "SDM Office_Khagra, Kishanganj - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "secretariat_amaravati_-_appcb",
+    "station_name": "Secretariat, Amaravati - APPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sector-10_gandhinagar_-_gpcb",
+    "station_name": "Sector-10, Gandhinagar - GPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sector-116_noida_-_uppcb",
+    "station_name": "Sector-116, Noida - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sector-12_karnal_-_hspcb",
+    "station_name": "Sector-12, Karnal - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sector-18_panipat_-_hspcb",
+    "station_name": "Sector-18, Panipat - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sector-25_chandigarh_-_cpcc",
+    "station_name": "Sector-25, Chandigarh - CPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sector-2_imt_manesar_-_hspcb",
+    "station_name": "Sector-2 IMT, Manesar - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sector-2_industrial_area_pithampur_-_mppcb",
+    "station_name": "Sector-2 Industrial Area, Pithampur - MPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sector-2_murlipura_jaipur_-_rspcb",
+    "station_name": "Sector-2 Murlipura, Jaipur - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sector-2_rourkela_-_ospcb",
+    "station_name": "Sector-2, Rourkela - OSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sector-2e_kalamboli_navi_mumbai_-_mpcb",
+    "station_name": "Sector-2E Kalamboli, Navi Mumbai - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sector-3b_avas_vikas_colony_agra_-_uppcb",
+    "station_name": "Sector-3B Avas Vikas Colony, Agra - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sector-51_gurugram_-_hspcb",
+    "station_name": "Sector-51, Gurugram - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sector-53_chandigarh_-_cpcc",
+    "station_name": "Sector-53, Chandigarh - CPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sector-6_panchkula_-_hspcb_",
+    "station_name": "Sector-6, Panchkula - HSPCB ",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sector-7_kurukshetra_-_hspcb",
+    "station_name": "Sector-7, Kurukshetra - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sector-d_industrial_area_mandideep_-_mppcb",
+    "station_name": "Sector-D Industrial Area, Mandideep - MPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sector_-_125_noida_-_uppcb",
+    "station_name": "Sector - 125, Noida - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sector_-_62_noida_-_iitm",
+    "station_name": "Sector - 62, Noida - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sector_11_faridabad_-_hspcb",
+    "station_name": "Sector 11, Faridabad - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sector_22_chandigarh_-_cpcc",
+    "station_name": "Sector 22, Chandigarh - CPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sector_30_faridabad_-_hspcb",
+    "station_name": "Sector 30, Faridabad - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sewri_mumbai_-_bmc",
+    "station_name": "Sewri, Mumbai - BMC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sfti_kusdihra_gaya_-_bspcb",
+    "station_name": "SFTI Kusdihra, Gaya - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "shadipur_delhi_-_cpcb",
+    "station_name": "Shadipur, Delhi - CPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "shahjahan_garden_agra_-_uppcb",
+    "station_name": "Shahjahan Garden, Agra - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "shasthri_nagar_ratlam_-_ipca_lab",
+    "station_name": "Shasthri Nagar, Ratlam - IPCA Lab",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "shastri_nagar_chittorgarh_-_rspcb",
+    "station_name": "Shastri Nagar, Chittorgarh - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "shastri_nagar_jaipur_-_rspcb",
+    "station_name": "Shastri Nagar, Jaipur - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "shastri_nagar_narnaul_-_hspcb",
+    "station_name": "Shastri Nagar, Narnaul - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "shastri_nagar_tonk_-_rspcb",
+    "station_name": "Shastri Nagar, Tonk - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "shastripuram_agra_-_uppcb",
+    "station_name": "Shastripuram, Agra - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "shivaji_nagar_jhansi_-_uppcb",
+    "station_name": "Shivaji Nagar, Jhansi - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "shivaji_nagar_mumbai_-_bmc",
+    "station_name": "Shivaji Nagar, Mumbai - BMC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "shivaji_nagar_rishikesh_-_ukpcb",
+    "station_name": "Shivaji Nagar, Rishikesh - UKPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "shivaji_university_kolhapur_-_mpcb",
+    "station_name": "Shivaji University, Kolhapur - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "shivapura_peenya_bengaluru_-_kspcb",
+    "station_name": "Shivapura_Peenya, Bengaluru - KSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "shivneri_colony_amravati_-_mpcb",
+    "station_name": "Shivneri Colony, Amravati - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "shri_shivaji_science_college_amravati_-_mpcb",
+    "station_name": "Shri Shivaji Science College, Amravati - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "shrinath_puram_kota_-_rspcb",
+    "station_name": "Shrinath Puram, Kota - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "shrivastav_colony_damoh_-_mppcb",
+    "station_name": "Shrivastav Colony, Damoh - MPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "shyam_nagar_palwal_-_hspcb",
+    "station_name": "Shyam Nagar, Palwal - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sidhi_vinayak_nagar_ulhasnagar_-_mpcb",
+    "station_name": "Sidhi Vinayak Nagar, Ulhasnagar - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sikulpuikawn_aizawl_-_mizoram_pcb",
+    "station_name": "Sikulpuikawn, Aizawl - Mizoram PCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "silk_board_bengaluru_-_kspcb",
+    "station_name": "Silk Board, Bengaluru - KSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "siltara_phase-ii_raipur_-_cecb",
+    "station_name": "Siltara Phase-II, Raipur - CECB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sinchan_bhavan_kolhapur_-_mpcb",
+    "station_name": "Sinchan Bhavan, Kolhapur - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sion_mumbai_-_mpcb",
+    "station_name": "Sion, Mumbai - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sirifort_delhi_-_cpcb",
+    "station_name": "Sirifort, Delhi - CPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sita_rama_nagar_kurnool_-_appcb",
+    "station_name": "Sita Rama Nagar, Kurnool - APPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "skara_yokma_leh_-_lpcc",
+    "station_name": "Skara Yokma, Leh - LPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sneh_nagar_nanded_-_mpcb",
+    "station_name": "Sneh Nagar, Nanded - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "somajiguda_hyderabad_-_tspcb",
+    "station_name": "Somajiguda, Hyderabad - TSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sonia_vihar_delhi_-_dpcc",
+    "station_name": "Sonia Vihar, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "sri_aurobindo_marg_delhi_-_dpcc",
+    "station_name": "Sri Aurobindo Marg, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "srinivas_nagar_colony_machilipatnam_-_appcb",
+    "station_name": "Srinivas Nagar Colony, Machilipatnam - APPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "srm_university_modinagar_-_uppcb",
+    "station_name": "SRM University, Modinagar - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "stuart_hill_madikeri_-_kspcb",
+    "station_name": "Stuart Hill, Madikeri - KSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "subash_chowk_churu_-_rspcb",
+    "station_name": "Subash Chowk, Churu - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "suhagi_jabalpur_-_jmc",
+    "station_name": "Suhagi, Jabalpur - JMC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "suryakiran_bhawan_ncl_singrauli_-_mppcb",
+    "station_name": "Suryakiran Bhawan NCL, Singrauli - MPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "svpi_airport_hansol_ahmedabad_-_iitm",
+    "station_name": "SVPI Airport Hansol, Ahmedabad - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "svspa_campus_barrackpore_-_wbpcb",
+    "station_name": "SVSPA Campus, Barrackpore - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "t_t_nagar_bhopal_-_mppcb",
+    "station_name": "T T Nagar, Bhopal - MPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "talcher_coalfieldstalcher_-_ospcb",
+    "station_name": "Talcher Coalfields,Talcher - OSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "talkatora_district_industries_center_lucknow_-_cpcb",
+    "station_name": "Talkatora District Industries Center, Lucknow - CPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "talkatora_garden_delhi_-_dpcc",
+    "station_name": "Talkatora Garden, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "tarakpur_ahmednagar_-_mpcb",
+    "station_name": "Tarakpur, Ahmednagar - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "tarapur_silchar_-_pcba",
+    "station_name": "Tarapur, Silchar - PCBA",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "tata_stadium_jorapokhar_-_jspcb",
+    "station_name": "Tata Stadium, Jorapokhar - JSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "tata_township_bileipada_-_ospcb",
+    "station_name": "Tata Township, Bileipada - OSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "teri_gram_gurugram_-_hspcb",
+    "station_name": "Teri Gram, Gurugram - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "thavakkara_kannur_-_kerala_pcb",
+    "station_name": "Thavakkara, Kannur - Kerala PCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "thergaon_pimpri_chinchwad_-_mpcb",
+    "station_name": "Thergaon, Pimpri Chinchwad - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "toll_gate_tirumala_-_appcb",
+    "station_name": "Toll Gate, Tirumala - APPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "tondare-taloja_navi_mumbai_-_mpcb",
+    "station_name": "Tondare-Taloja, Navi Mumbai - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "town_hall_munger_-_bspcb",
+    "station_name": "Town Hall, Munger - BSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "transport_nagar-nigdi_pune_-_iitm",
+    "station_name": "Transport Nagar-Nigdi, Pune - IITM",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "transport_nagar_moradabad_-_uppcb",
+    "station_name": "Transport Nagar, Moradabad - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "trivenidevi_bhalotia_college_asansol_-_wbpcb",
+    "station_name": "Trivenidevi Bhalotia College, Asansol - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "udyogamandal_eloor_-_kerala_pcb",
+    "station_name": "Udyogamandal, Eloor - Kerala PCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "upvan_fort_thane_-_mpcb",
+    "station_name": "Upvan Fort, Thane - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "urban_chamarajanagar_-_kspcb",
+    "station_name": "Urban, Chamarajanagar - KSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "urban_estate-ii_hisar_-_hspcb",
+    "station_name": "Urban Estate-II, Hisar - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "urja_nagar_korba_-_cecb",
+    "station_name": "Urja Nagar, Korba - CECB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "vaikuntapuram_tirupati_-_appcb",
+    "station_name": "Vaikuntapuram, Tirupati - APPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "vasundhara_ghaziabad_-_uppcb",
+    "station_name": "Vasundhara, Ghaziabad - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "vasundhara_nagar_uit_bhiwadi_-_rspcb",
+    "station_name": "Vasundhara Nagar_UIT, Bhiwadi - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ved_vihar-loni_ghaziabad_-_uppcb",
+    "station_name": "Ved Vihar-Loni, Ghaziabad - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "vedhaynath_colony_sirohi_-_rspcb",
+    "station_name": "Vedhaynath Colony, Sirohi - RSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "velachery_res._area_chennai_-_cpcb",
+    "station_name": "Velachery Res. Area, Chennai - CPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "vibhab_nagar_firozabad_-_uppcb",
+    "station_name": "Vibhab Nagar, Firozabad - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "victoria_kolkata_-_wbpcb",
+    "station_name": "Victoria, Kolkata - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "vidhyanagar_bhavnagar_-_nexteng_enviro",
+    "station_name": "Vidhyanagar, Bhavnagar - Nexteng Enviro",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "vijay_nagar_ramanagara_-_kspcb",
+    "station_name": "Vijay Nagar, Ramanagara - KSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "vijay_nagar_sangli_-_mpcb",
+    "station_name": "Vijay Nagar, Sangli - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "vikas_sadan_gurugram_-_hspcb",
+    "station_name": "Vikas Sadan, Gurugram - HSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "vinoba_nagara_shivamogga_-_kspcb",
+    "station_name": "Vinoba Nagara, Shivamogga - KSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "vithalwadi_ulhasnagar_-_mpcb",
+    "station_name": "Vithalwadi, Ulhasnagar - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "vivek_vihar_delhi_-_dpcc",
+    "station_name": "Vivek Vihar, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "ward-32_bapupara_siliguri_-_wbpcb",
+    "station_name": "Ward-32 Bapupara, Siliguri - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "wave_city_ghaziabad_-_uppcb",
+    "station_name": "Wave City, Ghaziabad - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "wazirpur_delhi_-_dpcc",
+    "station_name": "Wazirpur, Delhi - DPCC",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "womens_college_city_center_durgapur_-_wbpcb",
+    "station_name": "Womens College_City Center, Durgapur - WBPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "worli_mumbai_-_mpcb",
+    "station_name": "Worli, Mumbai - MPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "yamunapuram_bulandshahr_-_uppcb",
+    "station_name": "Yamunapuram, Bulandshahr - UPPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "yerramukkapalli_kadapa_-_appcb",
+    "station_name": "Yerramukkapalli, Kadapa - APPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "zero_point_gici_gangtok_-_sspcb",
+    "station_name": "Zero Point GICI, Gangtok - SSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  },
+  {
+    "station_id": "zoo_park_hyderabad_-_tspcb",
+    "station_name": "Zoo Park, Hyderabad - TSPCB",
+    "total_observations": 1,
+    "start_timestamp": "2026-08-26 19:00:00+00:00",
+    "end_timestamp": "2026-08-26 19:00:00+00:00",
+    "pm25_missing_pct": 100.0,
+    "pm10_missing_pct": 100.0
+  }
+]

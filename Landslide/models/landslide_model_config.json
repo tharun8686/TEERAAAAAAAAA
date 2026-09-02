@@ -1,0 +1,43 @@
+{
+  "model_type": "CalibratedRandomForestClassifier",
+  "n_features": 8,
+  "selected_features": [
+    "soil_moisture_vwc",
+    "soil_moisture_rate",
+    "tilt_magnitude",
+    "tilt_rate",
+    "vibration_rate",
+    "temperature",
+    "humidity",
+    "rainfall_24h"
+  ],
+  "scaler_mean": [
+    0.2425563437222196,
+    -1.7056511464429242e-07,
+    2.6065731255151072,
+    -0.0002950414009707856,
+    1.8603058953605394,
+    22.50802957932247,
+    64.34949235054239,
+    3.2525382472880286
+  ],
+  "scaler_std": [
+    0.14530902777384183,
+    0.002067051965336208,
+    0.3755277480512746,
+    0.3969273898604856,
+    2.5857768664728615,
+    3.5420244966058676,
+    2.018119059144153,
+    10.090595295720764
+  ],
+  "model_size_kb": 8278.06640625,
+  "test_metrics": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1_score": 1.0,
+    "roc_auc": 1.0,
+    "fnr": 0.0
+  }
+}

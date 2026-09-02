@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AirPollution Model Comparison Report</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f1410; color: #f8f9fa; padding: 20px; }
+        h1 { color: #e67e22; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; background: rgba(255,255,255,0.05); }
+        th, td { border: 1px solid rgba(255,255,255,0.1); padding: 12px; text-align: left; }
+        th { background: #d35400; color: white; }
+    </style>
+</head>
+<body>
+    <h1>Air Quality Deterioration Early Warning Model Comparison</h1>
+    <p>Track A (Reference) vs Track B (Edge) Evaluation</p>
+    <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>track</th>
+      <th>model</th>
+      <th>task</th>
+      <th>mae</th>
+      <th>rmse</th>
+      <th>r2</th>
+      <th>accuracy</th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1</th>
+      <th>roc_auc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Baseline</td>
+      <td>Persistence</td>
+      <td>Regression (60m PM2.5)</td>
+      <td>15.34</td>
+      <td>28.92</td>
+      <td>0.9074</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>Track B (Edge)</td>
+      <td>RandomForestRegressor</td>
+      <td>Regression (60m PM2.5)</td>
+      <td>14.33</td>
+      <td>26.89</td>
+      <td>0.9200</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>Track B (Edge)</td>
+      <td>RandomForestClassifier</td>
+      <td>Classification (60m Deterioration)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.6457</td>
+      <td>0.2081</td>
+      <td>0.7667</td>
+      <td>0.3274</td>
+      <td>0.7745</td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

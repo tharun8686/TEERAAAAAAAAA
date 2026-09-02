@@ -1,0 +1,17 @@
+{
+  "model_name": "SentinLEdge Early Warning Risk Model v1",
+  "target_hardware": "ESP32-S3",
+  "input_features": [
+    "rain_1h",
+    "rain_24h",
+    "water_level_m",
+    "soil_moisture_pct"
+  ],
+  "quantization": "INT8 / Quantized Decision Logic",
+  "risk_thresholds": {
+    "0-50": "NORMAL",
+    "50-70": "WATCH",
+    "70-85": "WARNING",
+    "85-100": "CRITICAL"
+  }
+}

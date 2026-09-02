@@ -1,0 +1,25 @@
+{
+    "model_type": "LogisticRegression",
+    "features": [
+        "temperature_c",
+        "humidity",
+        "solar_radiation",
+        "rainfall_mm",
+        "wind_speed_kmh",
+        "temperature_rate",
+        "humidity_rate",
+        "solar_radiation_rate",
+        "rolling_mean_temperature",
+        "rolling_mean_humidity",
+        "rolling_std_temperature",
+        "rolling_std_humidity",
+        "cumulative_hot_hours",
+        "nighttime_cooling_deficit"
+    ],
+    "classes": {
+        "0": "NORMAL",
+        "1": "WATCH",
+        "2": "WARNING",
+        "3": "CRITICAL"
+    }
+}
