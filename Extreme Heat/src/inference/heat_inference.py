@@ -3,6 +3,7 @@ import joblib
 import pandas as pd
 import numpy as np
 import json
+import datetime
 
 class HeatRiskPredictor:
     def __init__(self, models_dir):
@@ -58,13 +59,16 @@ class HeatRiskPredictor:
             confidence -= 0.3
             
         return {
-            "hazard": "extreme_heat",
+            "hazard": "Extreme Heat",
+            "risk_probability": round(heat_risk_prob, 4),
             "heat_risk_probability": round(heat_risk_prob, 4),
             "confidence": round(max(0.0, confidence), 4),
             "severity": severity,
             "anomaly_score": round(anomaly_score, 4),
             "sensor_health": 1.0 if confidence == 1.0 else 0.5,
-            "top_features": ["temperature_c", "rolling_mean_temperature"]
+            "top_features": ["temperature_c", "rolling_mean_temperature", "solar_radiation"],
+            "model_version": "v1.2.0",
+            "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat()
         }
 
 # Example usage

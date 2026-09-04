@@ -1,0 +1,31 @@
+{
+  "features": [
+    "pH",
+    "turbidity",
+    "EC",
+    "TDS",
+    "dissolved_oxygen",
+    "temperature_c",
+    "pH_rate",
+    "turbidity_rate",
+    "EC_rate",
+    "TDS_rate",
+    "DO_rate",
+    "rolling_mean_pH",
+    "rolling_mean_turbidity",
+    "rolling_mean_EC",
+    "rolling_mean_TDS",
+    "rolling_mean_DO",
+    "rolling_std_pH",
+    "rolling_std_turbidity",
+    "rolling_std_EC",
+    "rolling_std_TDS",
+    "rolling_std_DO",
+    "acidity_shift_score",
+    "degradation_spike_score",
+    "conductivity_shift_score",
+    "oxygen_drop_score",
+    "persistence_score"
+  ],
+  "n_features": 26
+}

@@ -1,0 +1,16 @@
+{
+  "features": [
+    "anomaly_score",
+    "rain_1h",
+    "rain_3h",
+    "rain_6h",
+    "rain_24h",
+    "rain_72h",
+    "water_level_m",
+    "streamflow_cumec",
+    "soil_moisture_pct",
+    "temperature_c",
+    "humidity_pct"
+  ],
+  "n_features": 11
+}

@@ -3,6 +3,7 @@ import joblib
 import pandas as pd
 import numpy as np
 import json
+import datetime
 
 class IndustrialEmissionsPredictor:
     def __init__(self, models_dir):
@@ -56,13 +57,16 @@ class IndustrialEmissionsPredictor:
             confidence -= 0.3
             
         return {
-            "hazard": "industrial_emission",
+            "hazard": "Toxic Flame",
+            "risk_probability": round(leak_risk_prob, 4),
             "leak_risk_probability": round(leak_risk_prob, 4),
             "confidence": round(max(0.0, confidence), 4),
             "severity": severity,
             "anomaly_score": round(anomaly_score, 4),
             "sensor_health": 1.0 if confidence == 1.0 else 0.5,
-            "top_features": ["gas_response", "rolling_mean_gas", "persistence_score"]
+            "top_features": ["gas_response", "rolling_mean_gas", "persistence_score"],
+            "model_version": "v1.2.0",
+            "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat()
         }
 
 if __name__ == "__main__":

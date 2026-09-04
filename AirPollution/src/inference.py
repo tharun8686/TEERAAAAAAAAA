@@ -3,6 +3,7 @@ import numpy as np
 import os
 import joblib
 import json
+import datetime
 
 class AirPollutionInferenceEngine:
     def __init__(self):
@@ -71,13 +72,20 @@ class AirPollutionInferenceEngine:
             severity = "NORMAL"
 
         return {
-            "hazard": "air_quality_deterioration",
-            "risk_score": risk_score,
+            "hazard": "Air Quality",
+            "risk_probability": round(float(risk_score / 100.0), 4),
             "confidence": confidence,
+            "severity": severity,
+            "anomaly_score": round(float(prob), 4),
+            "sensor_health": round(float(sensor_health), 2),
+            "top_features": ["pm25", "pm10", "pm25_delta_30"],
+            "model_version": "v1.2.0",
+            "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            # Legacy compatibility fields:
+            "risk_score": risk_score,
             "predicted_pm25_30m": pred_pm25_30m,
             "predicted_pm25_60m": pred_pm25_60m,
             "predicted_pm10_30m": pred_pm10_30m,
-            "severity": severity,
             "horizon_minutes": 60
         }
 

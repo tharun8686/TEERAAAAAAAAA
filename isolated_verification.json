@@ -1,0 +1,170 @@
+{
+  "Flood": {
+    "health_status": 200,
+    "predict_status": 200,
+    "data": {
+      "hazard": "Flood",
+      "risk_probability": 0.65,
+      "confidence": 0.96,
+      "severity": "WATCH",
+      "anomaly_score": 0.5928,
+      "sensor_health": 1.0,
+      "top_features": [
+        "water_level_m",
+        "streamflow_cumec",
+        "rain_24h"
+      ],
+      "model_version": "v1.2.0",
+      "timestamp": "2026-09-03T12:28:27.540933Z",
+      "risk_score_pct": 65.0,
+      "confidence_pct": 96.0,
+      "severity_level": "WATCH",
+      "anomaly_detected": true,
+      "node_id": "TYPE-A-101"
+    },
+    "legacy_key_tested": "risk_score_pct",
+    "legacy_key_present": true
+  },
+  "Landslide": {
+    "health_status": 200,
+    "predict_status": 200,
+    "data": {
+      "hazard": "Landslide",
+      "risk_probability": 0.9999,
+      "confidence": 0.96,
+      "severity": "CRITICAL",
+      "anomaly_score": 0.6751,
+      "sensor_health": 1.0,
+      "external_context_available": true,
+      "top_features": [
+        "vibration_rate",
+        "tilt_rate",
+        "soil_moisture_vwc"
+      ],
+      "model_version": "v1.2.0",
+      "timestamp": "2026-09-03T12:28:30.283994Z",
+      "node_id": "NODE-LND-02"
+    },
+    "legacy_key_tested": "risk_probability",
+    "legacy_key_present": true
+  },
+  "Wildfire": {
+    "health_status": 200,
+    "predict_status": 200,
+    "data": {
+      "hazard": "Wildfire",
+      "risk_probability": 0.3519,
+      "fire_probability": 0.3519,
+      "confidence": 0.95,
+      "severity": "NORMAL",
+      "anomaly_score": 0.4171,
+      "sensor_health": 0.95,
+      "top_features": [
+        "pm25_rate",
+        "tvoc_rate",
+        "humidity_rate"
+      ],
+      "model_version": "v1.2.0",
+      "timestamp": "2026-09-03T12:28:33.206342Z",
+      "node_id": "NODE-FWF-01"
+    },
+    "legacy_key_tested": "fire_probability",
+    "legacy_key_present": true
+  },
+  "Air Quality": {
+    "health_status": 200,
+    "predict_status": 200,
+    "data": {
+      "hazard": "Air Quality",
+      "risk_probability": 0.48,
+      "confidence": 93,
+      "severity": "WARNING",
+      "anomaly_score": 0.4448,
+      "sensor_health": 1.0,
+      "top_features": [
+        "pm25",
+        "pm10",
+        "pm25_delta_30"
+      ],
+      "model_version": "v1.2.0",
+      "timestamp": "2026-09-03T12:28:36.391409Z",
+      "risk_score": 48,
+      "predicted_pm25_30m": 129.8,
+      "predicted_pm25_60m": 146.2,
+      "predicted_pm10_30m": 204.0,
+      "horizon_minutes": 60,
+      "station_id": "DEL-ITO"
+    },
+    "legacy_key_tested": "predicted_pm25_60m",
+    "legacy_key_present": true
+  },
+  "Extreme Heat": {
+    "health_status": 200,
+    "predict_status": 200,
+    "data": {
+      "hazard": "Extreme Heat",
+      "risk_probability": 0.8065,
+      "heat_risk_probability": 0.8065,
+      "confidence": 1.0,
+      "severity": "WARNING",
+      "anomaly_score": 0.517,
+      "sensor_health": 1.0,
+      "top_features": [
+        "temperature_c",
+        "rolling_mean_temperature",
+        "solar_radiation"
+      ],
+      "model_version": "v1.2.0",
+      "timestamp": "2026-09-03T12:28:39.456018Z",
+      "station_id": "MH-CWPRS"
+    },
+    "legacy_key_tested": "heat_risk_probability",
+    "legacy_key_present": true
+  },
+  "Toxic Flame": {
+    "health_status": 200,
+    "predict_status": 200,
+    "data": {
+      "hazard": "Toxic Flame",
+      "risk_probability": 1.0,
+      "leak_risk_probability": 1.0,
+      "confidence": 1.0,
+      "severity": "WARNING",
+      "anomaly_score": 0.3451,
+      "sensor_health": 1.0,
+      "top_features": [
+        "gas_response",
+        "rolling_mean_gas",
+        "persistence_score"
+      ],
+      "model_version": "v1.2.0",
+      "timestamp": "2026-09-03T12:28:42.672901Z",
+      "station_id": "IND-PLUME-1"
+    },
+    "legacy_key_tested": "leak_risk_probability",
+    "legacy_key_present": true
+  },
+  "Water Quality": {
+    "health_status": 200,
+    "predict_status": 200,
+    "data": {
+      "hazard": "Water Quality",
+      "risk_probability": 0.2783,
+      "water_quality_risk_probability": 0.2783,
+      "confidence": 1.0,
+      "severity": "WARNING",
+      "anomaly_score": 0.4806,
+      "sensor_health": 1.0,
+      "top_features": [
+        "pH",
+        "turbidity",
+        "oxygen_drop_score"
+      ],
+      "model_version": "v1.2.0",
+      "timestamp": "2026-09-03T17:58:45.892698",
+      "station_id": "AP-WATER-CWC-1"
+    },
+    "legacy_key_tested": "water_quality_risk_probability",
+    "legacy_key_present": true
+  }
+}

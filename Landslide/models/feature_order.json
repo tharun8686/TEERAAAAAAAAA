@@ -1,0 +1,13 @@
+{
+  "features": [
+    "soil_moisture_vwc",
+    "soil_moisture_rate",
+    "tilt_magnitude",
+    "tilt_rate",
+    "vibration_rate",
+    "temperature",
+    "humidity",
+    "rainfall_24h"
+  ],
+  "n_features": 8
+}

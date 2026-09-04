@@ -3,6 +3,7 @@ import numpy as np
 import os
 import joblib
 import json
+import datetime
 
 class LandslideInferenceEngine:
     def __init__(self):
@@ -93,14 +94,16 @@ class LandslideInferenceEngine:
             top_features = ["soil_moisture_vwc", "tilt_magnitude", "temperature"]
 
         return {
-            "hazard": "landslide",
-            "risk_probability": round(float(raw_prob), 2),
+            "hazard": "Landslide",
+            "risk_probability": round(float(raw_prob), 4),
             "confidence": confidence,
             "severity": severity,
-            "anomaly_score": round(float(anomaly_val), 2),
+            "anomaly_score": round(float(anomaly_val), 4),
             "sensor_health": round(float(sensor_health), 2),
             "external_context_available": ext_rainfall_avail,
-            "top_features": top_features
+            "top_features": top_features,
+            "model_version": "v1.2.0",
+            "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat()
         }
 
 if __name__ == '__main__':

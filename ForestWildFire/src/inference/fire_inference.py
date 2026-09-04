@@ -3,6 +3,7 @@ import numpy as np
 import os
 import joblib
 import json
+import datetime
 
 class FireInferenceEngine:
     def __init__(self):
@@ -86,12 +87,16 @@ class FireInferenceEngine:
             top_features = ["humidity", "temperature", "pm25"]
 
         return {
-            "hazard": "forest_fire",
-            "fire_probability": round(float(raw_prob), 2),
+            "hazard": "Wildfire",
+            "risk_probability": round(float(raw_prob), 4),
+            "fire_probability": round(float(raw_prob), 4),
             "confidence": round(float(confidence), 2),
             "severity": severity,
-            "anomaly_score": round(float(anomaly_val), 2),
-            "top_features": top_features
+            "anomaly_score": round(float(anomaly_val), 4),
+            "sensor_health": round(float(confidence), 2),
+            "top_features": top_features,
+            "model_version": "v1.2.0",
+            "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat()
         }
 
 if __name__ == '__main__':

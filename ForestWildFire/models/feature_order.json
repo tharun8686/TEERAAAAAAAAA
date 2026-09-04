@@ -1,0 +1,17 @@
+{
+  "features": [
+    "temperature",
+    "humidity",
+    "pressure",
+    "pm25",
+    "tvoc",
+    "raw_ethanol",
+    "temperature_rate",
+    "humidity_rate",
+    "pm25_rate",
+    "tvoc_rate",
+    "temperature_delta_5",
+    "humidity_delta_5"
+  ],
+  "n_features": 12
+}

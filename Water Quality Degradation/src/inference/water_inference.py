@@ -3,6 +3,7 @@ import joblib
 import pandas as pd
 import numpy as np
 import json
+import datetime
 
 class WaterQualityPredictor:
     def __init__(self, models_dir):
@@ -45,21 +46,33 @@ class WaterQualityPredictor:
         # Severity
         severity = self.classes.get(pred_class, "NORMAL")
         
-        # Confidence penalties
+        # Confidence penalties reflecting prototype hardware constraints
         confidence = 1.0
-        if X['pH'].iloc[0] == 0:
-            confidence -= 0.4
-        if X['turbidity'].iloc[0] == 0:
-            confidence -= 0.4
-            
+        ph_val = X['pH'].iloc[0]
+        tur_val = X['turbidity'].iloc[0]
+        do_val = X['dissolved_oxygen'].iloc[0] if 'dissolved_oxygen' in X.columns else 7.5
+
+        if ph_val == 0 or np.isnan(ph_val):
+            confidence -= 0.35
+        if tur_val == 0 or np.isnan(tur_val):
+            confidence -= 0.35
+        if do_val == 0 or np.isnan(do_val):
+            confidence -= 0.15
+
+        confidence = round(max(0.30, confidence), 2)
+        sensor_health = round(confidence, 2)
+
         return {
-            "hazard": "water_quality_degradation",
+            "hazard": "Water Quality",
+            "risk_probability": round(water_quality_risk_prob, 4),
             "water_quality_risk_probability": round(water_quality_risk_prob, 4),
-            "confidence": round(max(0.0, confidence), 4),
+            "confidence": confidence,
             "severity": severity,
             "anomaly_score": round(anomaly_score, 4),
-            "sensor_health": 1.0 if confidence == 1.0 else 0.5,
-            "top_features": ["pH", "turbidity", "oxygen_drop_score"]
+            "sensor_health": sensor_health,
+            "top_features": ["pH", "turbidity", "oxygen_drop_score"],
+            "model_version": "v1.2.0",
+            "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat()
         }
 
 if __name__ == "__main__":

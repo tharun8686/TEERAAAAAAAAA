@@ -1,0 +1,32 @@
+{
+  "model_name": "Flood Hydrometry Risk Classifier",
+  "model_type": "RandomForestClassifier",
+  "n_estimators": 150,
+  "max_depth": 12,
+  "n_features": 11,
+  "features": [
+    "anomaly_score",
+    "rain_1h",
+    "rain_3h",
+    "rain_6h",
+    "rain_24h",
+    "rain_72h",
+    "water_level_m",
+    "streamflow_cumec",
+    "soil_moisture_pct",
+    "temperature_c",
+    "humidity_pct"
+  ],
+  "classes": {
+    "0": "NORMAL",
+    "1": "WATCH",
+    "2": "WARNING",
+    "3": "CRITICAL"
+  },
+  "edge_features": [
+    "rain_1h",
+    "rain_24h",
+    "water_level_m",
+    "soil_moisture_pct"
+  ]
+}

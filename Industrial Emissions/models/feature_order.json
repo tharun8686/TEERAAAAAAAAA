@@ -1,0 +1,22 @@
+{
+  "features": [
+    "gas_response",
+    "smoke_or_proxy_response",
+    "PM2.5",
+    "PM10",
+    "temperature_c",
+    "humidity",
+    "pressure",
+    "gas_rate",
+    "PM2.5_rate",
+    "PM10_rate",
+    "rolling_mean_gas",
+    "rolling_mean_PM2.5",
+    "rolling_std_gas",
+    "rolling_std_PM2.5",
+    "gas_spike_score",
+    "particulate_spike_score",
+    "persistence_score"
+  ],
+  "n_features": 17
+}

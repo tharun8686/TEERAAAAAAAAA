@@ -1,0 +1,277 @@
+{
+  "project_name": "Terra Edge — Environmental Intelligence Platform",
+  "version": "1.2.0",
+  "last_updated": "2026-09-03T17:53:00Z",
+  "summary_table": [
+    {
+      "module": "Flood",
+      "fit_level": "Strong",
+      "proxy_based": false,
+      "needs_more_calibration": false,
+      "edge_ready": true,
+      "backend_ready": true
+    },
+    {
+      "module": "Landslide",
+      "fit_level": "Strong but proxy-based",
+      "proxy_based": true,
+      "needs_more_calibration": false,
+      "edge_ready": true,
+      "backend_ready": true
+    },
+    {
+      "module": "Wildfire",
+      "fit_level": "Moderate",
+      "proxy_based": true,
+      "needs_more_calibration": false,
+      "edge_ready": true,
+      "backend_ready": true
+    },
+    {
+      "module": "Air Quality",
+      "fit_level": "Moderate to strong",
+      "proxy_based": false,
+      "needs_more_calibration": false,
+      "edge_ready": true,
+      "backend_ready": true
+    },
+    {
+      "module": "Extreme Heat",
+      "fit_level": "Strong",
+      "proxy_based": false,
+      "needs_more_calibration": false,
+      "edge_ready": true,
+      "backend_ready": true
+    },
+    {
+      "module": "Toxic Flame",
+      "fit_level": "Moderate",
+      "proxy_based": true,
+      "needs_more_calibration": false,
+      "edge_ready": true,
+      "backend_ready": true
+    },
+    {
+      "module": "Water Quality",
+      "fit_level": "Weak with current minimum hardware",
+      "proxy_based": true,
+      "needs_more_calibration": true,
+      "edge_ready": true,
+      "backend_ready": true
+    }
+  ],
+  "modules": {
+    "Flood": {
+      "canonical_name": "Flood",
+      "directory": "Flood",
+      "port": 8000,
+      "fit_tier": "Strong",
+      "hardware_fit": "Direct Sensing (Water Level, Rain Gauge, Soil Moisture)",
+      "training_dataset_source": "IMD Historical Monsoon Gauges & CWC Stage-Discharge Records",
+      "threshold_logic": "NORMAL (P<0.35), WATCH (0.35<=P<0.65), WARNING (0.65<=P<0.85), CRITICAL (P>=0.85)",
+      "model_type": "RandomForestClassifier",
+      "anomaly_detector": "IsolationForest",
+      "calibration_method": "Multi-class Probability Calibration",
+      "n_features": 11,
+      "feature_order_file": "Flood/models/feature_order.json",
+      "features": [
+        "anomaly_score", "rain_1h", "rain_3h", "rain_6h", "rain_24h", "rain_72h",
+        "water_level_m", "streamflow_cumec", "soil_moisture_pct",
+        "temperature_c", "humidity_pct"
+      ],
+      "edge_features": ["rain_1h", "rain_24h", "water_level_m", "soil_moisture_pct"],
+      "artifacts": {
+        "model": "Flood/models/flood_risk_model_v1.pkl",
+        "preprocessor": "Flood/models/flood_preprocessor.pkl",
+        "anomaly_model": "Flood/models/anomaly_model_v1.pkl",
+        "config": "Flood/models/model_config.json",
+        "feature_order": "Flood/models/feature_order.json",
+        "feature_importance": "Flood/models/feature_importance.csv"
+      },
+      "readiness": "Production Backend Ready & Edge Deployable"
+    },
+    "Landslide": {
+      "canonical_name": "Landslide",
+      "directory": "Landslide",
+      "port": 8002,
+      "fit_tier": "Strong but proxy-based",
+      "hardware_fit": "Calibrated Proxy Sensing (MPU-6050 Inclinometer, SW-420 Seismic Switch, Soil Moisture)",
+      "training_dataset_source": "USGS Cleveland Corral Geotechnical Station & WSN Subsurface Borehole Mesh",
+      "threshold_logic": "NORMAL (P<0.30), WATCH (0.30<=P<0.55), WARNING (0.55<=P<0.80), CRITICAL (P>=0.80)",
+      "model_type": "CalibratedClassifierCV(RandomForestClassifier)",
+      "anomaly_detector": "IsolationForest",
+      "calibration_method": "Platt Sigmoid Scaling",
+      "n_features": 8,
+      "feature_order_file": "Landslide/models/feature_order.json",
+      "features": [
+        "soil_moisture_vwc", "soil_moisture_rate",
+        "tilt_magnitude", "tilt_rate", "vibration_rate",
+        "temperature", "humidity", "rainfall_24h"
+      ],
+      "edge_features": ["soil_moisture_vwc", "tilt_magnitude", "tilt_rate", "vibration_rate"],
+      "artifacts": {
+        "model": "Landslide/models/final_landslide_model.pkl",
+        "preprocessor": "Landslide/models/final_landslide_preprocessor.pkl",
+        "anomaly_model": "Landslide/models/cleveland_isolation_forest.pkl",
+        "config": "Landslide/models/landslide_model_config.json",
+        "feature_order": "Landslide/models/feature_order.json",
+        "feature_importance": "Landslide/models/feature_importance.csv"
+      },
+      "readiness": "Production Backend Ready & Edge Validated"
+    },
+    "Wildfire": {
+      "canonical_name": "Wildfire",
+      "directory": "ForestWildFire",
+      "port": 8001,
+      "fit_tier": "Moderate",
+      "hardware_fit": "Multi-gas Combustion Proxy (MQ-2, MQ-7, BME680, IR Flame)",
+      "training_dataset_source": "NIST Fire Infiltration & Multi-gas Combustion Open Sensor Benchmark",
+      "threshold_logic": "NORMAL (P<0.30), WATCH (P>=0.30, PM_rate>0.2), WARNING (P>=0.65 or rise-rate spike), CRITICAL (P>=0.85 or plume burst)",
+      "model_type": "CompactRandomForestClassifier",
+      "anomaly_detector": "IsolationForest",
+      "calibration_method": "Empirical Rate-of-Rise Post-Threshold Calibration",
+      "n_features": 12,
+      "feature_order_file": "ForestWildFire/models/feature_order.json",
+      "features": [
+        "temperature", "humidity", "pressure", "pm25", "tvoc", "raw_ethanol",
+        "temperature_rate", "humidity_rate", "pm25_rate", "tvoc_rate",
+        "temperature_delta_5", "humidity_delta_5"
+      ],
+      "edge_features": ["temperature", "humidity", "pm25", "tvoc", "pm25_rate", "temperature_rate"],
+      "artifacts": {
+        "model": "ForestWildFire/models/fire_compact_model.pkl",
+        "preprocessor": "ForestWildFire/models/fire_compact_scaler.pkl",
+        "anomaly_model": "ForestWildFire/models/fire_anomaly_model.pkl",
+        "config": "ForestWildFire/models/fire_compact_config.json",
+        "feature_order": "ForestWildFire/models/feature_order.json",
+        "feature_importance": "ForestWildFire/models/feature_importance.csv"
+      },
+      "readiness": "Production Backend Ready & Edge Deployed"
+    },
+    "Air Quality": {
+      "canonical_name": "Air Quality",
+      "directory": "AirPollution",
+      "port": 8003,
+      "fit_tier": "Moderate to strong",
+      "hardware_fit": "Laser Optical Particle Counting + MOS Gas Proxy (PMS5003, MQ-135, BME280)",
+      "training_dataset_source": "CPCB CAAQM Indian Continuous Ambient Monitoring Stations (Delhi ITO, Pune)",
+      "threshold_logic": "NORMAL (PM2.5<=60, Risk 0-35), WATCH (60<PM2.5<=120, Risk 36-60), WARNING (120<PM2.5<=250, Risk 61-85), CRITICAL (PM2.5>250, Risk 86-100)",
+      "model_type": "RandomForestClassifier",
+      "anomaly_detector": "Unsupervised Multi-horizon Divergence",
+      "calibration_method": "NAQI Category Probability Mapping",
+      "n_features": 12,
+      "feature_order_file": "AirPollution/models/edge/feature_order.json",
+      "features": [
+        "pm25", "pm10", "gas_proxy", "temperature", "relative_humidity", "pressure",
+        "pm25_lag_15", "pm25_lag_30", "pm25_delta_30", "pm25_slope_30",
+        "hour_sin", "hour_cos"
+      ],
+      "edge_features": ["pm25", "pm10", "gas_proxy", "pm25_delta_30", "hour_sin", "hour_cos"],
+      "artifacts": {
+        "model": "AirPollution/models/edge/air_quality_model.pkl",
+        "preprocessor": "AirPollution/models/edge/scaler.pkl",
+        "config": "AirPollution/models/edge/model_config.json",
+        "feature_order": "AirPollution/models/edge/feature_order.json",
+        "feature_importance": "AirPollution/models/edge/feature_importance.csv"
+      },
+      "readiness": "Production Backend Ready & Edge Deployed"
+    },
+    "Extreme Heat": {
+      "canonical_name": "Extreme Heat",
+      "directory": "Extreme Heat",
+      "port": 8004,
+      "fit_tier": "Strong",
+      "hardware_fit": "Direct Environmental Sensing (BME680, Pyranometer, Anemometer)",
+      "training_dataset_source": "IMD Pune CWPRS Multi-year Micro-meteorological Surface Observations",
+      "threshold_logic": "NORMAL (T_apparent<32C), WATCH (32-41C), WARNING (41-54C), CRITICAL (>54C or Nighttime Deficit>5C)",
+      "model_type": "LogisticRegression",
+      "anomaly_detector": "IsolationForest",
+      "calibration_method": "Isotonic Regression Calibration",
+      "n_features": 14,
+      "feature_order_file": "Extreme Heat/models/feature_order.json",
+      "features": [
+        "temperature_c", "humidity", "solar_radiation", "rainfall_mm", "wind_speed_kmh",
+        "temperature_rate", "humidity_rate", "solar_radiation_rate",
+        "rolling_mean_temperature", "rolling_mean_humidity",
+        "rolling_std_temperature", "rolling_std_humidity",
+        "cumulative_hot_hours", "nighttime_cooling_deficit"
+      ],
+      "edge_features": ["temperature_c", "humidity", "solar_radiation", "wind_speed_kmh", "cumulative_hot_hours"],
+      "artifacts": {
+        "model": "Extreme Heat/models/heat_model.pkl",
+        "calibrator": "Extreme Heat/models/heat_calibrator.pkl",
+        "anomaly_model": "Extreme Heat/models/heat_anomaly_detector.pkl",
+        "preprocessor": "Extreme Heat/models/heat_preprocessor.pkl",
+        "config": "Extreme Heat/models/heat_model_config.json",
+        "feature_order": "Extreme Heat/models/feature_order.json",
+        "feature_importance": "Extreme Heat/models/feature_importance.csv"
+      },
+      "readiness": "Production Backend Ready & Embedded Deployable"
+    },
+    "Toxic Flame": {
+      "canonical_name": "Toxic Flame",
+      "directory": "Industrial Emissions",
+      "port": 8005,
+      "fit_tier": "Moderate",
+      "hardware_fit": "MOS Wideband Gas Array + Particle Sensing (MQ-135, MQ-2, MQ-7, PMS5003)",
+      "training_dataset_source": "UCI Gas Sensor Drift & Industrial Stack Leak Multi-gas Matrix",
+      "threshold_logic": "NORMAL (Baseline), WATCH (Gas Rate>10/s), WARNING (Gas Rate>50/s + PM2.5 Spike), CRITICAL (Dual Plume Burst + Persistence>3)",
+      "model_type": "LogisticRegression",
+      "anomaly_detector": "IsolationForest",
+      "calibration_method": "Isotonic Regression Calibration",
+      "n_features": 17,
+      "feature_order_file": "Industrial Emissions/models/feature_order.json",
+      "features": [
+        "gas_response", "smoke_or_proxy_response", "PM2.5", "PM10",
+        "temperature_c", "humidity", "pressure",
+        "gas_rate", "PM2.5_rate", "PM10_rate",
+        "rolling_mean_gas", "rolling_mean_PM2.5",
+        "rolling_std_gas", "rolling_std_PM2.5",
+        "gas_spike_score", "particulate_spike_score", "persistence_score"
+      ],
+      "edge_features": ["gas_response", "PM2.5", "gas_rate", "PM2.5_rate", "persistence_score"],
+      "artifacts": {
+        "model": "Industrial Emissions/models/industrial_model.pkl",
+        "calibrator": "Industrial Emissions/models/industrial_calibrator.pkl",
+        "anomaly_model": "Industrial Emissions/models/industrial_anomaly_detector.pkl",
+        "preprocessor": "Industrial Emissions/models/industrial_preprocessor.pkl",
+        "config": "Industrial Emissions/models/industrial_model_config.json",
+        "feature_order": "Industrial Emissions/models/feature_order.json",
+        "feature_importance": "Industrial Emissions/models/feature_importance.csv"
+      },
+      "readiness": "Production Backend Ready & Edge Deployed"
+    },
+    "Water Quality": {
+      "canonical_name": "Water Quality",
+      "directory": "Water Quality Degradation",
+      "port": 8006,
+      "fit_tier": "Weak with current minimum hardware",
+      "hardware_fit": "Minimal Prototype Shell (Water Level + DHT22) with Full Chemistry ML",
+      "training_dataset_source": "Central Water Commission (CWC) River Basins & WHO Guideline Physicochemical Logs",
+      "threshold_logic": "NORMAL (pH 6.5-8.5, Turbidity<5, TDS<500), WATCH (Minor excursion), WARNING (pH<6.0 or Turbidity>50), CRITICAL (Severe acid/alkali or toxic deoxygenation DO<2.0)",
+      "model_type": "LogisticRegression",
+      "anomaly_detector": "IsolationForest",
+      "calibration_method": "Isotonic Regression Calibration",
+      "n_features": 26,
+      "feature_order_file": "Water Quality Degradation/models/feature_order.json",
+      "features": [
+        "pH", "turbidity", "EC", "TDS", "dissolved_oxygen", "temperature_c",
+        "pH_rate", "turbidity_rate", "EC_rate", "TDS_rate", "DO_rate",
+        "rolling_mean_pH", "rolling_mean_turbidity", "rolling_mean_EC", "rolling_mean_TDS", "rolling_mean_DO",
+        "rolling_std_pH", "rolling_std_turbidity", "rolling_std_EC", "rolling_std_TDS", "rolling_std_DO",
+        "acidity_shift_score", "degradation_spike_score", "conductivity_shift_score", "oxygen_drop_score", "persistence_score"
+      ],
+      "edge_features": ["pH", "turbidity", "TDS", "temperature_c", "acidity_shift_score"],
+      "artifacts": {
+        "model": "Water Quality Degradation/models/water_model.pkl",
+        "calibrator": "Water Quality Degradation/models/water_calibrator.pkl",
+        "anomaly_model": "Water Quality Degradation/models/water_anomaly_detector.pkl",
+        "preprocessor": "Water Quality Degradation/models/water_preprocessor.pkl",
+        "config": "Water Quality Degradation/models/water_model_config.json",
+        "feature_order": "Water Quality Degradation/models/feature_order.json",
+        "feature_importance": "Water Quality Degradation/models/feature_importance.csv"
+      },
+      "readiness": "Production Backend Ready with Graceful Hardware Degradation"
+    }
+  }
+}

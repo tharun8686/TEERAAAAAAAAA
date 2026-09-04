@@ -1,0 +1,58 @@
+[
+  {
+    "module_name": "Flood",
+    "artifact_completeness": "100% Complete",
+    "backend_status": "Verified (HTTP 200)",
+    "response_contract_status": "Verified (Unified Contract Fully Present)",
+    "legacy_compatibility_status": "Verified (risk_score_pct, confidence_pct, severity_level, anomaly_detected, node_id)",
+    "overall_readiness": "Production Ready"
+  },
+  {
+    "module_name": "Landslide",
+    "artifact_completeness": "100% Complete",
+    "backend_status": "Verified (HTTP 200)",
+    "response_contract_status": "Verified (Unified Contract Fully Present)",
+    "legacy_compatibility_status": "Verified (risk_probability, anomaly_score, severity, node_id)",
+    "overall_readiness": "Production Ready"
+  },
+  {
+    "module_name": "Wildfire",
+    "artifact_completeness": "100% Complete",
+    "backend_status": "Verified (HTTP 200)",
+    "response_contract_status": "Verified (Unified Contract Fully Present)",
+    "legacy_compatibility_status": "Verified (fire_probability, top_features, severity, node_id)",
+    "overall_readiness": "Production Ready"
+  },
+  {
+    "module_name": "Air Quality",
+    "artifact_completeness": "100% Complete",
+    "backend_status": "Verified (HTTP 200)",
+    "response_contract_status": "Verified (Unified Contract Fully Present)",
+    "legacy_compatibility_status": "Verified (predicted_pm25_60m, predicted_pm25_30m, predicted_pm10_30m, risk_score, confidence, severity)",
+    "overall_readiness": "Production Ready"
+  },
+  {
+    "module_name": "Extreme Heat",
+    "artifact_completeness": "100% Complete",
+    "backend_status": "Verified (HTTP 200)",
+    "response_contract_status": "Verified (Unified Contract Fully Present)",
+    "legacy_compatibility_status": "Verified (heat_risk_probability, anomaly_score, confidence, severity)",
+    "overall_readiness": "Production Ready"
+  },
+  {
+    "module_name": "Toxic Flame",
+    "artifact_completeness": "100% Complete",
+    "backend_status": "Verified (HTTP 200)",
+    "response_contract_status": "Verified (Unified Contract Fully Present)",
+    "legacy_compatibility_status": "Verified (leak_risk_probability, anomaly_score, confidence, severity)",
+    "overall_readiness": "Production Ready"
+  },
+  {
+    "module_name": "Water Quality",
+    "artifact_completeness": "100% Complete",
+    "backend_status": "Verified (HTTP 200)",
+    "response_contract_status": "Verified (Unified Contract Fully Present)",
+    "legacy_compatibility_status": "Verified (water_quality_risk_probability, anomaly_score, confidence, severity)",
+    "overall_readiness": "Production Ready (Degrades confidence gracefully when chemistry probes absent)"
+  }
+]

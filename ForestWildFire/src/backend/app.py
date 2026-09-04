@@ -64,7 +64,7 @@ nodes_db = [
 alerts_db = []
 
 class WildfireTelemetryPayload(BaseModel):
-    node_id: str
+    node_id: Optional[str] = "NODE-FWF-01"
     temperature: float
     humidity: float
     pressure: Optional[float] = 1008.0

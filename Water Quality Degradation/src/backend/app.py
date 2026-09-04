@@ -68,10 +68,10 @@ class WaterTelemetryPayload(BaseModel):
     station_id: Optional[str] = "AP-WATER-CWC-1"
     pH: float
     turbidity: float
-    EC: float
-    TDS: float
+    EC: Optional[float] = None
+    TDS: Optional[float] = 350.0
     dissolved_oxygen: Optional[float] = 7.5
-    temperature_c: float
+    temperature_c: Optional[float] = 25.0
     
     # Optional rates/rolling params (with sensible defaults)
     pH_rate: Optional[float] = 0.0
@@ -118,6 +118,14 @@ def get_config():
 def predict_water(payload: WaterTelemetryPayload):
     data_dict = payload.model_dump()
     
+    # Physical defaults for missing sensors (minimal prototype hardware adaptation)
+    if data_dict["TDS"] is None:
+        data_dict["TDS"] = 350.0
+    if data_dict["EC"] is None:
+        data_dict["EC"] = data_dict["TDS"] * 1.5
+    if data_dict["temperature_c"] is None:
+        data_dict["temperature_c"] = 25.0
+        
     # Backfill rolling/derived features if None
     if data_dict["rolling_mean_pH"] is None:
         data_dict["rolling_mean_pH"] = data_dict["pH"]
