@@ -11,6 +11,14 @@ base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.join(base_dir, 'inference'))
 from fire_inference import FireInferenceEngine
 
+# Shared Supabase data layer (repo-root /common). Falls back to in-memory
+# storage automatically when SUPABASE_URL / SUPABASE_SERVICE_KEY are unset.
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(os.path.join(REPO_ROOT, 'common'))
+import terra_supabase as db
+
+HAZARD = "fire"
+
 def load_env_key():
     # Search upwards from current file to find .env
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -55,13 +63,15 @@ def load_engine():
     engine = FireInferenceEngine()
     print("ForestWildFire Inference Engine Loaded!")
 
+    # Publish the built-in sensor inventory to Supabase (no-op when unconfigured)
+    db.seed_nodes(HAZARD, nodes_db)
+
 nodes_db = [
     {"node_id": "NODE-FWF-01", "type": "Type-A", "location": "Nilgiris Forest Reserve", "lat": 11.4916, "lon": 76.7337, "status": "ONLINE"},
     {"node_id": "NODE-FWF-02", "type": "Type-B (ESP32-S3)", "location": "Anamalai Tiger Reserve", "lat": 10.5050, "lon": 76.9650, "status": "ONLINE"},
     {"node_id": "NODE-FWF-03", "type": "Type-A", "location": "Mudumalai Forest Zone", "lat": 11.5623, "lon": 76.5345, "status": "ONLINE"},
 ]
 
-alerts_db = []
 
 class WildfireTelemetryPayload(BaseModel):
     node_id: Optional[str] = "NODE-FWF-01"
@@ -84,7 +94,7 @@ def root():
 
 @app.get("/health")
 def health_check():
-    return {"status": "healthy", "model_loaded": engine is not None}
+    return {"status": "healthy", "model_loaded": engine is not None, "database": db.status()}
 
 @app.get("/api/config")
 def get_config():
@@ -92,7 +102,7 @@ def get_config():
 
 @app.get("/api/nodes")
 def get_nodes():
-    return nodes_db
+    return db.fetch_nodes(HAZARD, nodes_db)
 
 @app.post("/api/predict")
 def predict_wildfire(payload: WildfireTelemetryPayload):
@@ -103,9 +113,12 @@ def predict_wildfire(payload: WildfireTelemetryPayload):
     timestamp_str = datetime.datetime.utcnow().isoformat() + "Z"
     result["timestamp"] = timestamp_str
 
+    # Record every inference in Supabase (skipped when SUPABASE_LOG_PREDICTIONS=false)
+    db.log_prediction(HAZARD, payload.node_id, sensor_dict, result)
+
     if result["severity"] in ["WARNING", "CRITICAL"]:
         alert_entry = {
-            "alert_id": f"FIRE-ALT-{len(alerts_db)+1:04d}",
+            "alert_id": db.next_alert_id(HAZARD, "FIRE-ALT-"),
             "node_id": payload.node_id,
             "severity": result["severity"],
             "fire_probability": result["fire_probability"],
@@ -113,13 +126,23 @@ def predict_wildfire(payload: WildfireTelemetryPayload):
             "top_features": result["top_features"],
             "timestamp": timestamp_str
         }
-        alerts_db.append(alert_entry)
+        db.insert_alert(HAZARD, alert_entry)
 
     return result
 
 @app.get("/api/alerts")
-def get_alerts():
-    return alerts_db
+def get_alerts(limit: int = 200):
+    return db.fetch_alerts(HAZARD, limit=limit)
+
+@app.get("/api/history")
+def get_history(hours: int = 24):
+    """Recent prediction history for this hazard, used by the Analytics dashboard."""
+    return db.fetch_predictions(HAZARD, hours=hours)
+
+@app.get("/api/db-status")
+def get_db_status():
+    """Reports whether this service is persisting to Supabase or running in-memory."""
+    return db.status()
 
 if __name__ == '__main__':
     import uvicorn

@@ -48,6 +48,14 @@ SRC_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(SRC_DIR)
 from inference.flood_inference import FloodInferenceEngine
 
+# Shared Supabase data layer (repo-root /common). Falls back to in-memory
+# storage automatically when SUPABASE_URL / SUPABASE_SERVICE_KEY are unset.
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(os.path.join(REPO_ROOT, 'common'))
+import terra_supabase as db
+
+HAZARD = "flood"
+
 # Load AI Models
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 MODELS_DIR = os.path.join(BASE_DIR, 'models')
@@ -63,14 +71,16 @@ def load_models():
     except Exception as e:
         print(f"Error loading Flood Inference Engine: {e}")
 
-# In-memory storage for Nodes, Telemetry, and Alerts (Simulating PostgreSQL schema)
+    # Publish the built-in sensor inventory to Supabase (no-op when unconfigured)
+    db.seed_nodes(HAZARD, nodes_db)
+
+# Built-in sensor inventory. Seeded into the Supabase `nodes` table on startup
+# and used as the fallback whenever the database is unavailable.
 nodes_db = [
     {"node_id": "TYPE-A-101", "type": "Type-A", "zone": "Kaveri Basin - Zone 1", "lat": 10.7905, "lon": 78.7047, "status": "ONLINE", "last_ping": "2026-08-26T17:15:00Z"},
     {"node_id": "TYPE-B-201", "type": "Type-B", "zone": "Kaveri Basin - Zone 1", "lat": 10.8201, "lon": 78.6912, "status": "ONLINE", "last_ping": "2026-08-26T17:15:00Z"},
     {"node_id": "TYPE-A-102", "type": "Type-A", "zone": "Tamraparani Basin - Zone 2", "lat": 8.7139, "lon": 77.7567, "status": "ONLINE", "last_ping": "2026-08-26T17:15:00Z"},
 ]
-
-alerts_db = []
 
 class TelemetryPayload(BaseModel):
     node_id: Optional[str] = "TYPE-A-101"
@@ -87,7 +97,7 @@ def root():
 
 @app.get("/health")
 def health_check():
-    return {"status": "healthy", "engine_loaded": engine is not None}
+    return {"status": "healthy", "engine_loaded": engine is not None, "database": db.status()}
 
 @app.get("/api/config")
 def get_config():
@@ -95,7 +105,7 @@ def get_config():
 
 @app.get("/api/nodes")
 def get_nodes():
-    return nodes_db
+    return db.fetch_nodes(HAZARD, nodes_db)
 
 @app.post("/api/predict")
 def predict_flood_risk(payload: TelemetryPayload):
@@ -126,10 +136,13 @@ def predict_flood_risk(payload: TelemetryPayload):
 
     result["node_id"] = payload.node_id
 
+    # Record every inference in Supabase (skipped when SUPABASE_LOG_PREDICTIONS=false)
+    db.log_prediction(HAZARD, payload.node_id, data_dict, result)
+
     # Trigger alert if WARNING or CRITICAL
     if result.get("severity") in ["WARNING", "CRITICAL"]:
         alert_entry = {
-            "alert_id": f"ALT-{len(alerts_db)+1:04d}",
+            "alert_id": db.next_alert_id(HAZARD, "ALT-"),
             "node_id": payload.node_id,
             "severity": result["severity"],
             "risk_score_pct": result["risk_score_pct"],
@@ -137,13 +150,23 @@ def predict_flood_risk(payload: TelemetryPayload):
             "rain_24h": payload.rain_24h,
             "timestamp": result["timestamp"]
         }
-        alerts_db.append(alert_entry)
+        db.insert_alert(HAZARD, alert_entry)
 
     return result
 
 @app.get("/api/alerts")
-def get_alerts():
-    return alerts_db
+def get_alerts(limit: int = 200):
+    return db.fetch_alerts(HAZARD, limit=limit)
+
+@app.get("/api/history")
+def get_history(hours: int = 24):
+    """Recent prediction history for this hazard, used by the Analytics dashboard."""
+    return db.fetch_predictions(HAZARD, hours=hours)
+
+@app.get("/api/db-status")
+def get_db_status():
+    """Reports whether this service is persisting to Supabase or running in-memory."""
+    return db.status()
 
 if __name__ == '__main__':
     import uvicorn

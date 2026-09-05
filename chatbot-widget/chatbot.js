@@ -82,11 +82,13 @@ class TerraEdgeChat extends HTMLElement {
                 :host {
                     font-family: 'Inter', sans-serif;
                     --primary-color: #0d9488;
-                    --bg-color: #ffffff;
-                    --text-color: #1f2937;
-                    --border-color: #e5e7eb;
-                    --chat-bg: #f3f4f6;
-                    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+                    /* Custom properties pierce the shadow boundary, so these inherit the host page's
+                       light/dark theme tokens automatically; the literal is only a fallback. */
+                    --bg-color: var(--panel-bg, #ffffff);
+                    --text-color: var(--text-primary, #1f2937);
+                    --border-color: var(--panel-border, #e5e7eb);
+                    --chat-bg: var(--bg-deep, #f3f4f6);
+                    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.25), 0 4px 6px -2px rgba(0, 0, 0, 0.15);
                 }
 
                 .chatbot-container {
@@ -168,7 +170,7 @@ class TerraEdgeChat extends HTMLElement {
                 }
                 
                 .config-bar {
-                    background: #f8fafc;
+                    background: var(--chat-bg);
                     padding: 8px 12px;
                     display: flex;
                     gap: 8px;
@@ -181,7 +183,7 @@ class TerraEdgeChat extends HTMLElement {
                     padding: 4px;
                     border: 1px solid var(--border-color);
                     border-radius: 4px;
-                    background: white;
+                    background: var(--bg-color);
                     color: var(--text-color);
                     font-family: inherit;
                     font-size: 0.8rem;
@@ -215,7 +217,7 @@ class TerraEdgeChat extends HTMLElement {
                 }
 
                 .message.assistant {
-                    background-color: white;
+                    background-color: var(--bg-color);
                     color: var(--text-color);
                     align-self: flex-start;
                     border-bottom-left-radius: 4px;
@@ -242,7 +244,7 @@ class TerraEdgeChat extends HTMLElement {
                 }
 
                 .prompt-chip:hover {
-                    background-color: #e5e7eb;
+                    background-color: var(--border-color);
                 }
 
                 .chat-input-area {
@@ -260,6 +262,8 @@ class TerraEdgeChat extends HTMLElement {
                     outline: none;
                     font-family: inherit;
                     font-size: 0.95rem;
+                    background: var(--bg-color);
+                    color: var(--text-color);
                 }
 
                 .chat-input:focus {
@@ -289,7 +293,7 @@ class TerraEdgeChat extends HTMLElement {
                     display: none;
                     align-self: flex-start;
                     padding: 12px 16px;
-                    background: white;
+                    background: var(--bg-color);
                     border: 1px solid var(--border-color);
                     border-radius: 12px;
                     border-bottom-left-radius: 4px;

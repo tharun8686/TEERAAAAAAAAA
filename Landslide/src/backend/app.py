@@ -11,6 +11,14 @@ base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.join(base_dir, 'inference'))
 from landslide_inference import LandslideInferenceEngine
 
+# Shared Supabase data layer (repo-root /common). Falls back to in-memory
+# storage automatically when SUPABASE_URL / SUPABASE_SERVICE_KEY are unset.
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(os.path.join(REPO_ROOT, 'common'))
+import terra_supabase as db
+
+HAZARD = "land"
+
 def load_env_key():
     # Search upwards from current file to find .env
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -54,13 +62,15 @@ def load_engine():
     engine = LandslideInferenceEngine()
     print("Landslide Inference Engine Loaded Successfully!")
 
+    # Publish the built-in sensor inventory to Supabase (no-op when unconfigured)
+    db.seed_nodes(HAZARD, nodes_db)
+
 nodes_db = [
     {"node_id": "NODE-LND-01", "type": "Type-A", "location": "Western Ghats Slope Station", "lat": 11.4100, "lon": 76.6900, "status": "ONLINE"},
     {"node_id": "NODE-LND-02", "type": "Type-B (ESP32-S3)", "location": "Valparai Hill Pass Node", "lat": 10.3270, "lon": 76.9550, "status": "ONLINE"},
     {"node_id": "NODE-LND-03", "type": "Type-A", "location": "Munnar Slope Reserve", "lat": 10.0889, "lon": 77.0595, "status": "ONLINE"}
 ]
 
-alerts_db = []
 
 class LandslideTelemetryPayload(BaseModel):
     node_id: str
@@ -79,7 +89,7 @@ def root():
 
 @app.get("/health")
 def health_check():
-    return {"status": "healthy", "model_loaded": engine is not None}
+    return {"status": "healthy", "model_loaded": engine is not None, "database": db.status()}
 
 @app.get("/api/config")
 def get_config():
@@ -87,7 +97,7 @@ def get_config():
 
 @app.get("/api/nodes")
 def get_nodes():
-    return nodes_db
+    return db.fetch_nodes(HAZARD, nodes_db)
 
 @app.post("/api/predict")
 def predict_landslide(payload: LandslideTelemetryPayload):
@@ -98,9 +108,12 @@ def predict_landslide(payload: LandslideTelemetryPayload):
     timestamp_str = datetime.datetime.utcnow().isoformat() + "Z"
     result["timestamp"] = timestamp_str
 
+    # Record every inference in Supabase (skipped when SUPABASE_LOG_PREDICTIONS=false)
+    db.log_prediction(HAZARD, payload.node_id, sensor_dict, result)
+
     if result["severity"] in ["WARNING", "CRITICAL"]:
         alert_entry = {
-            "alert_id": f"LND-ALT-{len(alerts_db)+1:04d}",
+            "alert_id": db.next_alert_id(HAZARD, "LND-ALT-"),
             "node_id": payload.node_id,
             "severity": result["severity"],
             "risk_probability": result["risk_probability"],
@@ -109,13 +122,23 @@ def predict_landslide(payload: LandslideTelemetryPayload):
             "top_features": result["top_features"],
             "timestamp": timestamp_str
         }
-        alerts_db.append(alert_entry)
+        db.insert_alert(HAZARD, alert_entry)
 
     return result
 
 @app.get("/api/alerts")
-def get_alerts():
-    return alerts_db
+def get_alerts(limit: int = 200):
+    return db.fetch_alerts(HAZARD, limit=limit)
+
+@app.get("/api/history")
+def get_history(hours: int = 24):
+    """Recent prediction history for this hazard, used by the Analytics dashboard."""
+    return db.fetch_predictions(HAZARD, hours=hours)
+
+@app.get("/api/db-status")
+def get_db_status():
+    """Reports whether this service is persisting to Supabase or running in-memory."""
+    return db.status()
 
 if __name__ == '__main__':
     import uvicorn

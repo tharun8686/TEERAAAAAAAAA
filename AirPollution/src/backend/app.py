@@ -11,6 +11,14 @@ base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(base_dir)
 from inference import AirPollutionInferenceEngine
 
+# Shared Supabase data layer (repo-root /common). Falls back to in-memory
+# storage automatically when SUPABASE_URL / SUPABASE_SERVICE_KEY are unset.
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(os.path.join(REPO_ROOT, 'common'))
+import terra_supabase as db
+
+HAZARD = "air"
+
 def load_env_key():
     # Search upwards from current file to find .env
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -54,6 +62,9 @@ def load_engine():
     engine = AirPollutionInferenceEngine()
     print("AirPollution Inference Engine Loaded Successfully!")
 
+    # Publish the built-in station inventory to Supabase (no-op when unconfigured)
+    db.seed_nodes(HAZARD, stations_db)
+
 stations_db = [
     {"station_id": "DEL-ITO", "name": "Delhi ITO Station", "city": "Delhi", "lat": 28.6289, "lon": 77.2408, "status": "ONLINE"},
     {"station_id": "DEL-IHBAS", "name": "Delhi IHBAS Dilshad Garden", "city": "Delhi", "lat": 28.6812, "lon": 77.3195, "status": "ONLINE"},
@@ -63,7 +74,6 @@ stations_db = [
     {"station_id": "PUN-SHIVAJINAGAR", "name": "Pune Shivajinagar Station", "city": "Pune", "lat": 18.5308, "lon": 73.8475, "status": "ONLINE"}
 ]
 
-alerts_db = []
 
 class AirTelemetryPayload(BaseModel):
     station_id: Optional[str] = "DEL-ITO"
@@ -86,7 +96,7 @@ def root():
 
 @app.get("/health")
 def health_check():
-    return {"status": "healthy", "model_loaded": engine is not None}
+    return {"status": "healthy", "model_loaded": engine is not None, "database": db.status()}
 
 @app.get("/api/config")
 def get_config():
@@ -94,7 +104,7 @@ def get_config():
 
 @app.get("/api/stations")
 def get_stations():
-    return stations_db
+    return db.fetch_nodes(HAZARD, stations_db)
 
 @app.post("/api/predict")
 def predict_air(payload: AirTelemetryPayload):
@@ -105,9 +115,12 @@ def predict_air(payload: AirTelemetryPayload):
     timestamp_str = datetime.datetime.utcnow().isoformat() + "Z"
     result["timestamp"] = timestamp_str
 
+    # Record every inference in Supabase (skipped when SUPABASE_LOG_PREDICTIONS=false)
+    db.log_prediction(HAZARD, payload.station_id, sensor_dict, result)
+
     if result["severity"] in ["WARNING", "CRITICAL"]:
         alert_entry = {
-            "alert_id": f"AIR-ALT-{len(alerts_db)+1:04d}",
+            "alert_id": db.next_alert_id(HAZARD, "AIR-ALT-"),
             "station_id": payload.station_id,
             "severity": result["severity"],
             "risk_score": result["risk_score"],
@@ -115,13 +128,23 @@ def predict_air(payload: AirTelemetryPayload):
             "predicted_pm25_60m": result["predicted_pm25_60m"],
             "timestamp": timestamp_str
         }
-        alerts_db.append(alert_entry)
+        db.insert_alert(HAZARD, alert_entry)
 
     return result
 
 @app.get("/api/alerts")
-def get_alerts():
-    return alerts_db
+def get_alerts(limit: int = 200):
+    return db.fetch_alerts(HAZARD, limit=limit)
+
+@app.get("/api/history")
+def get_history(hours: int = 24):
+    """Recent prediction history for this hazard, used by the Analytics dashboard."""
+    return db.fetch_predictions(HAZARD, hours=hours)
+
+@app.get("/api/db-status")
+def get_db_status():
+    """Reports whether this service is persisting to Supabase or running in-memory."""
+    return db.status()
 
 if __name__ == '__main__':
     import uvicorn

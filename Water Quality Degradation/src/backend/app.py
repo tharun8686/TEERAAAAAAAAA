@@ -14,6 +14,14 @@ sys.path.append(base_dir)
 
 from inference.water_inference import WaterQualityPredictor
 
+# Shared Supabase data layer (repo-root /common). Falls back to in-memory
+# storage automatically when SUPABASE_URL / SUPABASE_SERVICE_KEY are unset.
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(os.path.join(REPO_ROOT, 'common'))
+import terra_supabase as db
+
+HAZARD = "water"
+
 def load_env_key():
     # Search upwards from current file to find .env
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -58,11 +66,13 @@ def load_engine():
     predictor = WaterQualityPredictor(models_dir)
     print("Water Quality Degradation Inference Engine Loaded Successfully!")
 
+    # Publish the built-in station inventory to Supabase (no-op when unconfigured)
+    db.seed_nodes(HAZARD, stations_db)
+
 stations_db = [
     {"station_id": "AP-WATER-CWC-1", "name": "Vizag Municipal Reservoir", "city": "Visakhapatnam", "lat": 17.7285, "lon": 83.3015, "status": "ONLINE"}
 ]
 
-alerts_db = []
 
 class WaterTelemetryPayload(BaseModel):
     station_id: Optional[str] = "AP-WATER-CWC-1"
@@ -104,11 +114,11 @@ def root():
 
 @app.get("/health")
 def health_check():
-    return {"status": "healthy", "model_loaded": predictor is not None}
+    return {"status": "healthy", "model_loaded": predictor is not None, "database": db.status()}
 
 @app.get("/api/stations")
 def get_stations():
-    return stations_db
+    return db.fetch_nodes(HAZARD, stations_db)
 
 @app.get("/api/config")
 def get_config():
@@ -157,9 +167,13 @@ def predict_water(payload: WaterTelemetryPayload):
     result["station_id"] = payload.station_id
     result["timestamp"] = datetime.datetime.now().isoformat()
     
+    # Record every inference in Supabase (skipped when SUPABASE_LOG_PREDICTIONS=false)
+    db.log_prediction(HAZARD, payload.station_id, data_dict, result)
+
     # Store trigger log if risk elevated
     if result["severity"] in ["WARNING", "CRITICAL"]:
-        alerts_db.append({
+        db.insert_alert(HAZARD, {
+            "alert_id": db.next_alert_id(HAZARD, "WATER-ALT-"),
             "timestamp": result["timestamp"],
             "station_id": payload.station_id,
             "severity": result["severity"],
@@ -174,8 +188,18 @@ def predict_water(payload: WaterTelemetryPayload):
     return result
 
 @app.get("/api/alerts")
-def get_alerts():
-    return alerts_db
+def get_alerts(limit: int = 200):
+    return db.fetch_alerts(HAZARD, limit=limit)
+
+@app.get("/api/history")
+def get_history(hours: int = 24):
+    """Recent prediction history for this hazard, used by the Analytics dashboard."""
+    return db.fetch_predictions(HAZARD, hours=hours)
+
+@app.get("/api/db-status")
+def get_db_status():
+    """Reports whether this service is persisting to Supabase or running in-memory."""
+    return db.status()
 
 if __name__ == "__main__":
     uvicorn.run("app:app", host="127.0.0.1", port=8006, reload=True)
