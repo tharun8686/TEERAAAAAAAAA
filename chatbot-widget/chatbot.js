@@ -81,14 +81,15 @@ class TerraEdgeChat extends HTMLElement {
             <style>
                 :host {
                     font-family: 'Inter', sans-serif;
-                    --primary-color: #0d9488;
+                    --primary-color: #579477;
+                    --primary-highlight: #68a588;
                     /* Custom properties pierce the shadow boundary, so these inherit the host page's
                        light/dark theme tokens automatically; the literal is only a fallback. */
                     --bg-color: var(--panel-bg, #ffffff);
                     --text-color: var(--text-primary, #1f2937);
                     --border-color: var(--panel-border, #e5e7eb);
                     --chat-bg: var(--bg-deep, #f3f4f6);
-                    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.25), 0 4px 6px -2px rgba(0, 0, 0, 0.15);
+                    --shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
                 }
 
                 .chatbot-container {
@@ -102,7 +103,7 @@ class TerraEdgeChat extends HTMLElement {
                 }
 
                 .chat-button {
-                    background-color: var(--primary-color);
+                    background: linear-gradient(135deg, var(--primary-highlight), var(--primary-color));
                     color: white;
                     border: none;
                     border-radius: 50%;
@@ -134,7 +135,7 @@ class TerraEdgeChat extends HTMLElement {
                     height: 600px;
                     max-height: calc(100vh - 100px);
                     background: var(--bg-color);
-                    border-radius: 16px;
+                    border-radius: 10px;
                     box-shadow: var(--shadow);
                     overflow: hidden;
                     flex-direction: column;
@@ -152,7 +153,7 @@ class TerraEdgeChat extends HTMLElement {
                 }
 
                 .chat-header {
-                    background-color: var(--primary-color);
+                    background: linear-gradient(135deg, var(--primary-highlight), var(--primary-color));
                     color: white;
                     padding: 16px;
                     font-weight: 600;
