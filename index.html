@@ -19,10 +19,10 @@
     </script>
     <title>Terra Edge — Environmental Intelligence Network</title>
     <meta name="description" content="India's distributed Edge-AI environmental hazard early warning system covering flood, wildfire, landslide and air pollution risks.">
-    <!-- Google Fonts: Inter (Enterprise UI Standard) + JetBrains Mono -->
+    <!-- Google Fonts: Modern Professional Typography Suite -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <!-- Leaflet JS and CSS for Map Fallback -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -38,10 +38,11 @@
        HUMAN-ENGINEERED ENTERPRISE CONTROL CENTER DESIGN SYSTEM
     ============================================================ */
     :root {
-        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        --font-tech: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
-        /* Editorial display serif — was referenced by .panel-title but never defined. */
-        --font-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --font-serif: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
         
         --radius-sm: 6px;
         --radius: 12px;
@@ -1276,6 +1277,69 @@
         background: linear-gradient(135deg, var(--glow), transparent 60%);
         -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
         mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    /* ============================================================
+       PROFESSIONAL TYPOGRAPHY HIERARCHY & MOTION ANIMATIONS
+    ============================================================ */
+    @keyframes fadeInUpCascade {
+        from {
+            opacity: 0;
+            transform: translateY(24px) scale(0.98);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    @keyframes shimmerGlint {
+        0% { transform: translateX(-150%) skewX(-20deg); }
+        50%, 100% { transform: translateX(250%) skewX(-20deg); }
+    }
+
+    @keyframes liveRadarWave {
+        0% { transform: scale(0.4); opacity: 0.9; }
+        80% { transform: scale(2.2); opacity: 0; }
+        100% { transform: scale(2.4); opacity: 0; }
+    }
+
+    @keyframes statusBeacon {
+        0%, 100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 4px var(--brand-blue)); }
+        50% { opacity: 0.55; transform: scale(1.25); filter: drop-shadow(0 0 14px var(--brand-blue)); }
+    }
+
+    /* Staggered entrance animation for core containers */
+    .consoles-top-bar { animation: fadeInUpCascade 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .classic-framed-panel { animation: fadeInUpCascade 0.75s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .district-node-panel { animation: fadeInUpCascade 0.85s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .glass-card { animation: fadeInUpCascade 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .model-hazard-card { animation: fadeInUpCascade 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+    /* Model Cards Seasonal Aura with Skeuomorphic Machined Chamfers */
+    .model-hazard-card {
+        isolation: isolate;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .model-hazard-card::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        border-radius: inherit;
+        background: radial-gradient(circle at 15% 10%, color-mix(in srgb, var(--glow) 24%, transparent), transparent 58%);
+        opacity: 0.38;
+        transition: opacity 0.3s ease;
+    }
+    .model-hazard-card::after {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(135deg, var(--glow), transparent 60%);
+        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
         -webkit-mask-composite: xor;
         mask-composite: exclude;
         opacity: 0.45;
@@ -1284,7 +1348,7 @@
     }
     .model-hazard-card:hover {
         border-color: color-mix(in srgb, var(--glow) 65%, var(--panel-border));
-        transform: translateY(-5px);
+        transform: translateY(-6px) scale(1.01);
         box-shadow:
             var(--neu-extrude),
             0 0 32px -4px color-mix(in srgb, var(--glow) 40%, transparent),
@@ -1293,88 +1357,180 @@
     .model-hazard-card:hover::before { opacity: 1; }
     .model-hazard-card:hover::after { opacity: 1; }
     .model-hazard-card .hazard-icon {
-        transition: transform 0.3s ease, filter 0.3s ease;
+        transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.35s ease;
     }
     .model-hazard-card:hover .hazard-icon {
-        transform: scale(1.14) translateY(-2px);
-        filter: drop-shadow(0 0 14px var(--glow));
+        transform: scale(1.18) translateY(-3px) rotate(2deg);
+        filter: drop-shadow(0 0 16px var(--glow));
     }
 
+    /* Distinct Typography System */
     .section-eyebrow {
+        font-family: var(--font-tech) !important;
         color: var(--brand-blue) !important;
         font-size: 11px;
         font-weight: 750;
-        letter-spacing: 2.2px;
+        letter-spacing: 2.6px;
+        text-transform: uppercase;
         text-shadow: 0 0 16px rgba(45, 212, 191, 0.45);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
     }
-    .section-title { font-size: 28px; letter-spacing: -0.025em; font-weight: 750; }
+    .section-eyebrow::before {
+        content: '';
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--brand-blue);
+        box-shadow: 0 0 8px var(--brand-blue);
+    }
+    .section-title {
+        font-family: var(--font-display) !important;
+        font-size: 30px;
+        letter-spacing: -0.03em;
+        font-weight: 800;
+        color: var(--text-primary);
+        line-height: 1.18;
+    }
     #sec-overview h1 {
-        font-size: clamp(32px, 4vw, 48px) !important;
-        font-weight: 800 !important;
+        font-family: var(--font-display) !important;
+        font-size: clamp(34px, 4.2vw, 50px) !important;
+        font-weight: 850 !important;
         letter-spacing: -0.04em;
-        max-width: 780px !important;
-        background: linear-gradient(135deg, var(--text-primary), var(--brand-blue));
+        max-width: 820px !important;
+        background: linear-gradient(135deg, var(--text-primary) 20%, var(--brand-blue) 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        line-height: 1.12;
     }
-    .section-lede { max-width: 850px; line-height: 1.72; color: var(--text-secondary); }
+    .section-lede {
+        font-family: var(--font-sans) !important;
+        max-width: 860px;
+        font-size: 14.5px;
+        line-height: 1.76;
+        color: var(--text-secondary);
+        font-weight: 400;
+    }
 
-    /* Tactile Pipeline Nodes */
+    .model-title {
+        font-family: var(--font-display) !important;
+        font-size: 25px !important;
+        font-weight: 750 !important;
+        letter-spacing: -0.02em;
+    }
+    .model-purpose {
+        font-family: var(--font-tech) !important;
+        font-size: 11px !important;
+        font-weight: 650;
+        letter-spacing: 1.2px;
+    }
+    .model-num {
+        font-family: var(--font-mono) !important;
+        font-weight: 800;
+        letter-spacing: 2px;
+    }
+    .model-tag {
+        font-family: var(--font-tech) !important;
+        font-size: 10.5px !important;
+        letter-spacing: 1.5px;
+        font-weight: 600;
+    }
+
+    /* Tactile Pipeline Nodes with Micro-Motion */
     .flow-step {
         background: var(--surface-alt);
         backdrop-filter: blur(18px);
         border: var(--skeuo-bevel);
         border-radius: 14px;
         box-shadow: var(--neu-extrude-sm), var(--skeuo-specular);
-        transition: all 0.22s ease;
+        transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
     .flow-step:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--neu-extrude), var(--skeuo-specular);
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: var(--neu-extrude), 0 0 16px rgba(45, 212, 191, 0.2), var(--skeuo-specular);
     }
-    .flow-step .fs-num { color: var(--brand-blue); font-weight: 800; text-shadow: 0 0 12px rgba(45, 212, 191, 0.4); }
-    .flow-arrow { color: var(--brand-blue); opacity: 0.85; filter: drop-shadow(0 0 8px var(--brand-blue)); }
+    .flow-step .fs-num {
+        font-family: var(--font-mono) !important;
+        color: var(--brand-blue);
+        font-weight: 850;
+        text-shadow: 0 0 12px rgba(45, 212, 191, 0.4);
+    }
+    .flow-step .fs-label {
+        font-family: var(--font-tech) !important;
+        font-weight: 700;
+        font-size: 13.5px;
+        letter-spacing: 0.2px;
+    }
+    .flow-arrow {
+        color: var(--brand-blue);
+        opacity: 0.85;
+        filter: drop-shadow(0 0 8px var(--brand-blue));
+        animation: statusBeacon 3s infinite ease-in-out;
+    }
 
-    /* Tactile Skeuomorphic Extruded Buttons */
+    /* Tactile Skeuomorphic Extruded Buttons with Motion Click Recoil */
     .btn-fluid-bubble {
+        font-family: var(--font-tech) !important;
         background: linear-gradient(135deg, var(--brand-blue), var(--accent-cyan));
         color: #ffffff;
         border: 1px solid rgba(255, 255, 255, 0.4);
         border-radius: 12px;
         box-shadow: 0 6px 18px rgba(45, 212, 191, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.6), inset 0 -2px 4px rgba(0, 0, 0, 0.2);
-        letter-spacing: 0.5px;
-        font-weight: 700;
+        letter-spacing: 0.8px;
+        font-weight: 750;
+        text-transform: uppercase;
+        font-size: 11px;
         cursor: pointer;
+        position: relative;
+        overflow: hidden;
         transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .btn-fluid-bubble::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 60%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+        transform: translateX(-150%) skewX(-20deg);
+        pointer-events: none;
+    }
+    .btn-fluid-bubble:hover::after {
+        animation: shimmerGlint 1.8s infinite ease-in-out;
     }
     .btn-fluid-bubble:hover {
         background: linear-gradient(135deg, var(--brand-blue-hover), var(--brand-blue));
         box-shadow: 0 10px 26px rgba(45, 212, 191, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.8), inset 0 -1px 2px rgba(0, 0, 0, 0.2);
-        transform: translateY(-2px);
+        transform: translateY(-2px) scale(1.02);
     }
     .btn-fluid-bubble:active {
         box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.4), inset -1px -1px 3px rgba(255, 255, 255, 0.2);
-        transform: translateY(1px) scale(0.98);
+        transform: translateY(1px) scale(0.97);
     }
 
     .btn-outline {
+        font-family: var(--font-tech) !important;
         border: var(--skeuo-bevel) !important;
         border-radius: 12px;
         background: var(--surface-alt);
         backdrop-filter: blur(14px);
         color: var(--text-primary);
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        font-size: 11px;
         box-shadow: var(--neu-extrude-sm), var(--skeuo-specular);
         transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
     .btn-outline:hover {
         background: var(--panel-bg-hover);
         border-color: var(--panel-border-hover) !important;
-        transform: translateY(-2px);
+        transform: translateY(-2px) scale(1.02);
         box-shadow: var(--neu-extrude), var(--skeuo-specular);
     }
     .btn-outline:active {
         box-shadow: var(--neu-inset);
-        transform: translateY(1px) scale(0.98);
+        transform: translateY(1px) scale(0.97);
     }
 
     /* Tactile Theme Toggle Dial */
@@ -1387,13 +1543,13 @@
         transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
     .theme-toggle-btn:hover {
-        transform: translateY(-2px) rotate(8deg);
+        transform: translateY(-2px) rotate(10deg) scale(1.06);
         border-color: var(--panel-border-hover);
         box-shadow: var(--neu-extrude), 0 0 16px rgba(56, 189, 248, 0.2);
     }
     .theme-toggle-btn:active {
         box-shadow: var(--neu-inset);
-        transform: translateY(1px) scale(0.94);
+        transform: translateY(1px) scale(0.92);
     }
 
     /* Neumorphic Inset Wells for Form Inputs & Selects */
@@ -1409,6 +1565,7 @@
         padding: 6px 12px;
         color: var(--text-primary);
         font-family: var(--font-sans);
+        font-size: 12px;
         transition: all 180ms ease;
         backdrop-filter: blur(14px);
     }
@@ -1417,14 +1574,31 @@
         box-shadow: var(--neu-inset), 0 0 0 2px rgba(45, 212, 191, 0.25);
     }
 
-    .nav-link { font-weight: 600; }
-    .nav-link:hover { color: var(--brand-blue); text-shadow: 0 0 12px rgba(45, 212, 191, 0.4); }
+    .nav-link {
+        font-family: var(--font-tech) !important;
+        font-weight: 700;
+        font-size: 12.5px;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        transition: all 0.2s ease;
+    }
+    .nav-link:hover {
+        color: var(--brand-blue);
+        text-shadow: 0 0 12px rgba(45, 212, 191, 0.45);
+        transform: translateY(-1px);
+    }
     .sensor-chip, .chip {
+        font-family: var(--font-mono) !important;
         border-radius: 8px;
         background: var(--surface-alt);
         border: var(--skeuo-bevel);
         box-shadow: var(--neu-extrude-sm), var(--skeuo-specular);
         backdrop-filter: blur(12px);
+        transition: all 0.18s ease;
+    }
+    .sensor-chip:hover, .chip:hover {
+        transform: translateY(-1px);
+        border-color: var(--brand-blue);
     }
 
     .cmp-table th { background: var(--surface-alt); color: var(--text-secondary); backdrop-filter: blur(12px); }
