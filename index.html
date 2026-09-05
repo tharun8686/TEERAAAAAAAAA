@@ -17,12 +17,16 @@
             }
         })();
     </script>
-    <title>Terra Edge — Environmental Intelligence Network</title>
-    <meta name="description" content="India's distributed Edge-AI environmental hazard early warning system covering flood, wildfire, landslide and air pollution risks.">
-    <!-- Google Fonts: Modern Professional Typography Suite -->
+    <title>Apogee</title>
+    <meta name="description" content="Elevate your essential data to new heights. Advanced reasoning systems and predictive models built for the unknown.">
+    <!-- Suisse Intl webfont -->
+    <link href="https://db.onlinewebfonts.com/c/13ab13418f633c1b0516fed6e30bedbc?family=Suisse+Int%27l" rel="stylesheet">
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <!-- Leaflet JS and CSS for Map Fallback -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -34,6 +38,50 @@
     </style>
 
     <style>
+    /* ============================================================
+       APOGEE KEYFRAMES & UTILITIES
+    ============================================================ */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fade-down {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fade-left {
+      from { opacity: 0; transform: translateX(-20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes fade-right {
+      from { opacity: 0; transform: translateX(20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes fade-scale {
+      from { opacity: 0; transform: scale(0.92); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes bar-grow {
+      from { transform: scaleY(0); opacity: 0; }
+      to   { transform: scaleY(1); opacity: 1; }
+    }
+
+    .animate-fade-up    { animation: fade-up    0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .animate-fade-down  { animation: fade-down  0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .animate-fade-left  { animation: fade-left  0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .animate-fade-right { animation: fade-right 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .animate-fade-scale { animation: fade-scale 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+    .animate-bar-grow {
+      animation: bar-grow 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+    }
+
     /* ============================================================
        HUMAN-ENGINEERED ENTERPRISE CONTROL CENTER DESIGN SYSTEM
     ============================================================ */
@@ -1995,29 +2043,212 @@
 </div>
 
 <!-- ======================== VIEW: ABOUT (LANDING PAGE) ======================== -->
-<div id="view-about" class="page-wrap">
-    <div class="live-hub-section">
-        <div class="consoles-top-bar">
-            <div style="display:flex;gap:12px;align-items:center;">
-                <div class="vui-brand" style="cursor:default;">
-                    <div class="vui-brand-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm0 2.18l6 2.25v4.66c0 4.1-2.73 7.9-6 8.91-3.27-1.01-6-4.81-6-8.91V6.43l6-2.25z"/>
+<div id="view-about" style="display:flex;flex-direction:column;width:100%;min-height:100vh;">
+    <!-- ── APOGEE HERO SECTION ─────────────────────────────────────────── -->
+    <section id="hero-apogee" class="relative w-full h-screen overflow-hidden bg-[#080A19]">
+        <video
+            class="absolute inset-0 w-full h-full object-cover"
+            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260813_092641_de52eb87-daf2-41db-92cb-7a56eae012a5.mp4"
+            autoplay
+            loop
+            muted
+            playsinline
+        ></video>
+
+        <div class="relative z-10 h-full flex flex-col">
+            <!-- (i) Nav Bar -->
+            <nav class="w-full max-w-[1800px] mx-auto px-5 sm:px-8 md:px-[82px] pt-[20px] sm:pt-[30px] flex items-center justify-between relative z-50">
+                <!-- Logo -->
+                <div class="opacity-0 animate-fade-down" style="animation-delay: 0ms;">
+                    <div class="flex items-center gap-2.5 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                        <svg width="28" height="28" viewBox="0 0 256 256" fill="none" class="w-[28px] h-[28px] sm:w-[32px] sm:h-[32px]">
+                            <path d="M 256 256 L 178 256 C 150.386 256 128 233.614 128 206 L 128 256 L 0 256 L 0 192 C 0 156.654 28.654 128 64 128 C 99.346 128 128 156.654 128 192 L 128 128 L 256 128 Z M 78 0 C 105.614 0 128 22.386 128 50 L 128 0 L 256 0 L 256 64 C 256 99.346 227.346 128 192 128 C 156.654 128 128 99.346 128 64 L 128 128 L 0 128 L 0 0 Z" fill="white"/>
                         </svg>
+                        <span class="text-white text-[22px] sm:text-[26px] font-[450] leading-none tracking-[-0.02em]">Apogee</span>
                     </div>
-                    <span class="vui-brand-name">TERRA EDGE</span>
+                </div>
+
+                <!-- Center Nav Pill -->
+                <div class="opacity-0 animate-fade-down hidden lg:block" style="animation-delay: 100ms;">
+                    <div class="h-[52px] px-6 flex items-center gap-[30px] bg-[rgba(10,7,7,0.35)] rounded-[11px] backdrop-blur-[17px]">
+                        <button class="flex items-center gap-[5px] text-white/80 text-[14px] font-[450] leading-[14px] hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0" onclick="scrollToSection('sec-overview')">
+                            <span>Platform</span>
+                            <svg class="w-[10px] h-[10px] opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </button>
+                        <span class="text-white/80 text-[14px] font-[450] leading-[14px] hover:text-white transition-colors cursor-pointer" onclick="scrollToSection('sec-models')">Pricing</span>
+                        <span class="text-white/80 text-[14px] font-[450] leading-[14px] hover:text-white transition-colors cursor-pointer" onclick="scrollToSection('sec-architecture')">Resources</span>
+                        <span class="text-white/80 text-[14px] font-[450] leading-[14px] hover:text-white transition-colors cursor-pointer" onclick="openMap()">Blog</span>
+                    </div>
+                </div>
+
+                <!-- Right Auth Pill -->
+                <div class="opacity-0 animate-fade-down hidden lg:block" style="animation-delay: 200ms;">
+                    <div class="h-[52px] p-[3px] bg-[rgba(0,0,0,0.35)] rounded-[13px] backdrop-blur-[17px] flex items-center gap-[5px]">
+                        <button class="h-[46px] px-6 rounded-[11px] text-white text-[14px] font-[450] leading-[14px] hover:bg-white/5 transition-colors bg-transparent border-none cursor-pointer" onclick="openMap()">Login</button>
+                        <button class="h-[46px] px-6 bg-[#E9E9E9] rounded-[11px] text-[#0A0707] text-[14px] font-[450] leading-[14px] hover:bg-white transition-colors border-none cursor-pointer" onclick="openMap()">Book a demo</button>
+                    </div>
+                </div>
+
+                <!-- Mobile Hamburger Button -->
+                <div class="opacity-0 animate-fade-down lg:hidden" style="animation-delay: 100ms;">
+                    <button id="mobile-menu-toggle" class="w-[44px] h-[44px] flex items-center justify-center rounded-[11px] bg-[rgba(10,7,7,0.35)] backdrop-blur-[17px] transition-colors hover:bg-white/10 border-none cursor-pointer text-white" aria-label="Toggle menu" onclick="toggleMobileMenu()">
+                        <div class="relative w-5 h-5">
+                            <svg id="hamburger-menu-icon" class="w-5 h-5 text-white absolute inset-0 transition-all duration-300 ease-out opacity-100 rotate-0 scale-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                            <svg id="hamburger-x-icon" class="w-5 h-5 text-white absolute inset-0 transition-all duration-300 ease-out opacity-0 -rotate-90 scale-75" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        </div>
+                    </button>
+                </div>
+            </nav>
+
+            <!-- Mobile Menu Overlay -->
+            <div id="mobile-menu-overlay" class="lg:hidden fixed inset-0 z-40 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] invisible pointer-events-none">
+                <div id="mobile-menu-backdrop" class="absolute inset-0 bg-[#080A19]/90 backdrop-blur-[24px] transition-opacity duration-500 opacity-0" onclick="toggleMobileMenu()"></div>
+                <div id="mobile-menu-panel" class="absolute top-[76px] sm:top-[86px] left-4 right-4 sm:left-6 sm:right-6 bg-[rgba(17,16,15,0.6)] backdrop-blur-[30px] rounded-[20px] border border-white/[0.06] p-6 sm:p-8 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] origin-top opacity-0 -translate-y-4 scale-[0.97]">
+                    <div class="flex flex-col gap-1">
+                        <a href="#sec-overview" class="mobile-nav-link flex items-center justify-between px-4 py-4 rounded-[12px] text-white/90 text-[18px] font-[450] hover:bg-white/[0.06] transition-all duration-300 opacity-0 -translate-x-3 no-underline" style="transition-delay: 0ms;" onclick="toggleMobileMenu(); scrollToSection('sec-overview');">
+                            <span>Platform</span>
+                            <svg class="w-4 h-4 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </a>
+                        <a href="#sec-models" class="mobile-nav-link flex items-center justify-between px-4 py-4 rounded-[12px] text-white/90 text-[18px] font-[450] hover:bg-white/[0.06] transition-all duration-300 opacity-0 -translate-x-3 no-underline" style="transition-delay: 0ms;" onclick="toggleMobileMenu(); scrollToSection('sec-models');">
+                            <span>Pricing</span>
+                        </a>
+                        <a href="#sec-architecture" class="mobile-nav-link flex items-center justify-between px-4 py-4 rounded-[12px] text-white/90 text-[18px] font-[450] hover:bg-white/[0.06] transition-all duration-300 opacity-0 -translate-x-3 no-underline" style="transition-delay: 0ms;" onclick="toggleMobileMenu(); scrollToSection('sec-architecture');">
+                            <span>Resources</span>
+                        </a>
+                        <a href="#view-map" class="mobile-nav-link flex items-center justify-between px-4 py-4 rounded-[12px] text-white/90 text-[18px] font-[450] hover:bg-white/[0.06] transition-all duration-300 opacity-0 -translate-x-3 no-underline" style="transition-delay: 0ms;" onclick="toggleMobileMenu(); openMap();">
+                            <span>Blog</span>
+                        </a>
+                    </div>
+                    <div class="h-px bg-white/10 my-5"></div>
+                    <div id="mobile-menu-ctas" class="flex flex-col gap-3 transition-all duration-300 opacity-0 translate-y-2">
+                        <button class="w-full h-[50px] bg-[#E9E9E9] rounded-[12px] text-[#0A0707] text-[15px] font-[450] transition-colors hover:bg-white border-none cursor-pointer" onclick="toggleMobileMenu(); openMap();">Book a demo</button>
+                        <button class="w-full h-[50px] rounded-[12px] border border-white/30 text-white text-[15px] font-[450] transition-colors hover:bg-white/5 bg-transparent cursor-pointer" onclick="toggleMobileMenu(); openMap();">Login</button>
+                    </div>
                 </div>
             </div>
-            <div style="display:flex;gap:22px;align-items:center;">
-                <nav class="top-nav">
-                    <button class="nav-link" onclick="scrollToSection('sec-overview')">Overview</button>
-                    <button class="nav-link" onclick="scrollToSection('sec-models')">Models</button>
-                    <button class="nav-link" onclick="scrollToSection('sec-architecture')">Architecture</button>
-                </nav>
-                <button class="btn-outline" onclick="openMap()">Live Console ↗</button>
-                <button id="theme-toggle-btn-about" class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle light / dark mode" aria-label="Toggle light / dark mode"><span class="bubble-fill"></span><span class="btn-text">🌙</span></button>
+
+            <!-- Content Row -->
+            <div class="flex-1 flex items-center py-8">
+                <div class="w-full max-w-[1800px] mx-auto px-5 sm:px-8 md:px-[82px] flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 lg:gap-12">
+                    <!-- Left Copy Column -->
+                    <div class="max-w-[593px]">
+                        <div class="opacity-0 animate-fade-up" style="animation-delay: 300ms;">
+                            <h1 class="text-white text-[36px] sm:text-[52px] md:text-[64px] lg:text-[72px] font-normal leading-[0.95] mb-5 sm:mb-8">
+                                Elevate your essential data to new heights
+                            </h1>
+                        </div>
+                        <div class="opacity-0 animate-fade-up" style="animation-delay: 500ms;">
+                            <p class="text-white/80 text-[16px] sm:text-[18px] md:text-[20px] font-[450] leading-[1.3] max-w-[370px] mb-7 sm:mb-10">
+                                Advanced reasoning systems and predictive models built for the unknown
+                            </p>
+                        </div>
+                        <div class="opacity-0 animate-fade-up" style="animation-delay: 700ms;">
+                            <div class="flex flex-wrap gap-3 sm:gap-4">
+                                <button onclick="openMap()" class="h-[46px] sm:h-[51px] px-5 sm:px-[27px] bg-[#E9E9E9] rounded-[12px] text-[#0A0707] text-[14px] sm:text-[15.5px] font-[450] leading-[15.5px] transition-opacity hover:opacity-90 border-none cursor-pointer flex items-center justify-center">
+                                    Book a demo
+                                </button>
+                                <button onclick="scrollToSection('sec-overview')" class="h-[46px] sm:h-[51px] px-5 sm:px-[27px] rounded-[12px] border border-white text-white text-[14px] sm:text-[15.5px] font-[450] leading-[15.5px] transition-opacity hover:opacity-80 bg-transparent border-solid cursor-pointer flex items-center justify-center">
+                                    Talk with the team
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: RevenueCard -->
+                    <div class="opacity-0 animate-fade-scale w-full max-w-[405px] mx-auto lg:mx-0" style="animation-delay: 900ms;">
+                        <div class="w-full rounded-[24px] sm:rounded-[33px] bg-[rgba(17,16,15,0.35)] backdrop-blur-[20px] p-5 sm:p-8 pb-5 sm:pb-6">
+                            <p class="text-white text-[16px] sm:text-[20px] font-[450] leading-[20px] mb-3 sm:mb-4">Revenue Growth</p>
+                            <p class="mb-2 sm:mb-3">
+                                <span class="text-white text-[28px] sm:text-[46px] font-[450] leading-[1]">$14,205,890</span><span class="text-white/20 text-[28px] sm:text-[46px] font-[450] leading-[1]">.00</span>
+                            </p>
+                            <div class="flex items-center gap-[10px] mb-6 sm:mb-8">
+                                <span class="px-[6px] py-[7px] bg-white/20 rounded-[6px] text-white text-[12px] sm:text-[14px] font-[450] leading-[14px]">+32.4%</span>
+                                <span class="text-white/80 text-[12px] sm:text-[14px] font-[450] leading-[14px] opacity-70">vs. previous period ($10.7M)</span>
+                            </div>
+                            <div class="relative">
+                                <!-- 32 Bars -->
+                                <div class="flex items-end gap-[1.5px] h-[80px] sm:h-[100px]">
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 24.21%; background-color: white; animation-delay: 1100ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 42.11%; background-color: white; animation-delay: 1130ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 55.79%; background-color: white; animation-delay: 1160ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 42.11%; background-color: white; animation-delay: 1190ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 34.74%; background-color: white; animation-delay: 1220ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 14.74%; background-color: white; animation-delay: 1250ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 7.37%; background-color: white; animation-delay: 1280ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 17.89%; background-color: white; animation-delay: 1310ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 78.95%; background-color: white; animation-delay: 1340ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 68.42%; background-color: white; animation-delay: 1370ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 92.63%; background-color: white; animation-delay: 1400ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 78.95%; background-color: white; animation-delay: 1430ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 68.42%; background-color: white; animation-delay: 1460ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 49.47%; background-color: white; animation-delay: 1490ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 34.74%; background-color: white; animation-delay: 1520ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 92.63%; background-color: white; animation-delay: 1550ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 4.21%; background-color: white; animation-delay: 1580ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 7.37%; background-color: white; animation-delay: 1610ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 9.47%; background-color: white; animation-delay: 1640ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 14.74%; background-color: white; animation-delay: 1670ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 100%; background-color: white; animation-delay: 1700ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 68.42%; background-color: white; animation-delay: 1730ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 83.16%; background-color: white; animation-delay: 1760ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 38.95%; background-color: white; animation-delay: 1790ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 7.37%; background-color: white; animation-delay: 1820ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 42.11%; background-color: white; animation-delay: 1850ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 17.89%; background-color: white; animation-delay: 1880ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 21.05%; background-color: white; animation-delay: 1910ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 65.26%; background-color: rgba(255,255,255,0.1); animation-delay: 1940ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 49.47%; background-color: rgba(255,255,255,0.1); animation-delay: 1970ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 96.84%; background-color: rgba(255,255,255,0.1); animation-delay: 2000ms;"></div>
+                                    <div class="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom" style="height: 75.79%; background-color: rgba(255,255,255,0.1); animation-delay: 2030ms;"></div>
+                                </div>
+                                <!-- Vertical Gridlines -->
+                                <div class="absolute inset-0 pointer-events-none">
+                                    <div class="absolute top-0 bottom-0 w-px bg-white/10" style="left: 20%;"></div>
+                                    <div class="absolute top-0 bottom-0 w-px bg-white/10" style="left: 40%;"></div>
+                                    <div class="absolute top-0 bottom-0 w-px bg-white/10" style="left: 60%;"></div>
+                                    <div class="absolute top-0 bottom-0 w-px bg-white/10" style="left: 80%;"></div>
+                                    <div class="absolute top-0 bottom-0 w-px bg-white/10" style="left: 100%;"></div>
+                                </div>
+                                <!-- Time Axis -->
+                                <div class="flex justify-between mt-3">
+                                    <span class="text-[9px] sm:text-[10px] font-[450] leading-[10px] text-white/80" style="opacity: 1;">10:00</span>
+                                    <span class="text-[9px] sm:text-[10px] font-[450] leading-[10px] text-white/80" style="opacity: 1;">12:00</span>
+                                    <span class="text-[9px] sm:text-[10px] font-[450] leading-[10px] text-white/80" style="opacity: 1;">14:00</span>
+                                    <span class="text-[9px] sm:text-[10px] font-[450] leading-[10px] text-white/80" style="opacity: 0.4;">16:00</span>
+                                    <span class="text-[9px] sm:text-[10px] font-[450] leading-[10px] text-white/80" style="opacity: 0.4;">16:00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+    </section>
+
+    <!-- ── DETAIL SECTIONS BODY ─────────────────────────────────────────── -->
+    <div class="w-full max-w-[1800px] mx-auto px-5 sm:px-8 md:px-[82px] py-12 flex flex-col gap-12">
+        <div class="live-hub-section">
+            <div class="consoles-top-bar">
+                <div style="display:flex;gap:12px;align-items:center;">
+                    <div class="vui-brand" style="cursor:default;">
+                        <div class="vui-brand-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm0 2.18l6 2.25v4.66c0 4.1-2.73 7.9-6 8.91-3.27-1.01-6-4.81-6-8.91V6.43l6-2.25z"/>
+                            </svg>
+                        </div>
+                        <span class="vui-brand-name">TERRA EDGE</span>
+                    </div>
+                </div>
+                <div style="display:flex;gap:22px;align-items:center;">
+                    <nav class="top-nav">
+                        <button class="nav-link" onclick="scrollToSection('sec-overview')">Overview</button>
+                        <button class="nav-link" onclick="scrollToSection('sec-models')">Models</button>
+                        <button class="nav-link" onclick="scrollToSection('sec-architecture')">Architecture</button>
+                    </nav>
+                    <button class="btn-outline" onclick="openMap()">Live Console ↗</button>
+                    <button id="theme-toggle-btn-about" class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle light / dark mode" aria-label="Toggle light / dark mode"><span class="bubble-fill"></span><span class="btn-text">🌙</span></button>
+                </div>
+            </div>
 
         <!-- ── HERO ─────────────────────────────────────────── -->
         <div id="sec-overview" class="classic-framed-panel">
@@ -2703,10 +2934,89 @@
         </div>
     </div>
 </div>
+</div>
 
 
 <!-- ======================== SCRIPTS ======================== -->
 <script>
+
+// ─── APOGEE MOBILE NAVIGATION CONTROLLER ────────────────────
+function toggleMobileMenu() {
+    const overlay = document.getElementById('mobile-menu-overlay');
+    const backdrop = document.getElementById('mobile-menu-backdrop');
+    const panel = document.getElementById('mobile-menu-panel');
+    const menuIcon = document.getElementById('hamburger-menu-icon');
+    const xIcon = document.getElementById('hamburger-x-icon');
+    const links = document.querySelectorAll('.mobile-nav-link');
+    const ctas = document.getElementById('mobile-menu-ctas');
+
+    if (!overlay) return;
+    const isOpen = !overlay.classList.contains('invisible');
+
+    if (isOpen) {
+        // Close
+        overlay.classList.add('invisible', 'pointer-events-none');
+        overlay.classList.remove('visible');
+        if (backdrop) {
+            backdrop.classList.remove('opacity-100');
+            backdrop.classList.add('opacity-0');
+        }
+        if (panel) {
+            panel.classList.remove('opacity-100', 'translate-y-0', 'scale-100');
+            panel.classList.add('opacity-0', '-translate-y-4', 'scale-[0.97]');
+        }
+        if (menuIcon) {
+            menuIcon.classList.remove('opacity-0', 'rotate-90', 'scale-75');
+            menuIcon.classList.add('opacity-100', 'rotate-0', 'scale-100');
+        }
+        if (xIcon) {
+            xIcon.classList.remove('opacity-100', 'rotate-0', 'scale-100');
+            xIcon.classList.add('opacity-0', '-rotate-90', 'scale-75');
+        }
+        links.forEach(l => {
+            l.classList.remove('opacity-100', 'translate-x-0');
+            l.classList.add('opacity-0', '-translate-x-3');
+            l.style.transitionDelay = '0ms';
+        });
+        if (ctas) {
+            ctas.classList.remove('opacity-100', 'translate-y-0');
+            ctas.classList.add('opacity-0', 'translate-y-2');
+            ctas.style.transitionDelay = '0ms';
+        }
+        document.body.style.overflow = '';
+    } else {
+        // Open
+        overlay.classList.remove('invisible', 'pointer-events-none');
+        overlay.classList.add('visible');
+        if (backdrop) {
+            backdrop.classList.remove('opacity-0');
+            backdrop.classList.add('opacity-100');
+        }
+        if (panel) {
+            panel.classList.remove('opacity-0', '-translate-y-4', 'scale-[0.97]');
+            panel.classList.add('opacity-100', 'translate-y-0', 'scale-100');
+        }
+        if (menuIcon) {
+            menuIcon.classList.remove('opacity-100', 'rotate-0', 'scale-100');
+            menuIcon.classList.add('opacity-0', 'rotate-90', 'scale-75');
+        }
+        if (xIcon) {
+            xIcon.classList.remove('opacity-0', '-rotate-90', 'scale-75');
+            xIcon.classList.add('opacity-100', 'rotate-0', 'scale-100');
+        }
+        links.forEach((l, i) => {
+            l.style.transitionDelay = `${100 + i * 50}ms`;
+            l.classList.remove('opacity-0', '-translate-x-3');
+            l.classList.add('opacity-100', 'translate-x-0');
+        });
+        if (ctas) {
+            ctas.style.transitionDelay = '350ms';
+            ctas.classList.remove('opacity-0', 'translate-y-2');
+            ctas.classList.add('opacity-100', 'translate-y-0');
+        }
+        document.body.style.overflow = 'hidden';
+    }
+}
 
 // ─── VIEW CONTROLLER ─────────────────────────────────────────
 let maps = {};

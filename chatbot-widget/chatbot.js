@@ -145,14 +145,14 @@ class TerraEdgeChat extends HTMLElement {
         this.shadowRoot.innerHTML = `
             <style>
                 :host {
-                    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-                    --primary-color: #579477;
-                    --primary-highlight: #38bdf8;
-                    --bg-color: rgba(12, 17, 28, 0.92);
-                    --text-color: #f1f5f9;
-                    --border-color: rgba(255, 255, 255, 0.1);
-                    --chat-bg: rgba(8, 12, 20, 0.8);
-                    --shadow: 0 16px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                    font-family: 'Suisse Intl', -apple-system, BlinkMacSystemFont, sans-serif;
+                    --primary-color: #E9E9E9;
+                    --primary-highlight: #ffffff;
+                    --bg-color: rgba(17, 16, 15, 0.85);
+                    --text-color: #ffffff;
+                    --border-color: rgba(255, 255, 255, 0.08);
+                    --chat-bg: rgba(8, 10, 25, 0.92);
+                    --shadow: 0 16px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08);
                 }
 
                 .chatbot-container {
@@ -165,32 +165,32 @@ class TerraEdgeChat extends HTMLElement {
                     align-items: flex-end;
                 }
 
-                /* Tactical Floating Action Button */
+                /* Apogee Floating Action Button */
                 .chat-button {
                     position: relative;
-                    background: linear-gradient(135deg, #0284c7, #0369a1);
-                    color: white;
-                    border: 1px solid rgba(255, 255, 255, 0.25);
-                    border-radius: 50%;
-                    width: 56px;
-                    height: 56px;
+                    background: #E9E9E9;
+                    color: #0A0707;
+                    border: 1px solid rgba(255, 255, 255, 0.35);
+                    border-radius: 14px;
+                    width: 52px;
+                    height: 52px;
                     cursor: pointer;
-                    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 16px rgba(2, 132, 199, 0.35);
+                    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.15);
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    backdrop-filter: blur(12px);
-                    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+                    backdrop-filter: blur(17px);
+                    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
                 }
 
                 .chat-button:hover {
-                    transform: scale(1.06) translateY(-2px);
-                    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55), 0 0 24px rgba(14, 165, 233, 0.45);
+                    transform: scale(1.05) translateY(-2px);
+                    background: #ffffff;
+                    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6), 0 0 24px rgba(255, 255, 255, 0.25);
                 }
 
                 .chat-button:active {
-                    transform: translateY(1px);
-                    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+                    transform: translateY(1px) scale(0.96);
                 }
 
                 .chat-button svg {
@@ -199,22 +199,22 @@ class TerraEdgeChat extends HTMLElement {
                     fill: currentColor;
                 }
 
-                /* Tactical Frosted Glass Panel */
+                /* Apogee Frosted Glass Panel */
                 .chat-panel {
                     display: none;
                     width: 400px;
                     height: 620px;
                     max-height: calc(100vh - 90px);
                     background: var(--bg-color);
-                    backdrop-filter: blur(24px) saturate(160%);
-                    -webkit-backdrop-filter: blur(24px) saturate(160%);
-                    border-radius: 16px;
+                    backdrop-filter: blur(28px) saturate(160%);
+                    -webkit-backdrop-filter: blur(28px) saturate(160%);
+                    border-radius: 20px;
                     box-shadow: var(--shadow);
                     overflow: hidden;
                     flex-direction: column;
                     margin-bottom: 14px;
                     border: 1px solid var(--border-color);
-                    animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                    animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
                 }
 
                 @keyframes slideUp {
@@ -227,13 +227,13 @@ class TerraEdgeChat extends HTMLElement {
                 }
 
                 .chat-header {
-                    background: #0f172a;
+                    background: rgba(10, 7, 7, 0.65);
                     border-bottom: 1px solid var(--border-color);
-                    color: #f8fafc;
-                    padding: 13px 18px;
-                    font-weight: 700;
-                    font-size: 0.92rem;
-                    letter-spacing: 0.4px;
+                    color: #ffffff;
+                    padding: 14px 18px;
+                    font-weight: 450;
+                    font-size: 0.95rem;
+                    letter-spacing: -0.01em;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
@@ -293,28 +293,28 @@ class TerraEdgeChat extends HTMLElement {
                 }
 
                 .message.user {
-                    background: #0284c7;
-                    color: #ffffff;
+                    background: #E9E9E9;
+                    color: #0A0707;
                     align-self: flex-end;
                     border-bottom-right-radius: 2px;
-                    border: 1px solid rgba(255, 255, 255, 0.18);
-                    font-weight: 500;
+                    border: 1px solid rgba(255, 255, 255, 0.25);
+                    font-weight: 450;
                 }
 
                 .message.assistant {
-                    background: rgba(18, 26, 42, 0.85);
-                    backdrop-filter: blur(12px);
-                    color: #f1f5f9;
+                    background: rgba(17, 16, 15, 0.7);
+                    backdrop-filter: blur(16px);
+                    color: #ffffff;
                     align-self: flex-start;
                     border-bottom-left-radius: 2px;
                     border: 1px solid var(--border-color);
-                    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+                    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
                 }
 
                 .quick-prompts-title {
                     font-size: 0.68rem;
-                    color: #94a3b8;
-                    font-weight: 700;
+                    color: rgba(255, 255, 255, 0.5);
+                    font-weight: 450;
                     text-transform: uppercase;
                     letter-spacing: 0.8px;
                     margin-bottom: 4px;
@@ -326,65 +326,65 @@ class TerraEdgeChat extends HTMLElement {
                     display: flex;
                     flex-wrap: wrap;
                     gap: 6px;
-                    background: var(--bg-color);
+                    background: rgba(10, 7, 7, 0.65);
                     border-top: 1px solid var(--border-color);
                     max-height: 140px;
                     overflow-y: auto;
                 }
 
                 .prompt-chip {
-                    background: rgba(30, 41, 59, 0.6);
-                    color: #cbd5e1;
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    border-radius: 12px;
-                    padding: 5px 11px;
+                    background: rgba(255, 255, 255, 0.06);
+                    color: rgba(255, 255, 255, 0.85);
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    border-radius: 11px;
+                    padding: 6px 12px;
                     font-size: 0.74rem;
                     cursor: pointer;
-                    font-weight: 600;
-                    transition: all 0.18s ease;
+                    font-weight: 450;
+                    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
                 }
 
                 .prompt-chip:hover {
-                    background: #0ea5e9;
-                    color: #ffffff;
-                    border-color: #0ea5e9;
+                    background: #E9E9E9;
+                    color: #0A0707;
+                    border-color: #E9E9E9;
                     transform: translateY(-1px);
                 }
 
                 .chat-input-area {
                     display: flex;
                     padding: 12px 14px;
-                    background: #0b0f19;
+                    background: rgba(10, 7, 7, 0.85);
                     border-top: 1px solid var(--border-color);
                 }
 
                 .chat-input {
                     flex: 1;
                     border: 1px solid var(--border-color);
-                    border-radius: 18px;
+                    border-radius: 12px;
                     padding: 9px 15px;
                     outline: none;
                     font-family: inherit;
                     font-size: 0.88rem;
-                    background: rgba(18, 26, 42, 0.7);
+                    background: rgba(17, 16, 15, 0.6);
                     color: #ffffff;
                     transition: border 0.18s;
                 }
 
                 .chat-input::placeholder {
-                    color: #64748b;
+                    color: rgba(255, 255, 255, 0.4);
                 }
 
                 .chat-input:focus {
-                    border-color: #0ea5e9;
-                    background: rgba(22, 32, 52, 0.85);
+                    border-color: rgba(255, 255, 255, 0.3);
+                    background: rgba(17, 16, 15, 0.9);
                 }
 
                 .send-btn {
-                    background: #0284c7;
-                    color: white;
-                    border: 1px solid rgba(255, 255, 255, 0.2);
-                    border-radius: 50%;
+                    background: #E9E9E9;
+                    color: #0A0707;
+                    border: 1px solid rgba(255, 255, 255, 0.3);
+                    border-radius: 11px;
                     width: 38px;
                     height: 38px;
                     margin-left: 8px;
@@ -392,16 +392,17 @@ class TerraEdgeChat extends HTMLElement {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    transition: all 0.18s ease;
+                    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
                 }
 
                 .send-btn:hover {
-                    background: #0ea5e9;
-                    transform: scale(1.05);
+                    background: #ffffff;
+                    transform: scale(1.04);
                 }
                 
                 .send-btn:disabled {
-                    background: #475569;
+                    background: rgba(255, 255, 255, 0.1);
+                    color: rgba(255, 255, 255, 0.3);
                     box-shadow: none;
                     cursor: not-allowed;
                 }
