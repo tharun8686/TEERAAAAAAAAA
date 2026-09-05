@@ -86,53 +86,49 @@
        HUMAN-ENGINEERED ENTERPRISE CONTROL CENTER DESIGN SYSTEM
     ============================================================ */
     :root {
-        --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        --font-tech: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-display: 'Suisse Intl', -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-tech: 'Suisse Intl', 'JetBrains Mono', -apple-system, sans-serif;
+        --font-sans: 'Suisse Intl', -apple-system, BlinkMacSystemFont, sans-serif;
         --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
-        --font-serif: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-serif: 'Suisse Intl', -apple-system, BlinkMacSystemFont, sans-serif;
         
-        --radius-sm: 6px;
-        --radius: 12px;
-        --radius-lg: 16px;
+        --radius-sm: 8px;
+        --radius: 14px;
+        --radius-lg: 20px;
         
-        /* Light Theme (default) */
-        color-scheme: light;
-        --bg-deep: #eef1f7;
-        --panel-bg: #fafbfe;
-        --panel-bg-hover: #ffffff;
-        --panel-border: rgba(0, 0, 0, 0.10);
-        --panel-border-hover: rgba(0, 0, 0, 0.18);
+        /* Obsidian Dark Theme Baseline */
+        color-scheme: dark;
+        --bg-deep: #080A19;
+        --panel-bg: rgba(17, 16, 15, 0.45);
+        --panel-bg-hover: rgba(24, 23, 22, 0.65);
+        --panel-border: rgba(255, 255, 255, 0.08);
+        --panel-border-hover: rgba(255, 255, 255, 0.18);
 
-        --text-primary: #181818;
-        --text-secondary: #666666;
+        --text-primary: #ffffff;
+        --text-secondary: rgba(255, 255, 255, 0.75);
 
-        --glass-border: rgba(0, 0, 0, 0.06);
-        --glass-shine: 0 4px 20px rgba(0, 0, 0, 0.02);
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --glass-shine: 0 4px 20px rgba(0, 0, 0, 0.5);
 
-        --nav-bg: rgba(248, 248, 248, 0.90);
-        --surface-alt: #eeeeee;
-        --surface-alt-2: #e5e5e5;
-        --chip-bg: rgba(0, 0, 0, 0.03);
-        --chip-bg-hover: rgba(0, 0, 0, 0.06);
-        --slider-track: rgba(0, 0, 0, 0.08);
-        --panel-bg-translucent: rgba(255, 255, 255, 0.85);
-        --gauge-track: rgba(0, 0, 0, 0.05);
-        --scroll-track: rgba(0, 0, 0, 0.02);
-        --scroll-thumb: rgba(0, 0, 0, 0.22);
-        --scroll-thumb-hover: rgba(0, 0, 0, 0.42);
-        --pill-bg: rgba(0, 0, 0, 0.035);
-        --pill-bg-hover: rgba(0, 0, 0, 0.06);
-        --map-label-ink: #333333;
+        --nav-bg: rgba(10, 7, 7, 0.45);
+        --surface-alt: rgba(17, 16, 15, 0.4);
+        --surface-alt-2: rgba(24, 23, 22, 0.55);
+        --chip-bg: rgba(255, 255, 255, 0.06);
+        --chip-bg-hover: rgba(255, 255, 255, 0.12);
+        --slider-track: rgba(255, 255, 255, 0.12);
+        --panel-bg-translucent: rgba(17, 16, 15, 0.75);
+        --gauge-track: rgba(255, 255, 255, 0.08);
+        --scroll-track: rgba(0, 0, 0, 0.2);
+        --scroll-thumb: rgba(255, 255, 255, 0.22);
+        --scroll-thumb-hover: rgba(255, 255, 255, 0.42);
+        --pill-bg: rgba(10, 7, 7, 0.35);
+        --pill-bg-hover: rgba(255, 255, 255, 0.1);
+        --map-label-ink: #ffffff;
 
-        /* Glass + neumorphism surface system.
-           Glass  = translucent fill + backdrop blur + a bright hairline edge.
-           Neumo  = paired shadows, one warm highlight and one cool shade, so a surface
-                    reads as extruded from the page rather than floating above it. */
-        --glass-bg: rgba(255, 255, 255, 0.62);
-        --glass-bg-strong: rgba(255, 255, 255, 0.88);
-        --glass-edge: rgba(255, 255, 255, 0.75);
-        --glass-blur: 18px;
+        --glass-bg: rgba(17, 16, 15, 0.35);
+        --glass-bg-strong: rgba(17, 16, 15, 0.65);
+        --glass-edge: rgba(255, 255, 255, 0.08);
+        --glass-blur: 20px;
         --neu-hi: rgba(255, 255, 255, 0.95);
         --neu-lo: rgba(163, 177, 198, 0.40);
         --neu-out: 8px 8px 22px var(--neu-lo), -8px -8px 20px var(--neu-hi);
@@ -166,48 +162,45 @@
     /* Dark Theme override — activated via html[data-theme="dark"] */
     html[data-theme="dark"] {
         color-scheme: dark;
-        /* Deep navy-black with an electric-cyan accent — the observatory palette. */
-        --bg-deep: #07090e;
-        --panel-bg: #11151d;
-        --panel-bg-hover: #171c26;
-        --panel-border: rgba(151, 169, 216, 0.11);
-        --panel-border-hover: rgba(141, 158, 234, 0.30);
+        --bg-deep: #080A19;
+        --panel-bg: rgba(17, 16, 15, 0.45);
+        --panel-bg-hover: rgba(24, 23, 22, 0.65);
+        --panel-border: rgba(255, 255, 255, 0.08);
+        --panel-border-hover: rgba(255, 255, 255, 0.18);
 
-        --text-primary: #f3f5fa;
-        --text-secondary: #98a0b2;
+        --text-primary: #ffffff;
+        --text-secondary: rgba(255, 255, 255, 0.75);
 
-        --glass-border: rgba(255, 255, 255, 0.07);
-        --glass-shine: 0 4px 24px rgba(0, 0, 0, 0.45);
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --glass-shine: 0 4px 24px rgba(0, 0, 0, 0.5);
 
-        --nav-bg: rgba(8, 10, 15, 0.90);
-        --surface-alt: #181d27;
-        --surface-alt-2: #202633;
+        --nav-bg: rgba(10, 7, 7, 0.45);
+        --surface-alt: rgba(17, 16, 15, 0.4);
+        --surface-alt-2: rgba(24, 23, 22, 0.55);
         --chip-bg: rgba(255, 255, 255, 0.06);
-        --chip-bg-hover: rgba(255, 255, 255, 0.1);
+        --chip-bg-hover: rgba(255, 255, 255, 0.12);
         --slider-track: rgba(255, 255, 255, 0.14);
-        --panel-bg-translucent: rgba(13, 16, 23, 0.92);
+        --panel-bg-translucent: rgba(17, 16, 15, 0.75);
         --gauge-track: rgba(255, 255, 255, 0.1);
-        --scroll-track: rgba(255, 255, 255, 0.03);
-        --scroll-thumb: rgba(255, 255, 255, 0.20);
-        --scroll-thumb-hover: rgba(255, 255, 255, 0.38);
-        --pill-bg: rgba(255, 255, 255, 0.05);
-        --pill-bg-hover: rgba(255, 255, 255, 0.09);
-        --map-label-ink: #e5e7eb;
+        --scroll-track: rgba(0, 0, 0, 0.2);
+        --scroll-thumb: rgba(255, 255, 255, 0.22);
+        --scroll-thumb-hover: rgba(255, 255, 255, 0.42);
+        --pill-bg: rgba(10, 7, 7, 0.35);
+        --pill-bg-hover: rgba(255, 255, 255, 0.1);
+        --map-label-ink: #ffffff;
 
-        /* Dark is where the glass/neumorphic treatment is tuned to look its best:
-           the highlight drops to a faint sheen and the shade deepens to near-black. */
-        --glass-bg: rgba(17, 21, 29, 0.90);
-        --glass-bg-strong: rgba(10, 13, 19, 0.96);
-        --glass-edge: rgba(151, 169, 216, 0.10);
-        --glass-blur: 18px;
+        --glass-bg: rgba(17, 16, 15, 0.35);
+        --glass-bg-strong: rgba(17, 16, 15, 0.65);
+        --glass-edge: rgba(255, 255, 255, 0.08);
+        --glass-blur: 20px;
         --neu-hi: rgba(255, 255, 255, 0.035);
         --neu-lo: rgba(0, 0, 0, 0.72);
         --neu-out: 10px 14px 30px var(--neu-lo), -5px -5px 18px var(--neu-hi);
         --neu-out-sm: 5px 8px 18px var(--neu-lo), -3px -3px 10px var(--neu-hi);
         --neu-inset: inset 2px 2px 6px var(--neu-lo), inset -2px -2px 5px var(--neu-hi);
 
-        --grid-line: rgba(255, 255, 255, 0.018);
-        --accent-cyan: #68b8c7;
+        --grid-line: rgba(255, 255, 255, 0.02);
+        --accent-cyan: #38bdf8;
         --aurora-a: rgba(83, 105, 216, 0.16);
         --aurora-b: rgba(69, 147, 164, 0.10);
         --aurora-c: rgba(91, 76, 150, 0.10);
@@ -1926,23 +1919,23 @@
        enabled after the observer has been installed. */
     .reveal-ready .reveal-item {
         opacity: 0;
-        transform: translate3d(0, 22px, 0);
-        filter: blur(3px);
+        transform: translate3d(0, 24px, 0);
+        filter: blur(4px);
         transition:
-            opacity 620ms cubic-bezier(0.22, 1, 0.36, 1),
-            transform 620ms cubic-bezier(0.22, 1, 0.36, 1),
+            opacity 750ms cubic-bezier(0.16, 1, 0.3, 1),
+            transform 750ms cubic-bezier(0.16, 1, 0.3, 1),
             filter 500ms ease;
         transition-delay: var(--reveal-delay, 0ms);
-        will-change: opacity, transform;
+        will-change: opacity, transform, filter;
     }
     .reveal-ready .reveal-item.reveal-visible {
         opacity: 1;
         transform: translate3d(0, 0, 0);
         filter: blur(0);
     }
-    .view-entering { animation: viewEnter 420ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+    .view-entering { animation: viewEnter 600ms cubic-bezier(0.16, 1, 0.3, 1) both; }
     @keyframes viewEnter {
-        from { opacity: 0; transform: translateY(10px); }
+        from { opacity: 0; transform: translateY(16px); }
         to { opacity: 1; transform: translateY(0); }
     }
 
@@ -1993,47 +1986,60 @@
 <!-- ======================== VIEW: CONSOLE (map + live network) ======================== -->
 <div id="view-map" class="page-wrap" style="display:none;">
     <div class="live-hub-section">
-        <div class="consoles-top-bar">
-            <div style="display:flex;gap:12px;align-items:center;">
-                <div class="vui-brand" style="cursor:default;">
-                    <div class="vui-brand-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm0 2.18l6 2.25v4.66c0 4.1-2.73 7.9-6 8.91-3.27-1.01-6-4.81-6-8.91V6.43l6-2.25z"/>
-                        </svg>
-                    </div>
-                    <span class="vui-brand-name">TERRA EDGE</span>
+        <!-- Top Nav Bar for Console -->
+        <div class="consoles-top-bar animate-fade-down" style="animation-delay: 50ms; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; background:rgba(10,7,7,0.45); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:12px 24px;">
+            <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
+                <!-- Brand / Logo -->
+                <div class="flex items-center gap-2.5 cursor-pointer" onclick="openAbout()">
+                    <svg width="24" height="24" viewBox="0 0 256 256" fill="none" class="w-[24px] h-[24px]">
+                        <path d="M 256 256 L 178 256 C 150.386 256 128 233.614 128 206 L 128 256 L 0 256 L 0 192 C 0 156.654 28.654 128 64 128 C 99.346 128 128 156.654 128 192 L 128 128 L 256 128 Z M 78 0 C 105.614 0 128 22.386 128 50 L 128 0 L 256 0 L 256 64 C 256 99.346 227.346 128 192 128 C 156.654 128 128 99.346 128 64 L 128 128 L 0 128 L 0 0 Z" fill="white"/>
+                    </svg>
+                    <span class="text-white text-[17px] font-[450] leading-none tracking-[-0.02em]">Terra Edge</span>
                 </div>
-                <select id="state-select" class="map-filter-pill" style="appearance:auto;background:var(--panel-bg);color:var(--text-primary);cursor:pointer;font-weight:600;" onchange="onMapStateChange()"></select>
-                <select id="district-select" class="map-filter-pill" style="appearance:auto;background:var(--panel-bg);color:var(--text-primary);cursor:pointer;font-weight:600;display:none;" onchange="onDistrictSelectChange()"></select>
-                <button class="btn-fluid-bubble" onclick="openAbout()">
-                    <span class="bubble-fill"></span>
-                    <span class="btn-text">← About</span>
-                </button>
-                <button id="theme-toggle-btn-map" class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle light / dark mode" aria-label="Toggle light / dark mode"><span class="bubble-fill"></span><span class="btn-text">🌙</span></button>
+
+                <div class="h-5 w-px bg-white/10 hidden sm:block"></div>
+
+                <!-- Selectors -->
+                <div class="flex items-center gap-2 flex-wrap">
+                    <select id="state-select" class="h-[38px] px-3.5 bg-[rgba(17,16,15,0.6)] backdrop-blur-[16px] text-white/90 text-[12.5px] font-[450] rounded-[10px] border border-white/10 hover:border-white/20 transition-colors cursor-pointer outline-none" onchange="onMapStateChange()"></select>
+                    <select id="district-select" class="h-[38px] px-3.5 bg-[rgba(17,16,15,0.6)] backdrop-blur-[16px] text-white/90 text-[12.5px] font-[450] rounded-[10px] border border-white/10 hover:border-white/20 transition-colors cursor-pointer outline-none" style="display:none;" onchange="onDistrictSelectChange()"></select>
+                </div>
             </div>
-            <div class="panel-header-tag" id="tn-map-status">TAMIL NADU · 38 DISTRICTS · 2 SENSOR NODES</div>
+
+            <!-- Right Controls -->
+            <div class="flex items-center gap-3 flex-wrap">
+                <div class="panel-header-tag px-3 py-1.5 rounded-[8px] bg-white/[0.04] border border-white/[0.08] text-white/80 text-[11px] font-[450] uppercase tracking-[1.5px]" id="tn-map-status">TAMIL NADU · 38 DISTRICTS · 2 SENSOR NODES</div>
+                <button class="h-[38px] px-5 bg-[#E9E9E9] rounded-[10px] text-[#0A0707] text-[13px] font-[450] leading-[13px] hover:bg-white transition-colors border-none cursor-pointer flex items-center justify-center gap-1.5" onclick="openAbout()">
+                    <span>← Intelligence Hub</span>
+                </button>
+                <button id="theme-toggle-btn-map" class="theme-toggle-btn w-[38px] h-[38px] flex items-center justify-center rounded-[10px] bg-[rgba(17,16,15,0.6)] border border-white/10 text-white cursor-pointer hover:bg-white/10 transition-colors" onclick="toggleTheme()" title="Toggle light / dark mode" aria-label="Toggle light / dark mode">
+                    <span class="btn-text">🌙</span>
+                </button>
+            </div>
         </div>
 
-        <div class="classic-framed-panel">
-            <div class="panel-header-bar">
-                <div class="panel-header-title">
-                    <span>📍</span> <span id="map-panel-title">TAMIL NADU DISTRICT HAZARD MAP</span>
+        <!-- Main Map & Telemetry Chassis -->
+        <div class="classic-framed-panel animate-fade-scale" style="animation-delay: 150ms; background:rgba(17,16,15,0.45); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.08); border-radius:20px; overflow:hidden;">
+            <div class="panel-header-bar flex items-center justify-between flex-wrap gap-3 px-6 py-4 border-b border-white/[0.08] bg-white/[0.01]">
+                <div class="panel-header-title flex items-center gap-2.5 text-white font-[450] text-[13px] tracking-[1.2px] uppercase">
+                    <span class="w-2 h-2 rounded-full bg-[#38bdf8] shadow-[0_0_10px_#38bdf8]"></span>
+                    <span id="map-panel-title">TAMIL NADU DISTRICT HAZARD MAP</span>
                 </div>
-                <div class="live-status-pill">
+                <div class="live-status-pill flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[11.5px] font-[450]">
                     <span class="pulse-dot-green"></span>
-                    <span id="map-panel-hint">2 Chennai hazard nodes live (Fire & Flood) · pick a district to zoom in</span>
+                    <span id="map-panel-hint">2 Chennai hazard nodes live (Fire &amp; Flood) · pick a district to zoom in</span>
                 </div>
             </div>
             <div class="panel-inset-body" style="padding:0;">
                 <div class="map-console-layout">
-                    <div id="map-tn" style="width:100%;height:calc(100vh - 220px);min-height:520px;border-radius:0 0 0 var(--radius-lg);"></div>
-                    <aside id="district-node-panel" class="district-node-panel" aria-live="polite">
-                        <div class="district-node-panel-head">
-                            <div id="district-node-panel-title" class="district-node-panel-title">District telemetry</div>
-                            <div id="district-node-panel-meta" class="district-node-panel-meta">Select a district to inspect its nodes</div>
+                    <div id="map-tn" style="width:100%;height:calc(100vh - 220px);min-height:520px;border-radius:0 0 0 20px;"></div>
+                    <aside id="district-node-panel" class="district-node-panel animate-fade-left" style="animation-delay: 250ms; background:rgba(17,16,15,0.55); backdrop-filter:blur(24px); border-left:1px solid rgba(255,255,255,0.08);" aria-live="polite">
+                        <div class="district-node-panel-head p-5 border-b border-white/[0.08]">
+                            <div id="district-node-panel-title" class="district-node-panel-title text-white text-[15px] font-[450] tracking-[-0.01em]">District Telemetry</div>
+                            <div id="district-node-panel-meta" class="district-node-panel-meta text-white/60 text-[11px] font-[450] uppercase tracking-[1.2px] mt-1">Select a district to inspect its nodes</div>
                         </div>
-                        <div id="district-node-list" class="district-node-list">
-                            <div class="district-node-empty">Choose a district from the selector to view every deployed node and its fixed sensor readings.</div>
+                        <div id="district-node-list" class="district-node-list p-4 flex flex-col gap-3">
+                            <div class="district-node-empty text-white/60 text-[13px] font-[450] text-center p-8">Choose a district from the selector to view every deployed node and its fixed sensor readings.</div>
                         </div>
                     </aside>
                 </div>
@@ -3088,7 +3094,8 @@ function initScrollReveals() {
     const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const targets = document.querySelectorAll(
         '#view-about .classic-framed-panel, #view-map .classic-framed-panel, ' +
-        '.about-grid > .glass-card, .flow-step, .risk-band, .layer-card, .cmp-table-wrap'
+        '.about-grid > .glass-card, .flow-step, .risk-band, .layer-card, .cmp-table-wrap, ' +
+        '.model-hazard-card, .district-node-card'
     );
 
     if (reduceMotion || !('IntersectionObserver' in window)) {
@@ -3099,7 +3106,7 @@ function initScrollReveals() {
     targets.forEach((el, index) => {
         el.classList.add('reveal-item');
         const siblingIndex = Array.prototype.indexOf.call(el.parentElement.children, el);
-        el.style.setProperty('--reveal-delay', Math.min(siblingIndex, 5) * 55 + 'ms');
+        el.style.setProperty('--reveal-delay', Math.min(siblingIndex, 7) * 65 + 'ms');
     });
     document.documentElement.classList.add('reveal-ready');
 
@@ -3109,7 +3116,7 @@ function initScrollReveals() {
             entry.target.classList.add('reveal-visible');
             observer.unobserve(entry.target);
         });
-    }, { threshold: 0.10, rootMargin: '0px 0px -7% 0px' });
+    }, { threshold: 0.08, rootMargin: '0px 0px -5% 0px' });
 
     targets.forEach(el => observer.observe(el));
 }
@@ -3125,8 +3132,9 @@ function showView(viewId) {
         activeView.classList.remove('view-entering');
         void activeView.offsetWidth;
         activeView.classList.add('view-entering');
-        window.setTimeout(() => activeView.classList.remove('view-entering'), 450);
+        setTimeout(() => activeView.classList.remove('view-entering'), 600);
     }
+    setTimeout(initScrollReveals, 50);
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
@@ -3560,30 +3568,31 @@ function tnNodePopupHtml(event) {
         </div>`;
 }
 
-function tnNodeCardHtml(event) {
+function tnNodeCardHtml(event, idx = 0) {
     const readings = event.readings.map(reading => `
-        <div class="node-reading">
-            <span class="node-reading-label">${reading.label}</span>
-            <span class="node-reading-value">${tnReadingValue(reading)}</span>
+        <div class="node-reading flex items-center justify-between py-1.5 border-b border-white/[0.04] text-[12px]">
+            <span class="node-reading-label text-white/70 font-[450]">${reading.label}</span>
+            <span class="node-reading-value text-white font-[500] font-mono">${tnReadingValue(reading)}</span>
         </div>`).join('');
     const selected = selectedTelemetryNodeName === event.name ? ' is-selected' : '';
+    const delay = (idx * 80) + 'ms';
     return `
-        <article class="district-node-card${selected}" data-node-name="${event.name}" style="--node-color:${event.color};">
-            <div class="district-node-card-head">
-                <div class="district-node-name">${event.name}</div>
-                <div class="district-node-type">${event.module}</div>
+        <article class="district-node-card${selected} animate-fade-up p-4 rounded-[14px] bg-[rgba(17,16,15,0.6)] backdrop-blur-[16px] border border-white/[0.08] hover:border-white/20 transition-all duration-300" data-node-name="${event.name}" style="--node-color:${event.color}; animation-delay: ${delay};">
+            <div class="district-node-card-head flex items-center justify-between gap-2 mb-3">
+                <div class="district-node-name text-white font-[450] text-[14px]">${event.name}</div>
+                <div class="district-node-type px-2.5 py-0.5 rounded-full text-[10.5px] font-[450] tracking-[1px] uppercase" style="background:color-mix(in srgb, ${event.color} 15%, transparent); color:${event.color}; border:1px solid color-mix(in srgb, ${event.color} 30%, transparent);">${event.module}</div>
             </div>
-            <div class="node-score-row">
+            <div class="node-score-row grid grid-cols-2 gap-2 p-2.5 rounded-[10px] bg-white/[0.03] border border-white/[0.05] mb-3">
                 <div class="node-score">
-                    <div class="node-score-label">Severity / ${event.severity}</div>
-                    <div class="node-score-value" style="color:${event.color};">${event.severityScore}<span style="font-size:9px;font-weight:500;"> / 100</span></div>
+                    <div class="node-score-label text-white/50 text-[10px] uppercase tracking-[1px]">Severity / ${event.severity}</div>
+                    <div class="node-score-value font-[500] text-[15px] mt-0.5" style="color:${event.color};">${event.severityScore}<span class="text-[10px] text-white/40"> / 100</span></div>
                 </div>
                 <div class="node-score">
-                    <div class="node-score-label">Confidence</div>
-                    <div class="node-score-value">${event.confidenceScore}<span style="font-size:9px;font-weight:500;">%</span></div>
+                    <div class="node-score-label text-white/50 text-[10px] uppercase tracking-[1px]">Confidence</div>
+                    <div class="node-score-value text-white font-[500] text-[15px] mt-0.5">${event.confidenceScore}<span class="text-[10px] text-white/40">%</span></div>
                 </div>
             </div>
-            <div class="node-readings">${readings}</div>
+            <div class="node-readings flex flex-col">${readings}</div>
         </article>`;
 }
 
@@ -3605,8 +3614,8 @@ function renderDistrictNodePanel(districtName, selectedName = '') {
     title.textContent = `${districtName} node telemetry`;
     meta.textContent = `${events.length} deployed node${events.length === 1 ? '' : 's'} / fixed edge snapshot`;
     list.innerHTML = events.length
-        ? events.map(tnNodeCardHtml).join('')
-        : '<div class="district-node-empty">No live hazard model nodes are deployed in this district.</div>';
+        ? events.map((ev, idx) => tnNodeCardHtml(ev, idx)).join('')
+        : '<div class="district-node-empty text-white/60 text-[13px] font-[450] text-center p-8">No live hazard model nodes are deployed in this district.</div>';
 
     if (selectedName) {
         requestAnimationFrame(() => {
