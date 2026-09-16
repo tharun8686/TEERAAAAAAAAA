@@ -1975,6 +1975,10 @@
                         <span>📟</span> Monitor
                     </button>
                 </div>
+                <div id="gateway-status-pill" class="map-filter-pill" style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11px;font-weight:600;padding:6px 12px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#ef4444;border-radius:8px;" title="Type B Edge Gateway Connection Status (:8000)">
+                    <span id="gateway-status-dot" style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#ef4444;box-shadow:0 0 6px #ef4444;"></span>
+                    <span id="gateway-status-text">GATEWAY: OFFLINE</span>
+                </div>
                 <button class="btn-fluid-bubble" onclick="openAbout()">
                     <span class="bubble-fill"></span>
                     <span class="btn-text">← About</span>
@@ -2070,6 +2074,10 @@
                     <button class="nav-link" onclick="scrollToSection('sec-models')">Models</button>
                     <button class="nav-link" onclick="scrollToSection('sec-architecture')">Architecture</button>
                 </nav>
+                <div id="gateway-status-pill-about" class="map-filter-pill" style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11px;font-weight:600;padding:6px 12px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#ef4444;border-radius:8px;" title="Type B Edge Gateway Connection Status (:8000)">
+                    <span id="gateway-status-dot-about" style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#ef4444;box-shadow:0 0 6px #ef4444;"></span>
+                    <span id="gateway-status-text-about">GATEWAY: OFFLINE</span>
+                </div>
                 <button class="btn-outline" onclick="openMap()">Live Console ↗</button>
                 <button id="theme-toggle-btn-about" class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle light / dark mode" aria-label="Toggle light / dark mode"><span class="bubble-fill"></span><span class="btn-text">🌙</span></button>
             </div>
@@ -3348,99 +3356,107 @@ function tnReadingValue(reading) {
     return `${reading.value}${reading.unit ? ` ${reading.unit}` : ''}`;
 }
 
+function getSeverityColor(sev) {
+    if (!sev) return '#22c55e';
+    const s = sev.toUpperCase();
+    if (s === 'CRITICAL') return '#ef4444';
+    if (s === 'WARNING') return '#f97316';
+    if (s === 'WATCH' || s === 'MODERATE') return '#eab308';
+    return '#22c55e';
+}
+
 function tnNodePopupHtml(event) {
-    const readings = event.readings.map(reading => `
+    const isSimulated = event.is_simulated !== undefined ? event.is_simulated : (!event.isHardwareNode && !event.name.includes('TE-001') && !event.name.includes('SRM Node'));
+    const sourceBadge = isSimulated 
+        ? '<span style="font-size:9.5px;background:rgba(139,92,246,0.18);color:#a855f7;border:1px solid rgba(139,92,246,0.4);padding:2px 6px;border-radius:4px;font-weight:700;">SIMULATED</span>'
+        : '<span style="font-size:9.5px;background:rgba(34,197,94,0.18);color:#22c55e;border:1px solid rgba(34,197,94,0.4);padding:2px 6px;border-radius:4px;font-weight:700;">LIVE HARDWARE</span>';
+    
+    const statusColor = event.status === 'OFFLINE' ? '#ef4444' : (event.status === 'STALE' ? '#eab308' : '#22c55e');
+    const statusBadge = `<span style="font-size:9.5px;color:${statusColor};font-weight:700;">● ${event.status || 'ONLINE'}</span>`;
+
+    const readings = (event.readings || []).map(reading => `
         <div class="node-popup-reading">
             <span style="color:var(--text-secondary);">${reading.label}</span>
             <strong style="color:var(--text-primary);font-family:var(--font-mono);">${tnReadingValue(reading)}</strong>
         </div>`).join('');
+
+    const radioInfo = (event.rssi_dbm !== undefined && event.rssi_dbm !== null) 
+        ? `<div class="node-popup-sub" style="font-family:var(--font-mono);font-size:10px;">RSSI: ${event.rssi_dbm} dBm · Battery: ${event.battery_pct !== undefined ? event.battery_pct : 95}%</div>`
+        : '';
+
     return `
         <div class="node-popup">
-            <div class="node-popup-title">${event.name}</div>
-            <div class="node-popup-sub">${event.district} District / ${event.module}</div>
-            <div class="node-popup-sub">${event.desc}</div>
-            <div class="node-popup-sub">${event.lat.toFixed(6)}, ${event.lon.toFixed(6)}</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                <div class="node-popup-title" style="margin:0;">${event.name || event.node_id}</div>
+                <div style="display:flex;gap:4px;align-items:center;">${sourceBadge}</div>
+            </div>
+            <div class="node-popup-sub" style="display:flex;justify-content:space-between;">
+                <span>${event.district || 'District'} · ${event.module || 'Multi-Hazard'}</span>
+                ${statusBadge}
+            </div>
+            <div class="node-popup-sub">${event.lat ? event.lat.toFixed(4) : (event.latitude ? event.latitude.toFixed(4) : 0)}, ${event.lon ? event.lon.toFixed(4) : (event.longitude ? event.longitude.toFixed(4) : 0)}</div>
+            ${radioInfo}
             <div class="node-popup-scores">
                 <div class="node-popup-score">
-                    <div class="node-score-label">Severity</div>
-                    <div class="node-score-value" style="color:${event.color};">${event.severityScore}<span style="font-size:9px;font-weight:500;"> / 100</span></div>
-                    <div class="node-popup-sub">${event.severity}</div>
+                    <div class="node-score-label">Priority Hazard</div>
+                    <div class="node-score-value" style="color:${event.color || getSeverityColor(event.severity)};font-size:13px;">${event.primary_hazard || event.module || 'Environmental'}</div>
+                    <div class="node-popup-sub">${event.severity || 'Normal'} (${event.severityScore !== undefined ? event.severityScore : (event.risk_pct || 0)}%)</div>
                 </div>
                 <div class="node-popup-score">
                     <div class="node-score-label">Confidence</div>
-                    <div class="node-score-value">${event.confidenceScore}<span style="font-size:9px;font-weight:500;">%</span></div>
-                    <div class="node-popup-sub">Model inference</div>
+                    <div class="node-score-value">${event.confidenceScore !== undefined ? event.confidenceScore : (event.confidence_pct || 88)}<span style="font-size:9px;font-weight:500;">%</span></div>
+                    <div class="node-popup-sub">Edge AI Model</div>
                 </div>
             </div>
-            <div style="margin-top:9px;">${readings}</div>
+            ${readings ? `<div style="margin-top:9px;">${readings}</div>` : ''}
         </div>`;
 }
 
 function tnNodeCardHtml(event) {
-    const isSrmNode = event.isHardwareNode || event.name.includes('SRM Node');
-    const readings = event.readings.map(reading => `
+    const isSimulated = event.is_simulated !== undefined ? event.is_simulated : (!event.isHardwareNode && !event.name.includes('TE-001') && !event.name.includes('SRM Node'));
+    const isSrmNode = event.isHardwareNode || (event.name && event.name.includes('SRM Node')) || event.node_id === 'TE-001';
+    const readings = (event.readings || []).map(reading => `
         <div class="node-reading" style="${isSrmNode && event.streamActive ? 'border-color:rgba(255,87,34,0.3);background:rgba(255,87,34,0.04);' : ''}">
             <span class="node-reading-label">${reading.label}</span>
             <span class="node-reading-value" style="${isSrmNode && event.streamActive ? 'color:#ff5722;font-weight:700;' : ''}">${tnReadingValue(reading)}</span>
         </div>`).join('');
-    const selected = selectedTelemetryNodeName === event.name ? ' is-selected' : '';
-    
-    let hardwareHudHtml = '';
-    if (isSrmNode) {
-        const streamActive = !!(usbReaderActive || simInterval);
-        hardwareHudHtml = `
-            <div style="margin-top:10px;padding:8px 10px;border-radius:8px;background:var(--bg-deep);border:1px solid ${streamActive ? '#ff5722' : 'var(--panel-border)'};display:flex;flex-direction:column;gap:6px;">
-                <div style="display:flex;justify-content:space-between;align-items:center;">
-                    <div style="display:flex;align-items:center;gap:6px;">
-                        <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${streamActive ? '#22c55e' : '#94a3b8'};${streamActive ? 'box-shadow:0 0 8px #22c55e;animation:pulse 1.5s infinite;' : ''}"></span>
-                        <span style="font-size:11px;font-weight:700;letter-spacing:0.5px;color:${streamActive ? '#22c55e' : 'var(--text-secondary)'};">${streamActive ? '⚡ LIVE USB STREAMING' : '🔌 USB READY (BME680 · DHT22 · IR · MQ2 · MQ7)'}</span>
-                    </div>
-                    <span style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-secondary);">${event.packetCount || 0} pkts</span>
-                </div>
-                <div style="display:flex;gap:4px;flex-wrap:wrap;">
-                    <span class="sensor-chip" style="font-size:9.5px;padding:2px 6px;">BME680</span>
-                    <span class="sensor-chip" style="font-size:9.5px;padding:2px 6px;">DHT22</span>
-                    <span class="sensor-chip" style="font-size:9.5px;padding:2px 6px;">IR Flame</span>
-                    <span class="sensor-chip" style="font-size:9.5px;padding:2px 6px;">MQ-2 Smoke</span>
-                    <span class="sensor-chip" style="font-size:9.5px;padding:2px 6px;">MQ-7 CO</span>
-                </div>
-                <div style="display:flex;gap:6px;margin-top:4px;">
-                    <button class="btn-fluid-bubble" style="background:#0ea5e9;color:#fff;font-size:10.5px;padding:5px 10px;flex:1;" onclick="toggleUsbSerial()">
-                        <span class="bubble-fill"></span>
-                        <span class="btn-text">${usbReaderActive ? 'Disconnect USB' : '🔌 Connect USB'}</span>
-                    </button>
-                    <button class="map-filter-pill" style="font-size:10.5px;padding:4px 8px;" onclick="toggleSerialTerminal()">📟 Log</button>
-                    <button class="map-filter-pill" style="font-size:10.5px;padding:4px 8px;" onclick="toggleSensorSimulation()">${simInterval ? '⏹ Stop Sim' : '⚡ Sim'}</button>
-                </div>
-            </div>
-        `;
-    }
+    const selected = selectedTelemetryNodeName === (event.name || event.node_id) ? ' is-selected' : '';
+    const statusColor = event.status === 'OFFLINE' ? '#ef4444' : (event.status === 'STALE' ? '#eab308' : '#22c55e');
+
+    const sourceBadge = isSimulated
+        ? '<span style="font-size:9px;background:rgba(139,92,246,0.18);color:#a855f7;border:1px solid rgba(139,92,246,0.3);padding:2px 5px;border-radius:4px;font-weight:700;">SIMULATED</span>'
+        : '<span style="font-size:9px;background:rgba(34,197,94,0.18);color:#22c55e;border:1px solid rgba(34,197,94,0.3);padding:2px 5px;border-radius:4px;font-weight:700;">LIVE</span>';
 
     return `
-        <article class="district-node-card${selected}" data-node-name="${event.name}" style="--node-color:${event.color};${isSrmNode && (usbReaderActive || simInterval) ? 'border-color:#ff5722;box-shadow:0 0 15px rgba(255,87,34,0.15);' : ''}">
-            <div class="district-node-card-head">
-                <div class="district-node-name" style="display:flex;align-items:center;gap:6px;">
-                    ${event.name}
-                    ${isSrmNode ? '<span style="font-size:9px;background:#ff5722;color:#fff;padding:2px 6px;border-radius:4px;font-weight:700;">LIVE EDGE</span>' : ''}
+        <article class="district-node-card${selected}" data-node-name="${event.name || event.node_id}" style="--node-color:${event.color || getSeverityColor(event.severity)};">
+            <div class="district-node-card-head" style="display:flex;justify-content:space-between;align-items:flex-start;">
+                <div>
+                    <div class="district-node-name" style="display:flex;align-items:center;gap:6px;">
+                        ${event.name || event.node_id}
+                        ${sourceBadge}
+                    </div>
+                    <div class="district-node-type">${event.zone || event.module || 'Field Station'}</div>
                 </div>
-                <div class="district-node-type">${event.module}</div>
+                <div style="text-align:right;">
+                    <span style="font-size:10px;font-weight:700;color:${statusColor};">● ${event.status || 'ONLINE'}</span>
+                    ${event.battery_pct !== undefined ? `<div style="font-family:var(--font-mono);font-size:9.5px;color:var(--text-secondary);">${event.battery_pct}% bat</div>` : ''}
+                </div>
             </div>
             <div class="node-score-row">
                 <div class="node-score">
-                    <div class="node-score-label">Severity / ${event.severity}</div>
-                    <div class="node-score-value" style="color:${event.color};">${event.severityScore}<span style="font-size:9px;font-weight:500;"> / 100</span></div>
+                    <div class="node-score-label">Priority / ${event.primary_hazard || event.module || 'Risk'}</div>
+                    <div class="node-score-value" style="color:${event.color || getSeverityColor(event.severity)};">${event.severityScore !== undefined ? event.severityScore : (event.risk_pct || 0)}<span style="font-size:9px;font-weight:500;"> / 100</span></div>
                 </div>
                 <div class="node-score">
                     <div class="node-score-label">Confidence</div>
-                    <div class="node-score-value">${event.confidenceScore}<span style="font-size:9px;font-weight:500;">%</span></div>
+                    <div class="node-score-value">${event.confidenceScore !== undefined ? event.confidenceScore : (event.confidence_pct || 88)}<span style="font-size:9px;font-weight:500;">%</span></div>
                 </div>
             </div>
-            <div class="node-readings">${readings}</div>
-            ${hardwareHudHtml}
+            ${readings ? `<div class="node-readings">${readings}</div>` : ''}
         </article>`;
 }
 
-function renderDistrictNodePanel(districtName, selectedName = '') {
+async function renderDistrictNodePanel(districtName, selectedName = '') {
     const title = document.getElementById('district-node-panel-title');
     const meta = document.getElementById('district-node-panel-meta');
     const list = document.getElementById('district-node-list');
@@ -3448,18 +3464,107 @@ function renderDistrictNodePanel(districtName, selectedName = '') {
 
     selectedTelemetryNodeName = selectedName;
     if (!districtName) {
-        title.textContent = 'District telemetry';
-        meta.textContent = 'Select a district to inspect its nodes';
-        list.innerHTML = '<div class="district-node-empty">Choose a district from the selector to view every deployed node and its fixed sensor readings.</div>';
+        title.textContent = 'District Environmental Intelligence';
+        meta.textContent = 'Select a district to inspect aggregated risk and nodes';
+        list.innerHTML = '<div class="district-node-empty">Choose a district from the selector to view backend aggregated multi-hazard intelligence, active nodes, and hotspots.</div>';
         return;
     }
 
-    const events = TN_EVENTS_BY_DISTRICT[districtName] || [];
-    title.textContent = `${districtName} node telemetry`;
-    meta.textContent = `${events.length} deployed node${events.length === 1 ? '' : 's'} / fixed edge snapshot`;
-    list.innerHTML = events.length
-        ? events.map(tnNodeCardHtml).join('')
-        : '<div class="district-node-empty">No live hazard model nodes are deployed in this district.</div>';
+    title.textContent = `${districtName} District Risk Intelligence`;
+    meta.textContent = 'Loading live multi-node aggregation...';
+
+    // Fetch backend district aggregation
+    let districtData = null;
+    try {
+        const res = await fetch(`${TERRA_GATEWAY_CONFIG.baseUrl}/api/districts/${encodeURIComponent(districtName)}/risk`);
+        if (res.ok) {
+            districtData = await res.json();
+        }
+    } catch (e) {}
+
+    // Fallback to in-memory events if gateway is unreachable
+    const fallbackEvents = TN_EVENTS_BY_DISTRICT[districtName] || [];
+    const nodes = (districtData && districtData.nodes && districtData.nodes.length) ? districtData.nodes : fallbackEvents;
+
+    meta.textContent = districtData 
+        ? `${districtData.node_count} nodes (${districtData.active_nodes_count} online, ${districtData.offline_nodes_count} offline) · Peak Risk: ${districtData.composite_risk_pct}%`
+        : `${fallbackEvents.length} deployed nodes`;
+
+    let html = '';
+
+    // If we have backend district intelligence, render top hazards ranking & hotspots
+    if (districtData && districtData.hazards && districtData.hazards.length) {
+        const topHazards = districtData.hazards.filter(h => h.risk_pct > 0 || h.total_reporting_nodes > 0).slice(0, 3);
+        if (topHazards.length) {
+            html += `
+                <div style="background:var(--panel-bg);border:1px solid var(--panel-border);border-radius:10px;padding:10px 12px;margin-bottom:12px;">
+                    <div style="font-size:11px;font-weight:700;letter-spacing:0.5px;color:var(--text-secondary);text-transform:uppercase;margin-bottom:8px;">
+                        🎯 District Hazard Priority Ranking
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:6px;">
+                        ${topHazards.map(h => `
+                            <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 8px;border-radius:6px;background:var(--surface-alt-2);border-left:3px solid ${getSeverityColor(h.severity)};">
+                                <div>
+                                    <strong style="font-size:12px;color:var(--text-primary);">#${h.rank} ${h.hazard}</strong>
+                                    <span style="font-size:10px;color:var(--text-secondary);margin-left:6px;">(${h.affected_nodes} / ${h.total_reporting_nodes} nodes affected)</span>
+                                </div>
+                                <div style="text-align:right;">
+                                    <span style="font-family:var(--font-mono);font-size:12px;font-weight:700;color:${getSeverityColor(h.severity)};">${h.risk_pct}%</span>
+                                    <span style="font-size:9.5px;color:var(--text-secondary);margin-left:4px;">${h.severity}</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    // Render active hotspots if present
+    if (districtData && districtData.hotspots && districtData.hotspots.length) {
+        html += `
+            <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.3);border-radius:10px;padding:10px 12px;margin-bottom:12px;">
+                <div style="font-size:11px;font-weight:700;color:#ef4444;text-transform:uppercase;display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+                    <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#ef4444;box-shadow:0 0 6px #ef4444;animation:pulse 1.5s infinite;"></span>
+                    🔥 Active Hazard Hotspots (${districtData.hotspots.length})
+                </div>
+                ${districtData.hotspots.map(hs => `
+                    <div style="font-size:11.5px;color:var(--text-primary);margin-top:4px;">
+                        <strong>${hs.hazard} Cluster</strong> (${hs.affected_nodes.join(', ')}) — 
+                        <span style="color:${getSeverityColor(hs.severity)};font-weight:700;">${hs.risk_pct}% Risk (${hs.severity})</span>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    // Render nodes list
+    if (nodes && nodes.length) {
+        html += nodes.map(n => {
+            const ev = {
+                name: n.node_id,
+                node_id: n.node_id,
+                module: n.node_profile || n.node_type || 'Type-A',
+                zone: n.zone || `${districtName} Station`,
+                district: n.district || districtName,
+                status: n.status || 'ONLINE',
+                battery_pct: n.battery_pct !== undefined ? n.battery_pct : 95,
+                rssi_dbm: n.rssi_dbm,
+                is_simulated: n.is_simulated,
+                primary_hazard: n.latest_primary_hazard || 'Environmental',
+                severity: n.latest_severity || 'NORMAL',
+                severityScore: n.latest_risk_pct !== undefined ? n.latest_risk_pct : 15,
+                confidenceScore: n.latest_confidence_pct !== undefined ? n.latest_confidence_pct : 88,
+                color: getSeverityColor(n.latest_severity || 'NORMAL'),
+                readings: n.readings || []
+            };
+            return tnNodeCardHtml(ev);
+        }).join('');
+    } else {
+        html += '<div class="district-node-empty">No sensor nodes currently registered in this district.</div>';
+    }
+
+    list.innerHTML = html;
 
     if (selectedName) {
         requestAnimationFrame(() => {
@@ -4110,6 +4215,8 @@ function parseAndApplySensorData(raw) {
         if (counterEl) counterEl.innerText = `${totalPacketsReceived} Packets`;
 
         updateSrmNodeTelemetry(sensorData);
+        // Forward decoded telemetry frame to Type B Edge Gateway
+        forwardTelemetryToGateway(sensorData);
     }
 }
 
@@ -4311,6 +4418,187 @@ function injectPresetData(type) {
     if (input) input.value = jsonStr;
     appendSerialLog(`[PRESET: ${type.toUpperCase()}] ${jsonStr}`);
     parseAndApplySensorData(jsonStr);
+}
+
+// ============================================================
+// TERRAEDGE TYPE B EDGE GATEWAY CLIENT & UNIFIED PIPELINE SYNC
+// ============================================================
+const TERRA_GATEWAY_CONFIG = {
+    baseUrl: 'http://127.0.0.1:8000',
+    pollIntervalMs: 2500,
+    isOnline: false,
+    lastSync: null
+};
+
+function updateGatewayBadgeUI(online, details = '') {
+    TERRA_GATEWAY_CONFIG.isOnline = online;
+    const badges = [
+        { pill: document.getElementById('gateway-status-pill'), dot: document.getElementById('gateway-status-dot'), text: document.getElementById('gateway-status-text') },
+        { pill: document.getElementById('gateway-status-pill-about'), dot: document.getElementById('gateway-status-dot-about'), text: document.getElementById('gateway-status-text-about') }
+    ];
+
+    badges.forEach(({ pill, dot, text }) => {
+        if (!pill) return;
+        if (online) {
+            pill.style.background = 'rgba(34, 197, 94, 0.12)';
+            pill.style.borderColor = 'rgba(34, 197, 94, 0.4)';
+            pill.style.color = '#22c55e';
+            if (dot) {
+                dot.style.background = '#22c55e';
+                dot.style.boxShadow = '0 0 8px #22c55e';
+            }
+            if (text) text.innerText = '● GATEWAY: ONLINE (:8000)';
+            pill.title = `Type B Edge Gateway Connected (${details || 'Healthy'})`;
+        } else {
+            pill.style.background = 'rgba(239, 68, 68, 0.1)';
+            pill.style.borderColor = 'rgba(239, 68, 68, 0.3)';
+            pill.style.color = '#ef4444';
+            if (dot) {
+                dot.style.background = '#ef4444';
+                dot.style.boxShadow = '0 0 6px #ef4444';
+            }
+            if (text) text.innerText = '○ GATEWAY: OFFLINE (Demo)';
+            pill.title = 'Type B Gateway (:8000) unreachable — running in standalone browser demo mode';
+        }
+    });
+}
+
+// Forward live telemetry packets from Web Serial / Simulator directly to Type B Gateway
+async function forwardTelemetryToGateway(sensorData) {
+    // Phase 4: Frontend no longer POSTs simulated telemetry to the Gateway.
+    // Real hardware ESP32 sends telemetry via LoRa -> Type B Gateway -> Supabase -> Dashboard.
+    console.log("[SIM] forwardTelemetryToGateway is disabled in Phase 4. Using real LoRa telemetry.");
+}
+
+// Update TAMIL_NADU_EVENTS and UI when Gateway returns unified prediction results
+function applyGatewayPredictionData(gatewayResponse) {
+    if (!gatewayResponse || !gatewayResponse.hazard_results) return;
+
+    const predictions = gatewayResponse.hazard_results;
+    const hazardMapping = {
+        'Flood': 'flood',
+        'Wildfire': 'fire',
+        'Landslide': 'land',
+        'Air Quality': 'air',
+        'Extreme Heat': 'heat',
+        'Industrial Emissions': 'ind',
+        'Water Quality': 'water'
+    };
+
+    Object.keys(predictions).forEach(hazardKey => {
+        const pred = predictions[hazardKey];
+        if (!pred || pred.model_status === 'skipped' || pred.model_status === 'error') return;
+
+        const eventType = hazardMapping[hazardKey] || hazardKey.toLowerCase();
+        
+        // Find matching map event
+        const event = TAMIL_NADU_EVENTS.find(e => e.hazard === eventType || (eventType === 'fire' && (e.isHardwareNode || e.name.includes('SRM Node'))));
+        if (!event) return;
+
+        // Map severity
+        event.severity = pred.severity || 'Normal';
+        event.severityScore = Math.min(100, Math.max(0, Math.round((pred.risk_score || 0) * 100)));
+        event.confidenceScore = Math.min(100, Math.max(0, Math.round((pred.confidence || 0.9) * 100)));
+
+        if (event.severity === 'Critical') event.color = '#ef4444';
+        else if (event.severity === 'Warning') event.color = '#f97316';
+        else if (event.severity === 'Watch') event.color = '#eab308';
+        else event.color = '#22c55e';
+    });
+
+    // Refresh active district view if displayed
+    const currentDistrict = document.getElementById('district-select')?.value;
+    if (currentDistrict === 'Chennai') {
+        const selected = selectedTelemetryNodeName || 'SRM Node (Forest Fire Live Edge)';
+        renderDistrictNodePanel('Chennai', selected);
+    }
+}
+
+// Polling daemon for Type B Gateway
+async function pollTerraGateway() {
+    try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2000);
+        const healthRes = await fetch(`${TERRA_GATEWAY_CONFIG.baseUrl}/health`, { signal: controller.signal });
+        clearTimeout(timeoutId);
+
+        if (healthRes.ok) {
+            const healthData = await healthRes.json();
+            updateGatewayBadgeUI(true, `v${healthData.version || '5.0'} - ${healthData.active_nodes_count || 0} nodes`);
+
+            // Phase 5: Fetch complete GIS Risk Map from Backend
+            try {
+                const mapRes = await fetch(`${TERRA_GATEWAY_CONFIG.baseUrl}/api/risk-map`);
+                if (mapRes.ok) {
+                    const mapData = await mapRes.json();
+                    
+                    // Update TAMIL_NADU_EVENTS with live backend node information
+                    if (mapData.nodes && mapData.nodes.length) {
+                        mapData.nodes.forEach(bNode => {
+                            let match = TAMIL_NADU_EVENTS.find(e => e.name === bNode.node_id || e.node_id === bNode.node_id);
+                            if (match) {
+                                match.status = bNode.status;
+                                match.battery_pct = bNode.battery_pct;
+                                match.rssi_dbm = bNode.rssi_dbm;
+                                match.is_simulated = bNode.is_simulated;
+                                match.primary_hazard = bNode.latest_primary_hazard;
+                                match.severity = bNode.latest_severity || 'NORMAL';
+                                match.severityScore = bNode.latest_risk_pct || 0;
+                                match.confidenceScore = bNode.latest_confidence_pct || 85;
+                                match.color = getSeverityColor(bNode.latest_severity);
+                            }
+                        });
+
+                        // Update markers on the map
+                        if (tnEventMarkers && tnEventMarkers.length) {
+                            tnEventMarkers.forEach(m => {
+                                const matched = mapData.nodes.find(n => n.node_id === m.title || (m.title && m.title.includes(n.node_id)));
+                                if (matched && m.div) {
+                                    const core = m.div.querySelector('.t-pin-core');
+                                    if (core) core.style.background = getSeverityColor(matched.latest_severity);
+                                }
+                            });
+                        }
+                    }
+
+                    // Refresh active district view if displayed
+                    const currentDistrict = document.getElementById('district-select')?.value;
+                    if (currentDistrict) {
+                        renderDistrictNodePanel(currentDistrict, selectedTelemetryNodeName);
+                    }
+                }
+            } catch (err) {
+                console.error("Error fetching risk-map:", err);
+            }
+
+            // Phase 6: Sync Live Multi-Channel Alerts from Backend
+            try {
+                const alertsRes = await fetch(`${TERRA_GATEWAY_CONFIG.baseUrl}/api/alerts?limit=10`);
+                if (alertsRes.ok) {
+                    const alertsData = await alertsRes.json();
+                    window.TERRA_LIVE_ALERTS = alertsData;
+                }
+            } catch (err) {
+                // Silently fallback if alerts endpoint has network error
+            }
+        } else {
+            updateGatewayBadgeUI(false);
+        }
+    } catch (e) {
+        updateGatewayBadgeUI(false);
+    }
+}
+
+function startGatewayPolling() {
+    if (gatewayPollTimer) clearInterval(gatewayPollTimer);
+    pollTerraGateway(); // Initial check
+    gatewayPollTimer = setInterval(pollTerraGateway, TERRA_GATEWAY_CONFIG.pollIntervalMs);
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startGatewayPolling);
+} else {
+    startGatewayPolling();
 }
 
 </script>

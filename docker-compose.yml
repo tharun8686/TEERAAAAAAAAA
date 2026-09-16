@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  terraedge-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: terraedge-type-b-gateway
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - GATEWAY_HOST=0.0.0.0
+      - GATEWAY_PORT=8000
+      - TERRAEDGE_ENV=production
+      - GATEWAY_ID=GW-01
+      - SITE_NAME=Western Ghats Base Station
+      - DEPLOYMENT_REGION=Tamil Nadu
+      - TERRAEDGE_LOG_LEVEL=INFO
+      - SUPABASE_URL=${SUPABASE_URL:-}
+      - SUPABASE_SERVICE_KEY=${SUPABASE_SERVICE_KEY:-}
+      - TERRAEDGE_ADMIN_TOKEN=${TERRAEDGE_ADMIN_TOKEN:-terraedge-admin-secret-2026}
+      - TERRAEDGE_OPERATOR_TOKEN=${TERRAEDGE_OPERATOR_TOKEN:-terraedge-operator-secret-2026}
+      - TERRAEDGE_ALLOWED_ORIGINS=${TERRAEDGE_ALLOWED_ORIGINS:-http://localhost,http://127.0.0.1,http://localhost:8000,http://127.0.0.1:8000}
+      - LORA_ENABLED=${LORA_ENABLED:-false}
+      - LORA_MOCK_MODE=${LORA_MOCK_MODE:-false}
+      - NOTIFICATION_MODE=${NOTIFICATION_MODE:-dry_run}
+      - BACKHAUL_MODE=${BACKHAUL_MODE:-live}
+    volumes:
+      # Persistent volume for SQLite WAL Store-and-Forward Queue across container restarts
+      - gateway-data:/app/gateway/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health/live"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  gateway-data:
+    driver: local

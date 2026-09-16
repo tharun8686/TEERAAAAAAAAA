@@ -42,9 +42,15 @@ desktop.ini
 .idea/
 *.swp
 
-# ── Logs ────────────────────────────────────────────────────
+# ── Logs & Local Databases ──────────────────────────────────
 *.log
 logs/
+*.db
+*.db-wal
+*.db-shm
+*.bak
+gateway/data/*
+!gateway/data/.gitkeep
 
 # Keep model artifacts (.pkl, .joblib, .json, .h files)
 # Keep ESP32 headers (.h)

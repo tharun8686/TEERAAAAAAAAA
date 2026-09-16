@@ -128,7 +128,7 @@ SUPABASE_ANON_KEY=...
 ### 4. Dashboard
 
 Open `index.html` in a browser while at least one microservice is running. The control center auto-detects the module endpoints.
-
+      
 ---
 
 ## Edge Deployment

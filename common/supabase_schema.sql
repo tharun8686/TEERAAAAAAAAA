@@ -1,5 +1,5 @@
 -- ============================================================================
--- Terra Edge — Supabase schema
+-- Terra Edge — Supabase schema (Phase 5 Multi-Node & District GIS)
 -- ----------------------------------------------------------------------------
 -- Run this once in your Supabase project: Dashboard -> SQL Editor -> New query
 -- -> paste -> Run. It is safe to re-run; every statement is idempotent.
@@ -7,18 +7,15 @@
 
 -- ---------------------------------------------------------------------------
 -- alerts: one row per threshold breach (severity WARNING or CRITICAL)
---
--- Common fields are real columns so they can be indexed and filtered in SQL.
--- The full hazard-specific alert body is kept verbatim in `details`, which is
--- what the /api/alerts endpoints return, so each hazard keeps its own fields
--- (top_features, trigger_values, predicted_pm25_60m, ...) without needing
--- seven separate tables.
 -- ---------------------------------------------------------------------------
 create table if not exists public.alerts (
     id          bigint generated always as identity primary key,
     alert_id    text        not null,
     hazard      text        not null,
     node_id     text,
+    state       text        default 'Tamil Nadu',
+    district    text,
+    gateway_id  text        default 'GW-01',
     severity    text        not null,
     risk_score  numeric,
     details     jsonb       not null default '{}'::jsonb,
@@ -29,6 +26,8 @@ create index if not exists alerts_hazard_created_idx
     on public.alerts (hazard, created_at desc);
 create index if not exists alerts_severity_idx
     on public.alerts (severity);
+create index if not exists alerts_district_idx
+    on public.alerts (district);
 
 -- ---------------------------------------------------------------------------
 -- predictions: every inference, not just the ones that crossed a threshold.
@@ -39,6 +38,9 @@ create table if not exists public.predictions (
     id          bigint generated always as identity primary key,
     hazard      text        not null,
     node_id     text,
+    state       text        default 'Tamil Nadu',
+    district    text,
+    gateway_id  text        default 'GW-01',
     severity    text,
     risk_score  numeric,
     payload     jsonb       not null default '{}'::jsonb,
@@ -48,58 +50,90 @@ create table if not exists public.predictions (
 
 create index if not exists predictions_hazard_created_idx
     on public.predictions (hazard, created_at desc);
+create index if not exists predictions_district_created_idx
+    on public.predictions (district, created_at desc);
 
 -- ---------------------------------------------------------------------------
--- nodes: the field sensor inventory that used to be a hardcoded Python list.
--- Each service upserts its built-in nodes on startup, so this fills itself in.
+-- nodes: the field sensor inventory table supporting dynamic registration.
 -- ---------------------------------------------------------------------------
 create table if not exists public.nodes (
-    node_id     text primary key,
-    hazard      text not null,
-    type        text,
-    zone        text,
-    lat         double precision,
-    lon         double precision,
-    status      text default 'ONLINE',
-    last_ping   timestamptz default now()
+    node_id          text primary key,
+    hazard           text not null default 'all',
+    type             text default 'Type-A',
+    state            text default 'Tamil Nadu',
+    district         text,
+    zone             text,
+    lat              double precision,
+    lon              double precision,
+    battery          double precision,
+    capabilities     text[] default '{}',
+    firmware_version text default '1.0.0',
+    is_simulated     boolean default false,
+    gateway_id       text default 'GW-01',
+    status           text default 'ONLINE',
+    last_ping        timestamptz default now()
 );
 
 create index if not exists nodes_hazard_idx on public.nodes (hazard);
+create index if not exists nodes_district_idx on public.nodes (district);
+create index if not exists nodes_state_idx on public.nodes (state);
 
 -- ============================================================================
--- Row Level Security
--- ----------------------------------------------------------------------------
--- The FastAPI services connect with the service_role key, which bypasses RLS
--- entirely, so these policies are not needed for the backends to work. They
--- matter only if you later read these tables straight from the browser with
--- the anon key. The policies below grant public READ and keep writes
--- server-side only.
---
--- Leave this whole block commented out if you would rather keep the tables
--- fully private.
+-- Alter existing tables if they already exist (safe migration path)
 -- ============================================================================
+alter table public.nodes add column if not exists state text default 'Tamil Nadu';
+alter table public.nodes add column if not exists district text;
+alter table public.nodes add column if not exists battery double precision;
+alter table public.nodes add column if not exists capabilities text[] default '{}';
+alter table public.nodes add column if not exists firmware_version text default '1.0.0';
+alter table public.nodes add column if not exists is_simulated boolean default false;
+alter table public.nodes add column if not exists gateway_id text default 'GW-01';
 
--- alter table public.alerts      enable row level security;
--- alter table public.predictions enable row level security;
--- alter table public.nodes       enable row level security;
+alter table public.predictions add column if not exists state text default 'Tamil Nadu';
+alter table public.predictions add column if not exists district text;
+alter table public.predictions add column if not exists gateway_id text default 'GW-01';
 
--- create policy "public read alerts"      on public.alerts      for select using (true);
--- create policy "public read predictions" on public.predictions for select using (true);
--- create policy "public read nodes"       on public.nodes       for select using (true);
+alter table public.alerts add column if not exists state text default 'Tamil Nadu';
+alter table public.alerts add column if not exists district text;
+alter table public.alerts add column if not exists gateway_id text default 'GW-01';
 
--- ============================================================================
--- Handy queries once data starts flowing
--- ============================================================================
--- Most recent alerts across every hazard:
---   select hazard, alert_id, node_id, severity, risk_score, created_at
---   from public.alerts order by created_at desc limit 50;
---
--- Alert counts by hazard and severity:
---   select hazard, severity, count(*) from public.alerts
---   group by hazard, severity order by hazard;
---
--- Risk trend for one hazard over the last day:
---   select date_trunc('hour', created_at) as hour, avg(risk_score) as avg_risk
---   from public.predictions
---   where hazard = 'flood' and created_at > now() - interval '1 day'
---   group by hour order by hour;
+-- ---------------------------------------------------------------------------
+-- notification_targets: registered emergency response authority contacts
+-- ---------------------------------------------------------------------------
+create table if not exists public.notification_targets (
+    target_id    text primary key,
+    target_type  text not null,
+    name         text not null,
+    destination  text not null,
+    state        text default 'Tamil Nadu',
+    district     text,
+    hazards      text[] default '{"all"}',
+    min_severity text default 'WARNING',
+    enabled      boolean default true,
+    created_at   timestamptz default now()
+);
+
+create index if not exists targets_type_idx on public.notification_targets (target_type);
+create index if not exists targets_district_idx on public.notification_targets (district);
+
+-- ---------------------------------------------------------------------------
+-- notification_dispatches: complete audit log of every channel dispatch attempt
+-- ---------------------------------------------------------------------------
+create table if not exists public.notification_dispatches (
+    dispatch_id         text primary key,
+    alert_id            text not null,
+    channel             text not null,
+    target              text not null,
+    attempted_at        timestamptz default now(),
+    status              text not null,
+    provider_message_id text,
+    error               text,
+    latency_ms          numeric default 0.0,
+    dry_run             boolean default true,
+    response_metadata   jsonb default '{}'::jsonb
+);
+
+create index if not exists dispatches_alert_idx on public.notification_dispatches (alert_id);
+create index if not exists dispatches_channel_idx on public.notification_dispatches (channel);
+create index if not exists dispatches_attempted_at_idx on public.notification_dispatches (attempted_at desc);
+
