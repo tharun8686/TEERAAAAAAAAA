@@ -41,6 +41,25 @@ class TypeATelemetryPayload(BaseModel):
     battery_pct: Optional[float] = Field(None, ge=0.0, le=100.0, description="Battery state of charge (0-100%)")
     rssi_dbm: Optional[float] = Field(None, description="LoRa / RF signal strength")
 
+    # Phase 9 Autonomous Power Management & Telemetry Extensions
+    power_mode: Optional[str] = Field("NORMAL", description="Autonomous power state: NORMAL, WATCH, WARNING, CRITICAL")
+    battery_voltage_v: Optional[float] = Field(None, ge=0.0, le=10.0, description="Battery bus voltage in Volts")
+    battery_soc_pct: Optional[float] = Field(None, ge=0.0, le=100.0, description="Battery State of Charge %")
+    battery_state: Optional[str] = Field("DISCHARGING", description="Battery state: FULL, CHARGING, DISCHARGING, LOW, CRITICAL, UNKNOWN")
+    battery_current_a: Optional[float] = Field(None, description="Net battery current in Amperes (+ into battery, - out)")
+    battery_power_w: Optional[float] = Field(None, ge=0.0, description="Battery instantaneous power in Watts")
+    charging: Optional[bool] = Field(False, description="True if charging from solar MPPT")
+    solar_available: Optional[bool] = Field(False, description="True if solar irradiance available")
+    solar_input_voltage_v: Optional[float] = Field(None, ge=0.0, description="Solar panel voltage in Volts")
+    solar_input_power_w: Optional[float] = Field(None, ge=0.0, description="Solar panel generation in Watts")
+    estimated_power_w: Optional[float] = Field(None, ge=0.0, description="Node estimated total power consumption in Watts")
+    estimated_autonomy_hours: Optional[float] = Field(None, ge=0.0, description="Estimated battery autonomy in hours")
+    telemetry_interval_s: Optional[int] = Field(300, ge=1, description="Reporting interval in seconds")
+    gps_enabled: Optional[bool] = Field(True, description="Whether GPS fix was acquired in this cycle")
+    sensor_profile: Optional[str] = Field(None, description="Active sensor duty-cycle profile")
+    emergency_state: Optional[bool] = Field(False, description="True if local emergency condition is active")
+    telemetry_priority: Optional[str] = Field("NORMAL", description="Transmission priority: NORMAL, ELEVATED, HIGH, EMERGENCY")
+
     # Environmental Core (BME680 / DHT22 / Barometer)
     temperature_c: Optional[float] = Field(None, ge=-40.0, le=85.0, description="Ambient temperature in °C")
     humidity_pct: Optional[float] = Field(None, ge=0.0, le=100.0, description="Relative humidity in %")
@@ -191,6 +210,20 @@ class UnifiedGatewayResponse(BaseModel):
     # Phase 4: Pass through the raw telemetry for frontend rendering
     raw_telemetry: Optional[Dict[str, Any]] = Field(None, description="Raw Type A telemetry payload received from node")
 
+    # Phase 9: Power Management Summary
+    power_mode: Optional[str] = Field("NORMAL", description="Autonomous power state: NORMAL, WATCH, WARNING, CRITICAL")
+    battery_voltage_v: Optional[float] = None
+    battery_soc_pct: Optional[float] = None
+    battery_state: Optional[str] = None
+    charging: Optional[bool] = None
+    solar_available: Optional[bool] = None
+    solar_input_power_w: Optional[float] = None
+    estimated_power_w: Optional[float] = None
+    estimated_autonomy_hours: Optional[float] = None
+    telemetry_interval_s: Optional[int] = None
+    telemetry_priority: Optional[str] = "NORMAL"
+    power_budget: Optional[Dict[str, Any]] = None
+
 
 # ============================================================================
 # 4. Phase 3 — LoRa Transport Metadata
@@ -274,6 +307,18 @@ class NodeDetailResponse(BaseModel):
     latest_severity: Optional[str] = None
     latest_confidence_pct: Optional[float] = None
 
+    # Phase 9 Power extensions
+    power_mode: Optional[str] = Field("NORMAL", description="Node power state: NORMAL, WATCH, WARNING, CRITICAL")
+    battery_voltage_v: Optional[float] = None
+    battery_soc_pct: Optional[float] = None
+    battery_state: Optional[str] = None
+    charging: Optional[bool] = None
+    solar_available: Optional[bool] = None
+    solar_input_power_w: Optional[float] = None
+    telemetry_interval_s: Optional[int] = None
+    estimated_autonomy_hours: Optional[float] = None
+    desired_power_profile: Optional[Dict[str, Any]] = None
+
 
 # ============================================================================
 # 6. Phase 5 — District Risk Aggregation & GIS Schemas
@@ -336,6 +381,46 @@ class RiskMapResponse(BaseModel):
     nodes: List[Dict[str, Any]] = Field(default_factory=list)
     hotspots: List[HotspotCluster] = Field(default_factory=list)
     timestamp: str = Field(default_factory=_utc_now_iso)
+
+
+# ============================================================================
+# 7. Phase 9 — Power Profile & Autonomous Management Schemas
+# ============================================================================
+
+class PowerProfileUpdateRequest(BaseModel):
+    """Payload for configuring or overriding field node power profile via Gateway API."""
+    mode: Optional[str] = Field(None, description="Force specific power mode: NORMAL, WATCH, WARNING, CRITICAL, or AUTO")
+    telemetry_interval_s: Optional[int] = Field(None, ge=5, le=3600, description="Telemetry interval in seconds")
+    gps_interval_s: Optional[int] = Field(None, ge=10, le=86400, description="GPS fix acquisition interval in seconds")
+    sensor_profile: Optional[str] = Field(None, description="Sensor duty-cycle profile preset name")
+    emergency_wakeup_enabled: Optional[bool] = Field(None, description="Enable/disable local emergency wake-up")
+    sampling_profile: Optional[List[str]] = Field(None, description="Explicit list of enabled sensor IDs")
+
+
+class NodePowerDetailResponse(BaseModel):
+    """Detailed power telemetry and autonomy status for a field node."""
+    node_id: str
+    power_state: str
+    battery_soc_pct: Optional[float] = None
+    battery_voltage_v: Optional[float] = None
+    battery_state: str = "DISCHARGING"
+    battery_current_a: Optional[float] = None
+    battery_power_w: Optional[float] = None
+    charging: bool = False
+    solar_available: bool = False
+    solar_input_voltage_v: Optional[float] = None
+    solar_input_power_w: Optional[float] = None
+    telemetry_interval_s: int = 300
+    gps_interval_s: int = 3600
+    estimated_average_current_ma: Optional[float] = None
+    estimated_power_w: Optional[float] = None
+    estimated_autonomy_hours: Optional[float] = None
+    estimated_autonomy_days: Optional[float] = None
+    estimated_daily_energy_use_wh: Optional[float] = None
+    estimated_daily_solar_input_wh: Optional[float] = None
+    desired_power_profile: Optional[Dict[str, Any]] = None
+    measurement_status: str = "SIMULATED / ESTIMATED"
+    last_updated: str = Field(default_factory=_utc_now_iso)
 
 
 UnifiedGatewayResponse.model_rebuild()

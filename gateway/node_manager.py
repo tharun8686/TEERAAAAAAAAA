@@ -31,6 +31,16 @@ from .schemas import (
     TypeATelemetryPayload,
 )
 from .sensor_profiles import detect_capabilities, detect_node_profile
+from .power import (
+    DEFAULT_POWER_CONFIG,
+    NodePowerStateMachine,
+    PowerBudgetEngine,
+    PowerState,
+    check_emergency_conditions,
+    classify_battery_state,
+    estimate_soc_from_voltage,
+    estimate_voltage_from_soc,
+)
 
 
 def _utc_now_iso() -> str:
@@ -118,6 +128,9 @@ class NodeManager:
         self.offline_threshold_seconds = offline_threshold_seconds
         self._lock = threading.Lock()
         self._nodes: Dict[str, Dict[str, Any]] = {}
+        self._power_state_machines: Dict[str, NodePowerStateMachine] = {}
+        self._desired_power_profiles: Dict[str, Dict[str, Any]] = {}
+        self._power_budget_engine = PowerBudgetEngine()
 
         # Pre-seed known baseline nodes
         self._seed_baseline_nodes()
@@ -406,6 +419,35 @@ class NodeManager:
             merged_caps = list(set(capabilities + existing.get("capabilities", [])))
             profile = detect_node_profile(merged_caps)
 
+            # Phase 9: Battery and Power State Management
+            soc = telemetry.battery_soc_pct if telemetry.battery_soc_pct is not None else (telemetry.battery_pct if telemetry.battery_pct is not None else existing.get("battery_pct"))
+            v_bat = telemetry.battery_voltage_v if telemetry.battery_voltage_v is not None else existing.get("battery_voltage_v")
+            if v_bat is None and soc is not None:
+                v_bat = round(estimate_voltage_from_soc(soc), 2)
+            elif soc is None and v_bat is not None:
+                soc = round(estimate_soc_from_voltage(v_bat), 1)
+
+            is_emerg, emerg_reasons = check_emergency_conditions(telemetry)
+            
+            # State machine tracking
+            sm = self.get_or_create_power_sm(telemetry.node_id)
+            if is_emerg:
+                sm.update(risk_pct=100.0, severity="CRITICAL", emergency_trigger=True)
+            elif telemetry.power_mode:
+                try:
+                    sm.current_state = PowerState(telemetry.power_mode.upper())
+                except Exception:
+                    pass
+
+            telemetry_interval = telemetry.telemetry_interval_s or sm.get_telemetry_interval()
+            budget = self._power_budget_engine.calculate_budget(
+                telemetry_interval_s=telemetry_interval,
+                battery_soc_pct=soc if soc is not None else 85.0,
+                battery_voltage_v=v_bat,
+                active_sensor_ids=merged_caps,
+                solar_peak_power_w=telemetry.solar_input_power_w
+            )
+
             node_record = {
                 "node_id": telemetry.node_id,
                 "node_type": telemetry.node_type or existing.get("node_type", "Type-A"),
@@ -414,7 +456,7 @@ class NodeManager:
                 "zone": telemetry.zone or existing.get("zone", "Field Station"),
                 "latitude": telemetry.latitude if telemetry.latitude is not None else existing.get("latitude"),
                 "longitude": telemetry.longitude if telemetry.longitude is not None else existing.get("longitude"),
-                "battery_pct": telemetry.battery_pct if telemetry.battery_pct is not None else existing.get("battery_pct"),
+                "battery_pct": soc,
                 "status": "ONLINE",
                 "last_seen": now_iso,
                 "capabilities": merged_caps,
@@ -427,6 +469,18 @@ class NodeManager:
                 "last_sequence": current_seq if current_seq is not None else existing.get("last_sequence"),
                 "packets_received": packets_received,
                 "packets_lost": packets_lost,
+                # Phase 9 Power Telemetry
+                "power_mode": sm.current_state.value,
+                "battery_voltage_v": v_bat,
+                "battery_soc_pct": soc,
+                "battery_state": telemetry.battery_state or classify_battery_state(soc if soc is not None else 85.0, bool(telemetry.charging)),
+                "charging": bool(telemetry.charging),
+                "solar_available": bool(telemetry.solar_available or (telemetry.solar_input_power_w and telemetry.solar_input_power_w > 0)),
+                "solar_input_power_w": telemetry.solar_input_power_w,
+                "telemetry_interval_s": telemetry_interval,
+                "estimated_power_w": telemetry.estimated_power_w or budget.estimated_power_w,
+                "estimated_autonomy_hours": telemetry.estimated_autonomy_hours or budget.estimated_autonomy_hours,
+                "desired_power_profile": self._desired_power_profiles.get(telemetry.node_id),
                 # Preserve cached prediction summaries
                 "latest_primary_hazard": existing.get("latest_primary_hazard"),
                 "latest_risk_pct": existing.get("latest_risk_pct"),
@@ -565,13 +619,93 @@ class NodeManager:
         severity: str,
         confidence_pct: float
     ) -> None:
-        """Caches the latest multi-hazard risk assessment on the node record."""
+        """Caches the latest multi-hazard risk assessment on the node record and transitions power state."""
         with self._lock:
             if node_id in self._nodes:
                 self._nodes[node_id]["latest_primary_hazard"] = primary_hazard
                 self._nodes[node_id]["latest_risk_pct"] = round(risk_pct, 1)
                 self._nodes[node_id]["latest_severity"] = severity
                 self._nodes[node_id]["latest_confidence_pct"] = round(confidence_pct, 1)
+
+                # Phase 9: Autonomous power state machine update
+                sm = self.get_or_create_power_sm(node_id)
+                new_state, changed, reason = sm.update(risk_pct=risk_pct, severity=severity)
+                self._nodes[node_id]["power_mode"] = new_state.value
+                self._nodes[node_id]["telemetry_interval_s"] = sm.get_telemetry_interval()
+
+    def get_or_create_power_sm(self, node_id: str) -> NodePowerStateMachine:
+        """Retrieves or creates an in-memory power state machine for the given node."""
+        if node_id not in self._power_state_machines:
+            self._power_state_machines[node_id] = NodePowerStateMachine(node_id=node_id)
+        return self._power_state_machines[node_id]
+
+    def set_desired_power_profile(self, node_id: str, profile_req: Any) -> Dict[str, Any]:
+        """Sets or overrides power profile for a field node."""
+        with self._lock:
+            node = self._nodes.get(node_id)
+            if not node:
+                raise KeyError(f"Node {node_id} not found")
+            req_dict = profile_req.model_dump(exclude_unset=True) if hasattr(profile_req, "model_dump") else dict(profile_req)
+            self._desired_power_profiles[node_id] = req_dict
+            node["desired_power_profile"] = req_dict
+
+            if req_dict.get("mode") and req_dict["mode"].upper() != "AUTO":
+                try:
+                    target_mode = PowerState(req_dict["mode"].upper())
+                    sm = self.get_or_create_power_sm(node_id)
+                    sm.current_state = target_mode
+                    node["power_mode"] = target_mode.value
+                    if req_dict.get("telemetry_interval_s"):
+                        node["telemetry_interval_s"] = req_dict["telemetry_interval_s"]
+                    else:
+                        node["telemetry_interval_s"] = sm.get_telemetry_interval()
+                except Exception:
+                    pass
+            return req_dict
+
+    def get_power_details(self, node_id: str) -> Optional[Dict[str, Any]]:
+        """Returns detailed power status, battery telemetry, and autonomy estimates."""
+        with self._lock:
+            node = self._nodes.get(node_id)
+            if not node:
+                return None
+            node_copy = self._apply_online_status(dict(node))
+            sm = self.get_or_create_power_sm(node_id)
+            soc = node_copy.get("battery_soc_pct") or node_copy.get("battery_pct") or 85.0
+            v_bat = node_copy.get("battery_voltage_v") or estimate_voltage_from_soc(soc)
+            caps = node_copy.get("capabilities", [])
+            interval = node_copy.get("telemetry_interval_s") or sm.get_telemetry_interval()
+            budget = self._power_budget_engine.calculate_budget(
+                telemetry_interval_s=interval,
+                battery_soc_pct=soc,
+                battery_voltage_v=v_bat,
+                active_sensor_ids=caps,
+                solar_peak_power_w=node_copy.get("solar_input_power_w")
+            )
+            return {
+                "node_id": node_id,
+                "power_state": node_copy.get("power_mode", sm.current_state.value),
+                "battery_soc_pct": soc,
+                "battery_voltage_v": v_bat,
+                "battery_state": node_copy.get("battery_state", classify_battery_state(soc, False)),
+                "battery_current_a": round(budget.estimated_average_current_ma / 1000.0, 3),
+                "battery_power_w": budget.estimated_power_w,
+                "charging": bool(node_copy.get("charging", False)),
+                "solar_available": bool(node_copy.get("solar_available", False)),
+                "solar_input_voltage_v": 5.8 if node_copy.get("solar_available") else 0.0,
+                "solar_input_power_w": node_copy.get("solar_input_power_w", 0.0),
+                "telemetry_interval_s": interval,
+                "gps_interval_s": sm.get_gps_interval(),
+                "estimated_average_current_ma": budget.estimated_average_current_ma,
+                "estimated_power_w": budget.estimated_power_w,
+                "estimated_autonomy_hours": budget.estimated_autonomy_hours,
+                "estimated_autonomy_days": budget.estimated_autonomy_days,
+                "estimated_daily_energy_use_wh": budget.estimated_daily_energy_use_wh,
+                "estimated_daily_solar_input_wh": budget.estimated_daily_solar_input_wh,
+                "desired_power_profile": self._desired_power_profiles.get(node_id),
+                "measurement_status": "SIMULATED / ESTIMATED",
+                "last_updated": _utc_now_iso(),
+            }
 
     def get_node(self, node_id: str) -> Optional[Dict[str, Any]]:
         """Retrieves a single node by ID with evaluated dynamic status."""

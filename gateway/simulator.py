@@ -235,6 +235,239 @@ def generate_water_quality_packet(
     }
 
 
+# ============================================================================
+# Phase 9 Autonomous Power Management Scenarios (1 to 7)
+# ============================================================================
+
+def generate_healthy_solar_packet(
+    node_id: str,
+    step: int = 0,
+    state: str = "Tamil Nadu",
+    district: str = "Coimbatore",
+    zone: str = "Western Ghats Solar Research Outpost",
+    lat: float = 11.0168,
+    lon: float = 76.9558,
+    is_simulated: bool = True
+) -> Dict[str, Any]:
+    """Scenario 1: Healthy solar day - strong solar generation, full battery, low risk, NORMAL mode."""
+    pkt = generate_normal_packet(node_id, step, state, district, zone, lat, lon, is_simulated)
+    pkt.update({
+        "power_mode": "NORMAL",
+        "battery_soc_pct": 98.5,
+        "battery_pct": 98.5,
+        "battery_voltage_v": 4.18,
+        "battery_state": "FULL",
+        "charging": True,
+        "solar_available": True,
+        "solar_input_voltage_v": 5.85,
+        "solar_input_power_w": 4.5,
+        "telemetry_interval_s": 300,
+        "telemetry_priority": "NORMAL",
+        "emergency_state": False,
+    })
+    return pkt
+
+
+def generate_cloudy_solar_packet(
+    node_id: str,
+    step: int = 0,
+    state: str = "Tamil Nadu",
+    district: str = "Nilgiris",
+    zone: str = "Nilgiris Cloud Forest Station",
+    lat: float = 11.4102,
+    lon: float = 76.6950,
+    is_simulated: bool = True
+) -> Dict[str, Any]:
+    """Scenario 2: Cloudy / low solar - weak solar input, gradual battery decrease, power-constrained duty cycling."""
+    pkt = generate_normal_packet(node_id, step, state, district, zone, lat, lon, is_simulated)
+    soc = max(15.0, round(88.0 - step * 6.5, 1))
+    v_bat = round(3.4 + (soc / 100.0) * 0.7, 2)
+    b_state = "LOW" if soc <= 25.0 else "DISCHARGING"
+    pkt.update({
+        "power_mode": "NORMAL",
+        "battery_soc_pct": soc,
+        "battery_pct": soc,
+        "battery_voltage_v": v_bat,
+        "battery_state": b_state,
+        "charging": False,
+        "solar_available": False,
+        "solar_input_voltage_v": 1.2,
+        "solar_input_power_w": 0.2,
+        "telemetry_interval_s": 300,
+        "telemetry_priority": "NORMAL",
+        "emergency_state": False,
+    })
+    return pkt
+
+
+def generate_flood_escalation_packet(
+    node_id: str,
+    step: int = 0,
+    state: str = "Tamil Nadu",
+    district: str = "Tiruchirappalli",
+    zone: str = "Kaveri River Floodplain",
+    lat: float = 10.7905,
+    lon: float = 78.7047,
+    is_simulated: bool = True
+) -> Dict[str, Any]:
+    """Scenario 3: Flood escalation - water level and rainfall surging, rate changes 300s -> 60s -> 30s -> 10s."""
+    pkt = generate_flood_packet(node_id, step, state, district, zone, lat, lon, is_simulated)
+    if step <= 1:
+        p_mode, interval = "NORMAL", 300
+    elif step == 2:
+        p_mode, interval = "WATCH", 60
+    elif step == 3:
+        p_mode, interval = "WARNING", 30
+    else:
+        p_mode, interval = "CRITICAL", 10
+
+    pkt.update({
+        "power_mode": p_mode,
+        "battery_soc_pct": round(92.0 - step * 1.5, 1),
+        "battery_pct": round(92.0 - step * 1.5, 1),
+        "battery_voltage_v": 3.95,
+        "battery_state": "DISCHARGING",
+        "charging": False,
+        "solar_available": False,
+        "solar_input_power_w": 0.0,
+        "telemetry_interval_s": interval,
+        "telemetry_priority": "HIGH" if p_mode == "CRITICAL" else "NORMAL",
+        "emergency_state": False,
+    })
+    return pkt
+
+
+def generate_wildfire_emergency_packet(
+    node_id: str,
+    step: int = 0,
+    state: str = "Tamil Nadu",
+    district: str = "Erode",
+    zone: str = "Sathyamangalam Forest Reserve",
+    lat: float = 11.5034,
+    lon: float = 77.2412,
+    is_simulated: bool = True
+) -> Dict[str, Any]:
+    """Scenario 4: Wildfire emergency wake-up - optical flame detected, immediate EMERGENCY LoRa transmission, CRITICAL mode."""
+    pkt = generate_wildfire_packet(node_id, step, state, district, zone, lat, lon, is_simulated)
+    pkt.update({
+        "flame_detected": True,
+        "flame": 1,
+        "power_mode": "CRITICAL",
+        "battery_soc_pct": 82.0,
+        "battery_pct": 82.0,
+        "battery_voltage_v": 3.88,
+        "battery_state": "DISCHARGING",
+        "charging": False,
+        "solar_available": True,
+        "solar_input_power_w": 2.5,
+        "telemetry_interval_s": 10,
+        "telemetry_priority": "EMERGENCY",
+        "emergency_state": True,
+    })
+    return pkt
+
+
+def generate_landslide_precursor_packet(
+    node_id: str,
+    step: int = 0,
+    state: str = "Tamil Nadu",
+    district: str = "Nilgiris",
+    zone: str = "Nilgiris Mountain Pass",
+    lat: float = 11.4102,
+    lon: float = 76.6950,
+    is_simulated: bool = True
+) -> Dict[str, Any]:
+    """Scenario 5: Landslide precursor - soil saturation, high vibration, accelerating tilt rate, escalating sampling frequency."""
+    pkt = generate_landslide_packet(node_id, step, state, district, zone, lat, lon, is_simulated)
+    p_mode = "CRITICAL" if step >= 2 else "WARNING"
+    interval = 10 if p_mode == "CRITICAL" else 30
+    pkt.update({
+        "power_mode": p_mode,
+        "battery_soc_pct": round(84.0 - step * 1.2, 1),
+        "battery_pct": round(84.0 - step * 1.2, 1),
+        "battery_voltage_v": 3.90,
+        "battery_state": "DISCHARGING",
+        "charging": False,
+        "solar_available": False,
+        "solar_input_power_w": 0.5,
+        "telemetry_interval_s": interval,
+        "telemetry_priority": "ELEVATED" if p_mode == "WARNING" else "HIGH",
+        "emergency_state": False,
+    })
+    return pkt
+
+
+def generate_battery_depletion_packet(
+    node_id: str,
+    step: int = 0,
+    state: str = "Tamil Nadu",
+    district: str = "Chennai",
+    zone: str = "Adyar Catchment Outpost",
+    lat: float = 13.0325,
+    lon: float = 80.1808,
+    is_simulated: bool = True
+) -> Dict[str, Any]:
+    """Scenario 6: Battery depletion - low-battery threshold breach, aggressive power savings, emergency sensing preserved."""
+    pkt = generate_normal_packet(node_id, step, state, district, zone, lat, lon, is_simulated)
+    soc = max(4.0, round(28.0 - step * 6.0, 1))
+    v_bat = round(3.05 + (soc / 100.0) * 0.6, 2)
+    b_state = "CRITICAL" if soc <= 10.0 else "LOW"
+    pkt.update({
+        "power_mode": "NORMAL",
+        "battery_soc_pct": soc,
+        "battery_pct": soc,
+        "battery_voltage_v": v_bat,
+        "battery_state": b_state,
+        "charging": False,
+        "solar_available": False,
+        "solar_input_power_w": 0.0,
+        "telemetry_interval_s": 300,
+        "telemetry_priority": "NORMAL",
+        "emergency_state": False,
+        "pm25_ug_m3": None,  # SDS011 off
+        "pm10_ug_m3": None,
+        "mq135_raw": None,   # MQ-135 off
+    })
+    return pkt
+
+
+def generate_recovery_packet(
+    node_id: str,
+    step: int = 0,
+    state: str = "Tamil Nadu",
+    district: str = "Tiruchirappalli",
+    zone: str = "Kaveri River Floodplain",
+    lat: float = 10.7905,
+    lon: float = 78.7047,
+    is_simulated: bool = True
+) -> Dict[str, Any]:
+    """Scenario 7: Recovery - threat recedes, hysteresis stabilizes state then steps down."""
+    pkt = generate_normal_packet(node_id, step, state, district, zone, lat, lon, is_simulated)
+    if step <= 1:
+        p_mode, interval = "CRITICAL", 10
+    elif step <= 2:
+        p_mode, interval = "WARNING", 30
+    elif step <= 3:
+        p_mode, interval = "WATCH", 60
+    else:
+        p_mode, interval = "NORMAL", 300
+
+    pkt.update({
+        "power_mode": p_mode,
+        "battery_soc_pct": round(78.0 + step * 1.5, 1),
+        "battery_pct": round(78.0 + step * 1.5, 1),
+        "battery_voltage_v": 3.86,
+        "battery_state": "CHARGING",
+        "charging": True,
+        "solar_available": True,
+        "solar_input_power_w": 3.8,
+        "telemetry_interval_s": interval,
+        "telemetry_priority": "NORMAL",
+        "emergency_state": False,
+    })
+    return pkt
+
+
 SCENARIO_MAP = {
     "normal": generate_normal_packet,
     "flood": generate_flood_packet,
@@ -244,6 +477,14 @@ SCENARIO_MAP = {
     "extreme_heat": generate_extreme_heat_packet,
     "industrial_emissions": generate_industrial_packet,
     "water_quality": generate_water_quality_packet,
+    # Phase 9 Scenarios
+    "healthy_solar": generate_healthy_solar_packet,
+    "cloudy_solar": generate_cloudy_solar_packet,
+    "flood_escalation": generate_flood_escalation_packet,
+    "wildfire_emergency": generate_wildfire_emergency_packet,
+    "landslide_precursor": generate_landslide_precursor_packet,
+    "battery_depletion": generate_battery_depletion_packet,
+    "recovery": generate_recovery_packet,
 }
 
 
@@ -399,6 +640,12 @@ def run_simulator(
                 for a in alerts:
                     print(f"  ⚠️  [ALERT DISPATCHED] {a.get('hazard')} ({a.get('severity')}) - {a.get('risk_score_pct')}%")
 
+            # Phase 9: Display Power & Autonomous Transmission Status
+            if "power_mode" in res:
+                print(f"  ⚡ [POWER STATE] {res.get('power_mode')} | Interval: {res.get('telemetry_interval_s')}s | Priority: {res.get('telemetry_priority')}")
+                print(f"  🔋 [BATTERY] {res.get('battery_soc_pct')}% ({res.get('battery_state')}, {res.get('battery_voltage_v')}V) | Solar: {'YES' if res.get('solar_available') else 'NO'} ({res.get('solar_input_power_w', 0)}W)")
+                print(f"  ⏱️  [ESTIMATED BUDGET] Power: {res.get('estimated_power_w')}W | Autonomy: {res.get('estimated_autonomy_hours')} hrs (SIMULATED/ESTIMATED)")
+
         if count > 0 and step >= count:
             print("\n🏁 Target packet count reached. Simulator stopped.")
             break
@@ -406,11 +653,85 @@ def run_simulator(
         time.sleep(interval)
 
 
+def run_power_progression_demo(url: str, interval: float = 2.0) -> None:
+    """
+    Executes the complete Phase 9 autonomous field node power & LoRa progression demonstration:
+    1. Healthy Solar Baseline: NORMAL mode (300s telemetry)
+    2. Environmental Risk Surge (Flood Deluge): NORMAL -> WATCH (60s) -> WARNING (30s) -> CRITICAL (10s)
+    3. Local Emergency Condition: Flame trigger -> EMERGENCY wake-up, immediate LoRa transmission
+    4. Hazard Dissipation & Hysteresis: CRITICAL -> WARNING -> WATCH -> NORMAL
+    5. Power Constraint / Low Battery: Preserves vital emergency sensors, shuts down nonessential loads
+    """
+    print("=" * 75)
+    print("  ⚡ TerraEdge Phase 9 — Autonomous Power Management & LoRa Duty-Cycle Demo")
+    print("  Target Gateway: " + url)
+    print("  Interval: " + str(interval) + "s per progression step")
+    print("=" * 75)
+
+    node_id = "TE-PWR-01"
+
+    # Step 1: Healthy Solar Baseline
+    print("\n🟢 [STEP 1/5] Healthy Solar Day — Low Risk (NORMAL Mode, 300s Telemetry)")
+    p1 = generate_healthy_solar_packet(node_id=node_id, step=1)
+    res1 = send_telemetry_http(url, p1)
+    if res1:
+        print(f"  Result: State={res1.get('power_mode')}, Interval={res1.get('telemetry_interval_s')}s, Priority={res1.get('telemetry_priority')}")
+        print(f"  Battery: {res1.get('battery_soc_pct')}%, Solar: {res1.get('solar_input_power_w')}W, Autonomy: {res1.get('estimated_autonomy_hours')} hrs")
+
+    time.sleep(interval)
+
+    # Step 2: Flood Deluge Escalation
+    print("\n🌧️  [STEP 2/5] Monsoon Flood Escalation (NORMAL -> WATCH -> WARNING -> CRITICAL)")
+    for s in [2, 3, 4]:
+        p2 = generate_flood_escalation_packet(node_id=node_id, step=s)
+        res2 = send_telemetry_http(url, p2)
+        if res2:
+            print(f"  Substep #{s-1}: Risk={res2.get('composite_risk_pct')}%, State={res2.get('power_mode')}, Interval={res2.get('telemetry_interval_s')}s")
+        time.sleep(interval)
+
+    # Step 3: Local Emergency Condition (Flame Trigger)
+    print("\n🔥 [STEP 3/5] Local Emergency Wake-up Trigger (Optical Flame Detected)")
+    p3 = generate_wildfire_emergency_packet(node_id=node_id, step=5)
+    res3 = send_telemetry_http(url, p3)
+    if res3:
+        print(f"  Emergency Immediate TX: Priority={res3.get('telemetry_priority')}, State={res3.get('power_mode')}, Interval={res3.get('telemetry_interval_s')}s")
+        print(f"  Emergency Handled: Alerts persisted={len(res3.get('alerts_triggered', []))}")
+
+    time.sleep(interval)
+
+    # Step 4: Hazard Clearance & Hysteresis Step-Down
+    print("\n🌤️  [STEP 4/5] Threat Recedes — Hysteresis Recovery (CRITICAL -> WARNING -> WATCH -> NORMAL)")
+    for step_num in [1, 2, 3, 4]:
+        p4 = generate_recovery_packet(node_id=node_id, step=step_num)
+        res4 = send_telemetry_http(url, p4)
+        if res4:
+            print(f"  Hysteresis Step #{step_num}: State={res4.get('power_mode')}, Interval={res4.get('telemetry_interval_s')}s")
+        time.sleep(interval)
+
+    # Step 5: Low Battery Protection Behavior
+    print("\n🪫 [STEP 5/5] Low Battery Depletion (SOC Drops to 10% — Protection Mode Activated)")
+    p5 = generate_battery_depletion_packet(node_id=node_id, step=3)
+    res5 = send_telemetry_http(url, p5)
+    if res5:
+        print(f"  Protection Result: Battery={res5.get('battery_soc_pct')}% ({res5.get('battery_state')}), State={res5.get('power_mode')}")
+        print(f"  Sensors: Nonessential air/gas sensors disabled, emergency detection preserved")
+
+    print("\n" + "=" * 75)
+    print("  🏁 Phase 9 Autonomous Power & Transmission Progression Demo Complete.")
+    print("=" * 75)
+
+
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="TerraEdge Type-A Telemetry Simulator (Phase 5)")
+    parser = argparse.ArgumentParser(description="TerraEdge Type-A Telemetry Simulator (Phase 5 & 9)")
     parser.add_argument("--scenario", type=str, default="flood",
-                        choices=["normal", "flood", "landslide", "wildfire", "air_pollution", "extreme_heat", "industrial_emissions", "water_quality", "all"],
-                        help="Hazard scenario to simulate (default: flood)")
+                        choices=[
+                            "normal", "flood", "landslide", "wildfire", "air_pollution",
+                            "extreme_heat", "industrial_emissions", "water_quality",
+                            "healthy_solar", "cloudy_solar", "flood_escalation",
+                            "wildfire_emergency", "landslide_precursor", "battery_depletion",
+                            "recovery", "all"
+                        ],
+                        help="Hazard or power scenario to simulate (default: flood)")
     parser.add_argument("--node-id", type=str, default="TE-SIM-001", help="Field node ID (default: TE-SIM-001)")
     parser.add_argument("--state", type=str, default=None, help="State name (e.g. 'Tamil Nadu')")
     parser.add_argument("--district", type=str, default=None, help="District name (e.g. 'Chennai')")
@@ -421,10 +742,13 @@ if __name__ == "__main__":
     parser.add_argument("--interval", type=float, default=2.0, help="Interval between frames in seconds")
     parser.add_argument("--count", type=int, default=1, help="Number of packets to send (0 for infinite)")
     parser.add_argument("--multi-node-demo", action="store_true", help="Launch concurrent 4-node multi-hazard network demonstration")
+    parser.add_argument("--power-demo", action="store_true", help="Launch Phase 9 end-to-end power & duty-cycle progression demo")
 
     args = parser.parse_args()
 
-    if args.multi-node-demo if hasattr(args, "multi-node-demo") else getattr(args, "multi_node_demo", False):
+    if getattr(args, "power_demo", False):
+        run_power_progression_demo(args.url, args.interval)
+    elif getattr(args, "multi_node_demo", False):
         run_multi_node_demo(args.url, args.interval, args.count)
     else:
         run_simulator(

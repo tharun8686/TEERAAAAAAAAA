@@ -71,8 +71,10 @@ from .schemas import (
     HotspotCluster,
     LoRaTransportMetadata,
     NodeDetailResponse,
+    NodePowerDetailResponse,
     NodeRegistrationRequest,
     NodeUpdateRequest,
+    PowerProfileUpdateRequest,
     RiskMapResponse,
     TypeATelemetryPayload,
     UnifiedGatewayResponse,
@@ -280,6 +282,18 @@ def process_type_a_telemetry(
         db_status=db_mode,
         transport=transport_meta,
         raw_telemetry=payload_dict,
+        # Phase 9: Power Management Fields
+        power_mode=node_info.get("power_mode", "NORMAL"),
+        battery_voltage_v=node_info.get("battery_voltage_v"),
+        battery_soc_pct=node_info.get("battery_soc_pct"),
+        battery_state=node_info.get("battery_state"),
+        charging=node_info.get("charging"),
+        solar_available=node_info.get("solar_available"),
+        solar_input_power_w=node_info.get("solar_input_power_w"),
+        estimated_power_w=node_info.get("estimated_power_w"),
+        estimated_autonomy_hours=node_info.get("estimated_autonomy_hours"),
+        telemetry_interval_s=node_info.get("telemetry_interval_s"),
+        telemetry_priority=payload.telemetry_priority or ("EMERGENCY" if payload.emergency_state else "NORMAL"),
     )
 
     # Cache latest evaluation for node
@@ -478,6 +492,37 @@ def get_node_history(node_id: str, limit: int = Query(50, ge=1, le=200)):
         "history_count": len(history),
         "history": history
     }
+
+
+# Phase 9: Field Node Autonomous Power Management Endpoints
+@app.post("/api/nodes/{node_id}/power-profile", dependencies=[Depends(require_operator)])
+def update_node_power_profile(node_id: str, req: PowerProfileUpdateRequest):
+    """
+    Configures or overrides autonomous power profile for a field node.
+    Requires Operator or Admin authorization.
+    """
+    try:
+        updated = node_manager.set_desired_power_profile(node_id, req)
+        return {
+            "status": "success",
+            "node_id": node_id,
+            "desired_power_profile": updated,
+            "message": f"Power profile updated for node {node_id}"
+        }
+    except KeyError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+
+@app.get("/api/nodes/{node_id}/power", response_model=NodePowerDetailResponse)
+def get_node_power_status(node_id: str):
+    """
+    Retrieves detailed battery telemetry, solar harvest status, power budget,
+    and operational autonomy estimates for the specified node.
+    """
+    p_info = node_manager.get_power_details(node_id)
+    if not p_info:
+        raise HTTPException(status_code=404, detail=f"Node '{node_id}' not found in registry")
+    return NodePowerDetailResponse(**p_info)
 
 
 # ============================================================================

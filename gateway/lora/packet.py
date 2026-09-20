@@ -72,8 +72,13 @@ FIELD_MAP: Dict[str, Tuple[str, Any, int]] = {
     # GPS
     "lat": ("latitude",             float, SENSOR_FLAGS.GPS),
     "lon": ("longitude",            float, SENSOR_FLAGS.GPS),
-    # Battery
+    # Battery & Power (Phase 9)
     "bat": ("battery_pct",          float, SENSOR_FLAGS.BATTERY),
+    "bv":  ("battery_voltage_v",    float, SENSOR_FLAGS.BATTERY),
+    "pw":  ("power_mode",           str,   0),
+    "ti":  ("telemetry_interval_s", int,   0),
+    "tp":  ("telemetry_priority",   str,   0),
+    "es":  ("emergency_state",      bool,  0),
     # BME680
     "t":   ("temperature_c",        float, SENSOR_FLAGS.BME680),
     "h":   ("humidity_pct",         float, SENSOR_FLAGS.BME680),
@@ -128,7 +133,7 @@ def _derive_sensor_flags(payload) -> int:
     flags = 0
     if payload.latitude is not None or payload.longitude is not None:
         flags |= SENSOR_FLAGS.GPS
-    if payload.battery_pct is not None:
+    if payload.battery_pct is not None or payload.battery_voltage_v is not None or payload.battery_soc_pct is not None:
         flags |= SENSOR_FLAGS.BATTERY
     if any(v is not None for v in [
         payload.temperature_c, payload.humidity_pct,
@@ -233,6 +238,15 @@ def encode_packet(
     _add("lat", payload.latitude,               SENSOR_FLAGS.GPS)
     _add("lon", payload.longitude,              SENSOR_FLAGS.GPS)
     _add("bat", payload.battery_pct,            SENSOR_FLAGS.BATTERY)
+    _add("bv",  payload.battery_voltage_v,      SENSOR_FLAGS.BATTERY)
+    if payload.power_mode and payload.power_mode != "NORMAL":
+        pkt["pw"] = payload.power_mode
+    if payload.emergency_state:
+        pkt["es"] = 1
+    if payload.telemetry_priority and payload.telemetry_priority != "NORMAL":
+        pkt["tp"] = payload.telemetry_priority
+    if payload.telemetry_interval_s and payload.telemetry_interval_s != 300:
+        pkt["ti"] = payload.telemetry_interval_s
     _add("t",   payload.temperature_c,          SENSOR_FLAGS.BME680)
     _add("h",   payload.humidity_pct,           SENSOR_FLAGS.BME680)
     _add("p",   payload.pressure_hpa,           SENSOR_FLAGS.BME680)
@@ -360,6 +374,7 @@ def _apply_sensor_flags(kwargs: Dict[str, Any], flags: int) -> Dict[str, Any]:
         SENSOR_FLAGS.PH:        ("ph",),
         SENSOR_FLAGS.TDS:       ("tds_ppm",),
         SENSOR_FLAGS.TURBIDITY: ("turbidity",),
+        SENSOR_FLAGS.BATTERY:   ("battery_pct", "battery_voltage_v"),
     }
     for bit, fields in flag_to_fields.items():
         if not (flags & bit):
