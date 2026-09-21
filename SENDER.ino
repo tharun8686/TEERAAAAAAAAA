@@ -17,6 +17,7 @@
 // ============================================================================
 
 #include <Arduino.h>
+#include <esp_system.h>  // Explicit declaration of esp_random().
 #include "hardware_config.h"
 #if ENABLE_GPS
 #include <TinyGPSPlus.h>
@@ -28,6 +29,11 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME680.h>
 #include <Adafruit_MPU6050.h>
+
+// Explicit declarations also support tools that compile the sketch as C++.
+void parseGPSStream();
+void transmitSensorTelemetry();
+bool sendPart(JsonDocument &part);
 
 // ============================================================================
 // 1. HARDWARE PINOUT CONFIGURATION

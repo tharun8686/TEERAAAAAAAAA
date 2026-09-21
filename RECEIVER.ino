@@ -1,4 +1,5 @@
 // TerraEdge receiver: CRC-checked LoRa bytes -> one USB JSON envelope.
+// Standard ESP32 wiring: NSS5 MOSI23 MISO19 SCK18 RST14 DIO0=2.
 // ESP32-S3 wiring: NSS10 MOSI11 MISO12 SCK13 RST14 DIO0=47.
 // ML inference runs in the Python gateway; no invented receiver scores.
 #include <Arduino.h>
