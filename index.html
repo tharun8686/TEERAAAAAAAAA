@@ -2987,13 +2987,8 @@ async function renderDistrictNodePanel(districtName, selectedName = '') {
 
     list.innerHTML = html;
 
-    if (selectedName) {
-        requestAnimationFrame(() => {
-            const selectedCard = Array.from(list.querySelectorAll('.district-node-card'))
-                .find(card => card.dataset.nodeName === selectedName);
-            if (selectedCard) selectedCard.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-        });
-    }
+    // This also runs during background polling. Updating the selected card must
+    // never scroll the page away from the user's current reading position.
 }
 
 function selectTelemetryNode(event) {
