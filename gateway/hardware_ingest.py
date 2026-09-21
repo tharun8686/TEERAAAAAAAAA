@@ -10,6 +10,7 @@ import time
 FIELDS = {
     "t": ("temperature_c", "°C"), "h": ("humidity_pct", "% RH"),
     "p": ("pressure_hpa", "hPa"), "gr": ("gas_resistance_kohm", "kΩ"),
+    "m7": ("mq7_raw", "ADC counts"), "m7_mv": ("m7_mv", "mV at GPIO7"),
     "mq": ("mq135_raw", "ADC counts"), "rain_adc": ("rain_adc", "ADC counts"),
     "water_adc": ("water_adc", "ADC counts"), "soil_adc": ("soil_adc", "ADC counts"),
     "ph_mv": ("ph_mv", "mV"), "tds_mv": ("tds_mv", "mV"), "turb_mv": ("turb_mv", "mV"),
@@ -31,7 +32,7 @@ FIELDS = {
     "sun": ("solar_radiation_w_m2", "W/m²"), "wind": ("wind_speed_kmh", "km/h"),
 }
 UNITS = {name: unit for name, unit in FIELDS.values()}
-DIAGNOSTICS = {"rain_adc", "water_adc", "soil_adc", "ph_mv", "tds_mv", "turb_mv", "bme_ok", "mpu_ok"}
+DIAGNOSTICS = {"m7_mv", "rain_adc", "water_adc", "soil_adc", "ph_mv", "tds_mv", "turb_mv", "bme_ok", "mpu_ok"}
 
 
 def decode_envelope(envelope):
@@ -87,7 +88,7 @@ class FrameAssembler:
                 raise ValueError("Invalid boolean sensor state")
             if type(value) is bool and key not in ("fd", "bme_ok", "mpu_ok"):
                 raise ValueError("Boolean cannot stand in for a numeric measurement")
-            if (key.endswith("_adc") or key == "mq") and not 0 <= value <= 4095:
+            if (key.endswith("_adc") or key in ("mq", "m7")) and not 0 <= value <= 4095:
                 raise ValueError("12-bit ADC reading outside 0..4095")
             if key.endswith("_mv") and not 0 <= value <= 3300:
                 raise ValueError("ADC millivolts outside 0..3300")

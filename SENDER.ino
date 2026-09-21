@@ -4,7 +4,7 @@
 // 
 // Sensors Supported:
 //   - BME680 (Temp, Humidity, Barometric Pressure, Gas Resistance) [I2C]
-//   - MQ-135 (raw ADC response; NOT ppm, CO, or TVOC) [Analog ADC]
+//   - MQ-7 (raw ADC response; NOT ppm, CO, or TVOC) [Analog ADC]
 //   - Rain plate (raw wetness response; NOT rainfall in mm) [Analog ADC]
 //   - JSN-SR04T Ultrasonic / Analog Water Depth (Water Level) [Pulse / ADC]
 //   - Capacitive Soil Moisture Sensor [Analog ADC]
@@ -18,7 +18,9 @@
 
 #include <Arduino.h>
 #include "hardware_config.h"
+#if ENABLE_GPS
 #include <TinyGPSPlus.h>
+#endif
 #include <Wire.h>
 #include <SPI.h>
 #include <LoRa.h>
@@ -53,7 +55,7 @@
   #define LORA_DIO0           47
 
   // --- Analog Sensor ADC Pins ---
-  #define PIN_MQ135           7     // MQ-135 / MQ-2 Air/Smoke
+  #define PIN_MQ7           7     // MQ-7 AO through voltage divider
   #define PIN_RAIN            1     // Rain sensor plate
   #define PIN_WATER           2     // Analog water level probe
   #define PIN_SOIL            3     // Capacitive soil moisture
@@ -64,14 +66,14 @@
 
   // --- Digital Sensor Pins ---
   #define PIN_FLAME           15    // IR Flame sensor (Active LOW)
-  #define PIN_SW420           21    // SW-420 Vibration sensor
+  #define PIN_SW420           16    // SW-420 Vibration sensor
 
   // --- Ultrasonic Sensor Pins (JSN-SR04T) ---
   #define PIN_US_TRIG         17
-  #define PIN_US_ECHO         16
+  #define PIN_US_ECHO         18
 
   // --- Hardware UARTs ---
-  #define GPS_RX_PIN          18
+  #define GPS_RX_PIN          S3_GPS_RX_PIN
   #define GPS_TX_PIN          -1    // Receive-only GPS; preserve native USB GPIO19/20
 
 #elif defined(BOARD_ESP32_DEV)
@@ -86,7 +88,7 @@
   #define LORA_RST            14
   #define LORA_DIO0           2
 
-  #define PIN_MQ135           34
+  #define PIN_MQ7           34
   #define PIN_RAIN            35
   #define PIN_WATER           32
   #define PIN_SOIL            33
@@ -129,8 +131,11 @@ static_assert(!ENABLE_BATTERY || PIN_BATTERY >= 0, "Configure a free battery ADC
 // ============================================================================
 Adafruit_BME680   bme;
 Adafruit_MPU6050  mpu;
+#if ENABLE_GPS
 HardwareSerial    GPS_Serial(1);
 TinyGPSPlus gps;
+static_assert(GPS_RX_PIN >= 0 && GPS_RX_PIN != PIN_US_ECHO, "Assign a free GPS RX pin before enabling GPS");
+#endif
 uint32_t bootId;
 portMUX_TYPE vibrationMux = portMUX_INITIALIZER_UNLOCKED;
 volatile uint32_t lastVibrationUs = 0;
@@ -181,10 +186,11 @@ float readUltrasonicDistanceCm() {
 }
 
 void parseGPSStream() {
-  if (!ENABLE_GPS) return;
+  #if ENABLE_GPS
   while (GPS_Serial.available()) gps.encode(GPS_Serial.read());
   gpsFixed = gps.location.isValid() && gps.location.age() < 15000;
   health.gps = gpsFixed;
+  #endif
 }
 
 // ============================================================================
@@ -247,8 +253,10 @@ void setup() {
   }
 
   // 3. Initialize GPS UART
-  if (ENABLE_GPS) GPS_Serial.begin(9600, SERIAL_8N1, GPS_RX_PIN, GPS_TX_PIN);
+  #if ENABLE_GPS
+  GPS_Serial.begin(9600, SERIAL_8N1, GPS_RX_PIN, GPS_TX_PIN);
   Serial.println(F("[INIT] GPS UART initialized on 9600 baud."));
+  #endif
 
   // 4. Initialize LoRa SX1278
   Serial.print(F("[INIT] Initializing SX1278 LoRa @ 433MHz... "));
@@ -316,7 +324,11 @@ void transmitSensorTelemetry() {
     readings["p"] = bme.pressure / 100.0f;
     readings["gr"] = bme.gas_resistance / 1000.0f;
   }
-  if (ENABLE_MQ135) readings["mq"] = analogRead(PIN_MQ135);
+  if (ENABLE_MQ7) {
+    // Fixed 5V module power does not provide a calibrated CO concentration.
+    readings["m7"] = analogRead(PIN_MQ7);
+    readings["m7_mv"] = analogReadMilliVolts(PIN_MQ7);
+  }
   if (ENABLE_RAIN_PLATE) readings["rain_adc"] = analogRead(PIN_RAIN);
   if (ENABLE_WATER_ADC) readings["water_adc"] = analogRead(PIN_WATER);
   if (ENABLE_SOIL) {
@@ -330,7 +342,7 @@ void transmitSensorTelemetry() {
   if (ENABLE_PH) {
     float mv = analogReadMilliVolts(PIN_PH);
     readings["ph_mv"] = mv;
-    if (PH_CALIBRATED) {
+    if (PH_CALIBRATED && mv < ADC_USABLE_MAX_MV) {
       float v = linearCalibration(mv, PH_MV_1, PH_VALUE_1, PH_MV_2, PH_VALUE_2);
       if (isfinite(v) && v >= 0 && v <= 14) readings["ph"] = v;
     }
@@ -338,7 +350,7 @@ void transmitSensorTelemetry() {
   if (ENABLE_TDS) {
     float mv = analogReadMilliVolts(PIN_TDS);
     readings["tds_mv"] = mv;
-    if (TDS_CALIBRATED) {
+    if (TDS_CALIBRATED && mv < ADC_USABLE_MAX_MV) {
       float v = mv * TDS_PPM_PER_MV + TDS_OFFSET_PPM;
       if (isfinite(v) && v >= 0) readings["td"] = v;
     }
@@ -346,7 +358,7 @@ void transmitSensorTelemetry() {
   if (ENABLE_TURBIDITY) {
     float mv = analogReadMilliVolts(PIN_TURBIDITY);
     readings["turb_mv"] = mv;
-    if (TURBIDITY_CALIBRATED) {
+    if (TURBIDITY_CALIBRATED && mv < ADC_USABLE_MAX_MV) {
       float v = mv * TURBIDITY_NTU_PER_MV + TURBIDITY_OFFSET_NTU;
       if (isfinite(v) && v >= 0) readings["tb"] = v;
     }
@@ -371,19 +383,22 @@ void transmitSensorTelemetry() {
   readings["mpu_ok"] = mpuOk;
   if (ENABLE_VIBRATION) {
     portENTER_CRITICAL(&vibrationMux);
+    uint32_t vibrationSampleTime = millis();
     uint32_t pulses = vibrationCounter;
     vibrationCounter = 0;
     portEXIT_CRITICAL(&vibrationMux);
-    uint32_t elapsed = now - lastVibResetTime;
+    uint32_t elapsed = vibrationSampleTime - lastVibResetTime;
     if (elapsed) readings["vr"] = pulses * 60000.0f / elapsed;
-    lastVibResetTime = now;
+    lastVibResetTime = vibrationSampleTime;
   }
   if (ENABLE_FLAME) readings["fd"] = digitalRead(PIN_FLAME) == LOW ? 1 : 0;
   if (ENABLE_BATTERY) readings["bv"] = analogReadMilliVolts(PIN_BATTERY) / 1000.0f * BATTERY_DIVIDER_RATIO;
+  #if ENABLE_GPS
   if (gpsFixed) {
     readings["lat"] = gps.location.lat();
     readings["lon"] = gps.location.lng();
   }
+  #endif
   if (readings.overflowed()) {
     Serial.println("[ERROR] Readings buffer full; frame dropped");
     return;

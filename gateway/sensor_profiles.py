@@ -77,7 +77,8 @@ def detect_capabilities(telemetry: Any) -> List[str]:
     if (getattr(telemetry,"pm25_ug_m3",None) is not None
             or getattr(telemetry,"pm10_ug_m3",None) is not None):
         caps.append(CAPABILITY_PARTICULATE)
-    if (getattr(telemetry,"mq135_raw",None) is not None
+    if (getattr(telemetry,"mq7_raw",None) is not None
+            or getattr(telemetry,"mq135_raw",None) is not None
             or getattr(telemetry,"gas_resistance_kohm",None) is not None):
         caps.append(CAPABILITY_GAS)
     if (getattr(telemetry,"flame_detected",None) is not None

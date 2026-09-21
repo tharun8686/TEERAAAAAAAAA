@@ -1,4 +1,5 @@
 // TerraEdge receiver: CRC-checked LoRa bytes -> one USB JSON envelope.
+// ESP32-S3 wiring: NSS10 MOSI11 MISO12 SCK13 RST14 DIO0=47.
 // ML inference runs in the Python gateway; no invented receiver scores.
 #include <Arduino.h>
 #include <SPI.h>
@@ -18,7 +19,6 @@
   #define LORA_SS             10
   #define LORA_RST            14
   #define LORA_DIO0           47
-  #define LED_STATUS_PIN      -11    // Optional onboard indicator LED
 #elif defined(BOARD_ESP32_DEV)
   #define LORA_SCK            18
   #define LORA_MISO           19
@@ -26,7 +26,6 @@
   #define LORA_SS             5
   #define LORA_RST            14
   #define LORA_DIO0           2
-  #define LED_STATUS_PIN      -1
 #endif
 
 

@@ -52,8 +52,8 @@ Open `build/arduino/SENDER/SENDER.ino` and
 root files and `hardware_config.h`, then rerun the copy command after edits.
 
 Required libraries: Arduino ESP32 core, LoRa by Sandeep Mistry, ArduinoJson **6.x**,
-Adafruit BME680, Adafruit MPU6050, Adafruit Unified Sensor, Adafruit BusIO, and
-TinyGPSPlus. Select the actual ESP32 Dev Module or ESP32S3 Dev Module for each board.
+Adafruit BME680, Adafruit MPU6050, Adafruit Unified Sensor and Adafruit BusIO.
+TinyGPSPlus is needed only when ENABLE_GPS is enabled. Select the actual ESP32 Dev Module or ESP32S3 Dev Module for each board.
 Other ESP32 families deliberately fail compilation until a verified pin map exists.
 For S3 native USB, enable USB CDC On Boot. Select the port corresponding to the board
 you are flashing. Firmware compilation and physical flashing are still required;
@@ -68,27 +68,28 @@ a gateway restart. Give every sender a unique `NODE_ID`.
 
 ## Wiring profiles to verify against your actual boards
 
-These are GPIO numbers, not header positions. They inherit the folder's original
-profiles; the actual connected hardware has not been confirmed.
+These are GPIO numbers, not header positions. The S3 profile matches the supplied
+wiring; the ESP32 Dev profile is retained for a separately wired legacy board.
 
 | Signal | ESP32-S3 sender | ESP32 Dev sender |
 |---|---:|---:|
 | I²C SDA / SCL | 8 / 9 | 21 / 22 |
 | LoRa SCK / MISO / MOSI | 13 / 12 / 11 | 18 / 19 / 23 |
 | LoRa NSS / RESET / DIO0 | 10 / 14 / 47 | 5 / 14 / 2 |
-| MQ-135 analog | 7 | 34 |
+| MQ-7 analog through divider | 7 | 34 |
 | Rain plate analog | 1 | 35 |
 | Water probe analog | 2 | 32 |
 | Soil analog | 3 | 33 |
 | pH / TDS / turbidity analog | 4 / 5 / 6 | 36 / 39 / 25 |
-| Flame / SW420 digital | 15 / 21 | 27 / 13 |
-| Ultrasonic TRIG / ECHO | 17 / 16 | 12 / 4 |
-| GPS receiver input (NEO-6M TX) | 18 | 16 |
+| Flame / SW420 digital | 15 / 16 | 27 / 13 |
+| Ultrasonic TRIG / ECHO | 17 / 18 | 12 / 4 |
+| GPS receiver input (disabled) | unassigned | 16 |
 
 Receiver LoRa pins use the same profile for its selected board. Do not drive GPIO2
 as an LED on the ESP32 receiver: it is DIO0. The old sketch did both. S3 GPIO0 is not
 an ADC input. Battery sensing is disabled until a free ADC pin and divider are
-configured. Keep S3 native USB GPIO19/20 free; GPS needs only its TX → ESP32 RX wire.
+configured. Keep S3 native USB GPIO19/20 free. GPIO18 belongs to ultrasonic ECHO;
+GPS is disabled and requires a new verified free RX pin before enabling.
 Pin availability depends on module flash/PSRAM and board wiring. ESP32 GPIO12 is a
 boot strapping pin; verify the ultrasonic module does not force an invalid boot level.
 
@@ -98,16 +99,44 @@ from 5 V signals with the appropriate divider or level shifter. A software chang
 cannot compensate for wrong wiring, insufficient heater current, or overvoltage.
 
 In `hardware_config.h`, disable every sensor that is not connected. Analog pins
-cannot reliably detect a disconnected sensor. Default enables mirror the original
-sensor list and require verification. BME680 probes 0x76/0x77; MPU6050 probes
+cannot reliably detect a disconnected sensor. MQ-7, rain, water, soil, pH, flame,
+SW420 and ultrasonic are enabled for the supplied wiring. TDS on GPIO5 is optional
+and disabled until connected. Turbidity on GPIO6 is only a reserved optional pin:
+no signal wire was specified, so it is disabled. GPS and battery are disabled.
+OLED and DS18B20 drivers are not included; a TDS board NTC connector does not provide
+a separate measured water temperature to the ESP32. BME680 probes 0x76/0x77; MPU6050 probes
 0x68/0x69. A failed read is omitted and its health flag is shown in diagnostics.
+
+## Supplied power and divider details
+
+Use one common ground. Power ESP32 VIN, MQ-7 and the pH/optional TDS/turbidity/
+ultrasonic boards from their specified 5V rail. LoRa and the listed 3.3V sensors
+use the regulated 3.3V rail. BME680 CS goes to 3.3V and SDO to GND (address 0x76);
+optional MPU6050 AD0 goes to GND (0x68).
+
+**Before connecting inputs:** 10k from output to GPIO and 20k from GPIO to GND
+produces 3.333V from 5V. The ESP32-S3 documented ADC range at 11dB is up to 3.1V;
+software cannot repair saturation. A 15k upper / 20k lower divider produces about
+2.86V at 5V. Verify actual maximum voltages, resistor tolerances, and module logic
+levels for each analog input and ultrasonic ECHO. Recalibrate pH/TDS whenever the
+divider changes. The code reports millivolts **at the GPIO**, so calibration points
+must be measured there; do not enter voltages measured before the divider.
+Ultrasonic distance depends on pulse duration, not the divider ratio.
+See [Espressif ADC documentation](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html).
+
+MQ-7 with constant 5V board power is transmitted as a raw response only. Establish
+whether your exact module controls its heater cycle internally. The
+[Winsen MQ-7B manual](https://www.winsen-sensor.com/d/files/manual/mq-7b.pdf)
+specifies alternating heater phases; consult the matching datasheet for your
+actual MQ-7 module. No heater-control wire was supplied, so this firmware cannot
+implement that hardware cycle or claim calibrated CO ppm / mg/m³.
 
 ## Units and calibration
 
 | Sensor | Transmitted / displayed | Required before ML use |
 |---|---|---|
 | BME680 | °C, % RH, hPa, kΩ | Verify against references; gas resistance is not TVOC |
-| MQ-135 | 12-bit ADC counts | Heater conditioning, correct analog circuit, matched training domain; not ppm |
+| MQ-7 | 12-bit ADC counts and GPIO7 mV diagnostics | Correct heater cycle, calibration and circuit required for CO; never relabelled MQ-135 or ppm |
 | Rain plate | ADC counts | Cannot measure rainfall mm; install a calibrated rain gauge |
 | Analog water probe | ADC counts | No generic conversion to river depth |
 | JSN-SR04T | cm to surface | Measured mounting reference → `(reference_cm − distance_cm)/100` metres |
@@ -115,13 +144,14 @@ sensor list and require verification. BME680 probes 0x76/0x77; MPU6050 probes
 | MPU6050 | inclination 0–180° from +Z | Verify mounting orientation; static tilt assumes gravity dominates acceleration |
 | SW420 | debounced pulses/min over actual sample interval | Configure debounce and validate pulse response; not seismic acceleration |
 | Flame | digital detected/clear | Verify active-low module polarity; a trigger is an observation, not ML probability |
-| pH | mV; calibrated pH if enabled | At least two certified buffers; measured voltage points |
+| pH | GPIO4 mV; calibrated pH if enabled | At least two certified buffers; PH_MV_1/2 are measured after the divider at GPIO4 |
 | TDS | mV; ppm if enabled | Validate probe-specific transfer function, calibration range and temperature response |
 | Turbidity | mV; NTU if enabled | Validate with reference standards over the operating range |
 | GPS | degrees, only with a recent valid fix | No fallback city; no rounding to 2 decimal places |
 
 Calibration switches default to false. The linear pH/soil and TDS/turbidity
-coefficients are configurable examples, **not factory calibration**. Use a validated
+coefficients are configurable examples, **not factory calibration**. Analog physical
+conversions are suppressed at or above 3100mV; the raw diagnostics remain visible. Use a validated
 probe-specific curve and temperature compensation when required; a linear fit is
 only defensible over its verified range. Failed, uncalibrated or absent readings
 remain unavailable. The sender currently has no SDS011, rain-gauge, dissolved-oxygen,
@@ -138,7 +168,7 @@ adapters. The model artifacts are loaded with scikit-learn 1.9.0, their saved ve
 |---|---|
 | Flood | Requires measured depth, streamflow m³/s, VWC %, °C, % RH, and actual 1/3/6/24/72-hour rainfall totals. No `depth × 12` streamflow or rain-plate mm substitution. |
 | Landslide | Requires calibrated VWC, tilt, vibration, temperature, humidity and 24-hour rainfall. VWC % is divided by 100; rates use the training 15-minute interval. Training tilt/vibration/context include synthetic proxies; field validation remains necessary. |
-| Air | Requires PM2.5/PM10 µg/m³, temperature, humidity, pressure, CO mg/m³ and NO₂ µg/m³. Gas feature uses training formula `clip(CO*20 + NO2*0.5,1,200)`; real 15/30-minute lags required. MQ-135 raw ADC is not a substitute. |
+| Air | Requires PM2.5/PM10 µg/m³, temperature, humidity, pressure, CO mg/m³ and NO₂ µg/m³. Gas feature uses training formula `clip(CO*20 + NO2*0.5,1,200)`; real 15/30-minute lags required. MQ-7 or MQ-135 raw ADC is not a substitute. |
 | Wildfire | Unavailable for current hardware. Model needs TVOC and raw ethanol from its source sensor domain. Obtain matched sensors or retrain on labelled installed-sensor recordings. Direct optical flame alerts operate independently. |
 | Extreme heat | Requires solar W/m², wind km/h, hourly rainfall and 72 complete hourly temperature/humidity windows. The adapter computes hourly means and real persistence; partial hours or gaps over 30 seconds block inference. The current sender lacks solar/wind/gauge instruments. |
 | Industrial | Unavailable pending validation/retraining of mixed MQ-135/MQ-2/UCI response scales. An MQ-135 reading times 0.85 is not a measured smoke signal. |

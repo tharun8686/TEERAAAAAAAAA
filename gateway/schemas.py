@@ -92,7 +92,8 @@ class TypeATelemetryPayload(BaseModel):
     # Particulate & Air Quality (SDS011 / PMS5003 / MQ-135)
     pm25_ug_m3: Optional[float] = Field(None, ge=0.0, description="Fine particulate matter PM2.5 in µg/m³")
     pm10_ug_m3: Optional[float] = Field(None, ge=0.0, description="Coarse particulate matter PM10 in µg/m³")
-    mq135_raw: Optional[float] = Field(None, ge=0.0, description="MQ-135 air quality gas ADC reading or ppm proxy")
+    mq7_raw: Optional[float] = Field(None, ge=0.0, le=4095.0, description="MQ-7 raw 12-bit ADC response; not calibrated CO")
+    mq135_raw: Optional[float] = Field(None, ge=0.0, description="MQ-135 raw ADC response; not a calibrated gas concentration")
 
     # Geotechnical & Fire Event (MPU6050 / SW-420 / IR Flame)
     flame: Optional[int] = Field(None, ge=0, le=1, description="Optical flame sensor state (1 = Flame Detected, 0 = Safe)")

@@ -93,12 +93,16 @@ def test_gateway_complete_frame_to_live_dashboard(monkeypatch):
     assembler.completed.clear()
     assembler.latest_sequence.clear()
     client = TestClient(gateway.app)
-    first = client.post('/api/hardware', json=envelope({"t": 28.123456, "h": 61.5}, last=False))
+    first = client.post('/api/hardware', json=envelope({"t": 28.123456, "h": 61.5, "m7": 1234, "m7_mv": 987}, last=False))
     assert first.status_code == 200 and first.json()["status"] == "pending"
     final = client.post('/api/hardware', json=envelope({"fd": 1, "ph_mv": 2311}, part=1))
     assert final.status_code == 200, final.text
     evaluation = final.json()["evaluation"]
     assert evaluation["raw_telemetry"]["temperature_c"] == 28.123456
+    assert evaluation["raw_telemetry"]["mq7_raw"] == 1234
+    assert evaluation["raw_telemetry"]["mq135_raw"] is None
+    assert evaluation["raw_telemetry"]["co_mg_m3"] is None
+    assert evaluation["raw_telemetry"]["sensor_diagnostics"]["m7_mv"] == 987
     assert evaluation["raw_telemetry"]["ph"] is None
     assert evaluation["primary_severity"] == "UNKNOWN"
     assert all(r["model_status"] == "skipped" for r in evaluation["hazard_results"].values())
@@ -170,3 +174,21 @@ def test_builtin_lora_receiver_accepts_v4(monkeypatch):
     asyncio.run(receiver._handle_packet(bytes.fromhex(message['data']), -80, 9))
     assert len(accepted) == 1
     assert accepted[0].temperature_c == 19.25
+
+
+@pytest.mark.parametrize("value", [0, 4095])
+def test_mq7_preserves_adc_boundaries_without_gas_conversion(value):
+    _, raw, _ = FrameAssembler().accept(envelope({"m7": value, "m7_mv": 1200}))
+    payload = TypeATelemetryPayload(**raw)
+    assert payload.mq7_raw == value
+    assert payload.mq135_raw is None and payload.co_mg_m3 is None
+    assert raw["sensor_diagnostics"]["m7_mv"] == 1200
+    with pytest.raises(ValueError, match="co_mg_m3"):
+        LiveModels().build("Air Quality", dict(pm25_ug_m3=40, pm10_ug_m3=60,
+            temperature_c=30, humidity_pct=60, pressure_hpa=1010, mq7_raw=value), [], {})
+
+
+@pytest.mark.parametrize("data", [{"m7": 4096}, {"m7": -1}, {"m7_mv": 3301}])
+def test_mq7_rejects_invalid_adc_data(data):
+    with pytest.raises(ValueError):
+        FrameAssembler().accept(envelope(data))
