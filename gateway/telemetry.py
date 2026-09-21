@@ -120,7 +120,7 @@ class TelemetryHistoryEngine:
         # Used when water_level_m is absent but ultrasonic_distance_cm is present.
         # Formula: water_level_m = (reference_height_cm - ultrasonic_distance_cm) / 100
         # Default reference_height_cm = 300 cm. Requires field calibration per node.
-        if curr.water_level_m is None and curr.ultrasonic_distance_cm is not None:
+        if curr.is_simulated and curr.water_level_m is None and curr.ultrasonic_distance_cm is not None:
             derived["water_level_m"] = max(0.0, (
                 self.ULTRASONIC_REFERENCE_HEIGHT_CM - curr.ultrasonic_distance_cm
             ) / 100.0)

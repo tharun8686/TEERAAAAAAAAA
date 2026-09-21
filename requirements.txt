@@ -9,7 +9,7 @@ pydantic>=2.0.0
 # ML / data
 pandas>=2.0.0
 numpy>=1.24.0
-scikit-learn>=1.2.0
+scikit-learn==1.9.0
 joblib>=1.2.0
 pyarrow>=12.0.0
 pyyaml>=6.0
@@ -17,3 +17,4 @@ pyyaml>=6.0
 # Supabase backend (alerts, predictions, node inventory)
 supabase>=2.0.0
 python-dotenv>=1.0.0
+pyserial>=3.5

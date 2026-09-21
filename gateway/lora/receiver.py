@@ -20,6 +20,7 @@ from __future__ import annotations
 import asyncio
 import collections
 import logging
+import json
 import time
 from typing import Any, Callable, Dict, Optional
 
@@ -111,6 +112,28 @@ class LoRaReceiver:
         self, raw: bytes, rssi: Optional[float], snr: Optional[float]
     ) -> None:
         """Validate, deduplicate, and ingest a received packet."""
+        # Root SENDER.ino v4 fragments use the same assembler as browser/HTTP USB.
+        try:
+            is_v4 = json.loads(raw).get("v") == 4
+        except (ValueError, AttributeError, UnicodeError):
+            is_v4 = False
+        if is_v4:
+            from ..hardware_ingest import assembler
+            from ..schemas import TypeATelemetryPayload
+            try:
+                with assembler.lock:
+                    state, values, identity = assembler.accept({"type": "RX", "data": raw.hex(),
+                        "size": len(raw), "rssi": rssi, "snr": snr})
+                    if values is None:
+                        return
+                    payload = TypeATelemetryPayload(**values)
+                    meta = LoRaTransportMetadata(rssi_dbm=rssi, snr_db=snr, packet_sequence=payload.sequence)
+                    self.ingest_fn(payload, meta)
+                    assembler.commit(identity)
+                    self._inc_stat(payload.node_id, "packets_received")
+            except Exception as error:
+                logger.warning("Rejected v4 frame: %s", error)
+            return
         # 1. Decode
         try:
             payload, sequence = decode_packet(raw)

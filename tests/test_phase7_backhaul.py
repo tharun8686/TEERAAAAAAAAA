@@ -324,6 +324,8 @@ def test_telemetry_processing_during_blackout(test_client):
     res_data = resp.json()
 
     assert res_data["node_id"] == "NODE-OFFLINE-TEST-01"
-    assert res_data["composite_risk_pct"] > 0
+    # Physical flame alert works offline even when ML sensor inputs are incomplete.
+    assert res_data["alerts_triggered"]
+    assert res_data["alerts_triggered"][0]["details"]["source"] == "direct_sensor"
     assert "Wildfire" in res_data["hazard_results"] or "Toxic Flame" in res_data["hazard_results"]
     assert len(res_data["hazard_results"]) == 7

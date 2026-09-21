@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TerraEdge · Live hardware</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#0b1420;color:#e4edf5}body{max-width:1240px;margin:auto;padding:32px}h1{margin-bottom:8px}h2{font-size:20px}p{color:#a7bacb;line-height:1.6}button,select{padding:12px;border:1px solid #436078;border-radius:8px;background:#172b3b;color:inherit;cursor:pointer;margin-right:8px}section,.card{background:#102333;border:1px solid #284255;border-radius:12px;padding:20px;margin:18px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px}.card{margin:0}.value{font-size:22px;font-weight:600;margin:8px 0}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:10px;border-bottom:1px solid #284255;overflow-wrap:anywhere}th{color:#a7bacb}.alert{border-left:4px solid #fb625a;padding:12px;margin:8px 0;background:#35232b}.good{color:#68d8af}.warning{color:#ffc46b}pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:240px;overflow:auto;font-size:12px}a{color:#7fcbff}#error{color:#ffbd9c}small{line-height:1.6;display:block}@media(max-width:600px){body{padding:16px}td,th{padding:7px;font-size:13px}}
+</style></head><body>
+<p>TERRAEDGE / FIELD TELEMETRY</p><h1>Live hardware dashboard</h1>
+<p>Sensor → LoRa sender → receiver → USB → gateway → measurements, model results and alerts.</p>
+<button id="connect">Connect receiver USB</button><button id="disconnect" disabled>Disconnect</button>
+<select id="nodes" aria-label="Select sensor node"></select>
+<p id="status" role="status">Waiting for gateway…</p><p id="error" role="alert"></p>
+<small>Use the USB button here <em>or</em> the Python serial bridge. Close Arduino Serial Monitor first. Model results require the instruments and calibration used by the trained model.</small>
+<section><h2>Current reading</h2><p id="meta">No hardware data received. No demo readings are shown here.</p><div id="alerts"></div><table><thead><tr><th>Sensor</th><th>Measured value</th><th>Unit</th></tr></thead><tbody id="readings"></tbody></table></section>
+<h2>Hazard models</h2><p>Risk is the model output. Confidence, when available, is the existing model’s input-health heuristic—not calibrated accuracy. Missing inputs show “unavailable”.</p><div id="models" class="grid"></div>
+<section><h2>Sensor diagnostics & calibration</h2><p>Raw ADC counts and voltages are preserved for calibration. They are never labeled as rainfall, gas concentration or water chemistry.</p><pre id="diagnostics">Waiting for readings…</pre></section>
+<section><h2>Receiver log</h2><pre id="log"></pre></section>
+<script>
+const $=id=>document.getElementById(id);
+let port,reader,stopping=false,snapshot={nodes:[],units:{}};
+const labels={temperature_c:'BME680 temperature',humidity_pct:'Relative humidity',pressure_hpa:'Atmospheric pressure',gas_resistance_kohm:'BME680 gas resistance',mq135_raw:'MQ-135 raw response',water_level_m:'Water depth',ultrasonic_distance_cm:'Ultrasonic distance',soil_moisture_pct:'Calibrated soil moisture',tilt_magnitude:'MPU6050 inclination',vibration_rate:'SW420 vibration',flame_detected:'Optical flame input',ph:'Water pH',tds_ppm:'Dissolved solids',turbidity:'Turbidity',pm25_ug_m3:'PM2.5',pm10_ug_m3:'PM10',latitude:'Latitude',longitude:'Longitude',battery_voltage_v:'Battery voltage'};
+Object.assign(labels,{rainfall_mm:'Rainfall increment',rainfall_1h_mm:'Rainfall (1 hour)',rainfall_3h_mm:'Rainfall (3 hours)',rainfall_6h_mm:'Rainfall (6 hours)',rainfall_24h_mm:'Rainfall (24 hours)',rainfall_72h_mm:'Rainfall (72 hours)',streamflow_cumec:'Streamflow',co_mg_m3:'Carbon monoxide',no2_ug_m3:'Nitrogen dioxide',water_temperature_c:'Water temperature',dissolved_oxygen:'Dissolved oxygen',electrical_conductivity:'Electrical conductivity',solar_radiation_w_m2:'Solar radiation',wind_speed_kmh:'Wind speed'});
+function log(message){$('log').textContent=($('log').textContent+'\n'+message).split('\n').slice(-30).join('\n');}
+function cell(row,text){const td=document.createElement('td');td.textContent=text;row.append(td);}
+function render(){
+ const data=snapshot.nodes.find(n=>n.node_id===$('nodes').value);if(!data){$('meta').textContent='No hardware data received. No demo readings are shown here.';$('readings').replaceChildren();$('alerts').replaceChildren();$('models').replaceChildren();$('diagnostics').textContent='Waiting for readings…';return;}
+ const raw=data.raw_telemetry||{},age=Math.max(0,(Date.now()-Date.parse(data.timestamp))/1000),stale=age>30;
+ $('meta').textContent=`${data.node_id} · ${stale?'STALE — last known values':'LIVE'} · last received ${age.toFixed(0)} s ago · sequence ${raw.sequence??'—'} · RSSI ${raw.rssi_dbm??'—'} dBm · SNR ${raw.snr_db??'—'} dB · gateway time ${data.timestamp}`;
+ $('meta').className=stale?'warning':'good';$('readings').replaceChildren();
+ for(const [key,unit] of Object.entries(snapshot.units)){
+  if(key.endsWith('_adc')||key.endsWith('_mv'))continue;
+  const tr=document.createElement('tr'),value=raw[key];cell(tr,labels[key]||key);cell(tr,value==null?'Unavailable':typeof value==='boolean'?(value?'DETECTED':'Clear'):String(value));cell(tr,unit);$('readings').append(tr);
+ }
+ $('diagnostics').textContent=JSON.stringify(raw.sensor_diagnostics||{},null,2);$('alerts').replaceChildren();
+ for(const alert of data.alerts_triggered||[]){const el=document.createElement('div');el.className='alert';el.textContent=`${stale?'LAST READING: ':''}${alert.severity}: ${alert.details?.message||alert.top_features?.join(', ')||'Model threshold crossed'}${alert.details?.source==='direct_sensor'?' · Direct sensor alert; ML confidence unavailable':''}`;$('alerts').append(el);}
+ if(!data.alerts_triggered?.length){const el=document.createElement('p');el.textContent='No alert triggered by this reading. Unavailable models do not establish safe conditions.';$('alerts').append(el);}
+ $('models').replaceChildren();
+ for(const [name,result] of Object.entries(data.hazard_results||{})){
+  const card=document.createElement('article');card.className='card';const title=document.createElement('h2');title.textContent=name;
+  const value=document.createElement('div');value.className='value';value.textContent=result.model_status==='success'?`${result.severity} · ${result.risk_pct}% risk`:'Unavailable';
+  const detail=document.createElement('p');detail.textContent=result.model_status==='success'?`Confidence: ${result.confidence_pct}% (input health). ${result.details?.field_validation||''}`:result.skip_reason||result.error||'Waiting for compatible inputs';
+  card.append(title,value,detail);$('models').append(card);
+ }
+}
+async function poll(){try{const response=await fetch('/api/hardware/latest',{signal:AbortSignal.timeout(5000)});if(!response.ok)throw Error(`Gateway HTTP ${response.status}`);snapshot=await response.json();const selected=$('nodes').value;$('nodes').replaceChildren();for(const n of snapshot.nodes){const option=document.createElement('option');option.value=n.node_id;option.textContent=n.node_id;$('nodes').append(option);}if(snapshot.nodes.some(n=>n.node_id===selected))$('nodes').value=selected;$('status').textContent=`Gateway online · ${snapshot.nodes.length} physical node(s) · ${port?'USB connected':'USB bridge or browser connection required'}`;render();}catch(error){$('status').textContent='Gateway offline — displayed readings are last known values';render();}finally{setTimeout(poll,2000);}}
+async function forward(line){let envelope;try{envelope=JSON.parse(line);}catch{log('Ignored non-JSON serial line');return;}if(envelope.type!=='RX'){log(line);return;}
+ const response=await fetch('/api/hardware',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(envelope),signal:AbortSignal.timeout(10000)});
+ const result=await response.json();if(!response.ok)throw Error(result.detail||`HTTP ${response.status}`);log(`Packet ${envelope.size} B · ${result.status}`);$('error').textContent='';
+}
+$('connect').onclick=async()=>{if(!navigator.serial){$('error').textContent='Web Serial requires Chrome/Edge on localhost. You can also use the Python serial bridge.';return;}
+ try{port=await navigator.serial.requestPort();await port.open({baudRate:115200});stopping=false;$('connect').disabled=true;$('disconnect').disabled=false;reader=port.readable.getReader();const decoder=new TextDecoder();let buffer='';while(!stopping){const {value,done}=await reader.read();if(done)break;buffer+=decoder.decode(value,{stream:true});const lines=buffer.split('\n');buffer=lines.pop();for(const line of lines){if(line.trim())try{await forward(line.trim());}catch(error){$('error').textContent=`Reading delivery failed: ${error.message}`;}}if(buffer.length>4096){buffer='';log('Discarded oversized serial line');}}}
+ catch(error){$('error').textContent=error.message;}finally{if(reader){reader.releaseLock();reader=null;}if(port){try{await port.close();}catch{}port=null;}$('connect').disabled=false;$('disconnect').disabled=true;}};
+$('disconnect').onclick=async()=>{stopping=true;if(reader)await reader.cancel();};$('nodes').onchange=render;poll();
+</script></body></html>

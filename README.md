@@ -1,5 +1,16 @@
 # Terra Edge — Environmental Intelligence Platform
 
+## Live hardware setup
+
+For `SENDER.ino` → LoRa → `RECEIVER.ino` → USB → gateway → dashboard, follow
+[the hardware setup and model compatibility guide](docs/HARDWARE_TO_DASHBOARD.md).
+Start `python -m uvicorn gateway.app:app --host 127.0.0.1 --port 8000`, then open
+**http://127.0.0.1:8000/live**. Use its USB connection or `python lora_serial_bridge.py COM4`.
+Missing sensors and uncalibrated values are explicitly unavailable. Several trained
+models require instruments or field retraining beyond the current sender's sensor
+set; see the guide before interpreting predictions. Existing model confidence
+formulas are input-health heuristics, not validated accuracy estimates.
+
 India's distributed **Edge-AI environmental hazard early-warning system**, covering **flood, wildfire, landslide, air pollution, extreme heat, toxic gas plume (industrial emissions), and water quality degradation** risks.
 
 Each hazard is a self-contained module with its own ML training pipeline, serialized edge-deployable model, FastAPI microservice, calibration reports, and ESP32 firmware. A single glassmorphic **Enterprise Control Center** (`index.html`) unifies telemetry, live maps, risk dashboards, and a conversational assistant.

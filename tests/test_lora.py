@@ -346,9 +346,10 @@ def test_same_processing_path(basic_payload):
     assert 0.0 <= response_http.composite_risk_pct <= 100.0
     assert 0.0 <= response_lora.composite_risk_pct <= 100.0
 
-    # Primary hazard must exist (models ran successfully)
-    assert response_http.primary_hazard is not None
-    assert response_lora.primary_hazard is not None
+    # Incomplete physical inputs must yield the same explicit unavailable state.
+    assert response_http.primary_hazard is None
+    assert response_lora.primary_hazard is None
+    assert response_http.primary_severity == response_lora.primary_severity == "UNKNOWN"
 
     # Risk scores must be comparable (within 5% — minor floating point from encode/decode)
     diff = abs(response_http.composite_risk_pct - response_lora.composite_risk_pct)

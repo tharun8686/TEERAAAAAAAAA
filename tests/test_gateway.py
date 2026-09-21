@@ -157,8 +157,9 @@ class TestTerraEdgeGateway(unittest.TestCase):
         self.assertEqual(resp.status_code, 200)
         data = resp.json()
         
-        # Air Quality should succeed
-        self.assertEqual(data["hazard_results"]["Air Quality"]["model_status"], "success")
+        # Physical air data is incomplete: no calibrated CO/NO2, humidity or pressure.
+        self.assertEqual(data["hazard_results"]["Air Quality"]["model_status"], "skipped")
+        self.assertIn("co_mg_m3", data["hazard_results"]["Air Quality"]["skip_reason"])
         # Water Quality should be skipped (missing pH, TDS, Turbidity)
         self.assertEqual(data["hazard_results"]["Water Quality"]["model_status"], "skipped")
         self.assertIn("sensors", data["hazard_results"]["Water Quality"]["skip_reason"].lower())

@@ -124,6 +124,9 @@ class HazardRouter:
 
     def evaluate_all(self, proc: ProcessedTelemetry) -> Dict[str, HazardPredictionResult]:
         """Runs all 7 hazard models in isolated try-except blocks and normalizes their outputs."""
+        if not proc.raw.is_simulated:
+            from .live_models import live_models
+            return live_models.evaluate(proc.raw, self)
         results: Dict[str, HazardPredictionResult] = {}
 
         # 1. Flood

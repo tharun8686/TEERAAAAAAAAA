@@ -24,6 +24,16 @@ class TypeATelemetryPayload(BaseModel):
     Fields are optional to accommodate nodes with differing sensor configurations.
     """
     node_id: str = Field(..., description="Unique field node identifier, e.g. 'TYPE-A-101' or 'TE-001'")
+    source: str = "http"
+    boot_id: Optional[str] = None
+    uptime_ms: Optional[int] = Field(None, ge=0)
+    sensor_diagnostics: Dict[str, Any] = Field(default_factory=dict)
+    streamflow_cumec: Optional[float] = Field(None, ge=0)
+    co_mg_m3: Optional[float] = Field(None, ge=0)
+    no2_ug_m3: Optional[float] = Field(None, ge=0)
+    water_temperature_c: Optional[float] = Field(None, ge=-5, le=100)
+    solar_radiation_w_m2: Optional[float] = Field(None, ge=0)
+    wind_speed_kmh: Optional[float] = Field(None, ge=0)
     node_type: str = Field("Type-A", description="Hardware classification: 'Type-A', 'Type-B', or 'Virtual'")
     timestamp: str = Field(default_factory=_utc_now_iso, description="ISO8601 UTC timestamp")
     zone: Optional[str] = Field(None, description="Geographic zone/basin/district name")
@@ -87,7 +97,7 @@ class TypeATelemetryPayload(BaseModel):
     # Geotechnical & Fire Event (MPU6050 / SW-420 / IR Flame)
     flame: Optional[int] = Field(None, ge=0, le=1, description="Optical flame sensor state (1 = Flame Detected, 0 = Safe)")
     flame_detected: Optional[bool] = Field(None, description="Boolean flame sensor state (True = Flame Detected, False = Safe)")
-    tilt_magnitude: Optional[float] = Field(None, ge=0.0, le=90.0, description="Slope inclination from vertical in degrees")
+    tilt_magnitude: Optional[float] = Field(None, ge=0.0, le=180.0, description="Slope inclination from vertical in degrees")
     tilt_rate: Optional[float] = Field(None, description="Rate of tilt change in degrees/min or degrees/step")
     vibration_rate: Optional[float] = Field(None, ge=0.0, description="SW-420 seismic pulse count per minute")
 
@@ -424,4 +434,3 @@ class NodePowerDetailResponse(BaseModel):
 
 
 UnifiedGatewayResponse.model_rebuild()
-

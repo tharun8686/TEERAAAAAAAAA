@@ -104,7 +104,7 @@ class RiskEngine:
             primary_hazard = None
             top_priority_score = 0.0
             composite_risk_pct = 0.0
-            primary_severity = "NORMAL"
+            primary_severity = "UNKNOWN"
 
         return composite_risk_pct, primary_hazard, primary_severity, top_priority_score, ranked_hazards, alerts
 

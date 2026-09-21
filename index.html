@@ -1923,6 +1923,7 @@
     </style>
 </head>
 <body>
+    <a href="http://127.0.0.1:8000/live" style="display:block;padding:14px 24px;background:#102333;color:#aee8ff;font:600 15px system-ui;text-align:center;position:relative;z-index:10000;">Open live hardware dashboard — actual sensor values, units, calibration status and alerts</a>
 
 <div class="cinematic-bg">
     <video class="tech-bg-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
@@ -2107,7 +2108,7 @@
             <div style="display:grid;grid-template-columns:1fr 340px;gap:16px;">
                 <div>
                     <div style="font-size:11px;font-weight:600;color:var(--text-secondary);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Incoming LoRa RF Telemetry (SX1278 Packets)</div>
-                    <pre id="usb-serial-log" style="background:var(--bg-deep);color:#22c55e;font-family:var(--font-mono);font-size:11.5px;padding:12px;border-radius:8px;height:160px;overflow-y:auto;border:1px solid var(--panel-border);line-height:1.5;white-space:pre-wrap;">[LORA READY] LoRa SX1278 RF receiver operational @ 433.0 MHz. Listening for field node telemetry packets...</pre>
+                    <pre id="usb-serial-log" style="background:var(--bg-deep);color:#22c55e;font-family:var(--font-mono);font-size:11.5px;padding:12px;border-radius:8px;height:160px;overflow-y:auto;border:1px solid var(--panel-border);line-height:1.5;white-space:pre-wrap;">[WAITING] Open the live hardware dashboard to connect and verify the receiver. This panel also supports manual demo inputs.</pre>
                 </div>
                 <div style="background:var(--bg-deep);padding:12px;border-radius:8px;border:1px solid var(--panel-border);display:flex;flex-direction:column;gap:8px;">
                     <div style="font-size:11px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;">Quick LoRa RF Packet Test</div>
@@ -4214,6 +4215,13 @@ function handleIncomingSerialChunk(chunk) {
 // Robust multi-format parsing (Objects, JSON, CSV, Key-Value)
 function parseAndApplySensorData(raw) {
     if (!raw) return;
+    // Receiver diagnostics and fragmented v4 telemetry never enter demo scoring.
+    let envelope = raw;
+    if (typeof raw === 'string') { try { envelope = JSON.parse(raw); } catch {} }
+    if (envelope && typeof envelope === 'object' && envelope.type) {
+        if (envelope.type === 'RX') forwardHardwareEnvelope(envelope);
+        return;
+    }
     let sensorData = null;
 
     if (typeof raw === 'object') {
@@ -4457,7 +4465,7 @@ function updateSrmNodeTelemetry(data) {
     if (hudNodeId) { hudNodeId.innerText = `NODE ${nodeId} (433.0 MHz)`; hudNodeId.style.color = '#16a34a'; }
     if (hudNodeSub) hudNodeSub.innerText = `GPS: ${lat.toFixed(4)}°N, ${lon.toFixed(4)}°E · RSSI: ${rssi}dBm`;
     if (hudRisk) hudRisk.innerHTML = `${srmEvent.severityScore} / 100 <span style="font-size:10.5px;padding:2px 6px;border-radius:4px;background:rgba(249,115,22,0.15);color:${srmEvent.color};margin-left:4px;">${srmEvent.severity.toUpperCase()}</span>`;
-    if (hudConf) hudConf.innerHTML = `${srmEvent.confidenceScore}% <span style="font-size:10.5px;padding:2px 6px;border-radius:4px;background:rgba(2,132,199,0.12);color:#0284c7;margin-left:4px;">CALIBRATED</span>`;
+    if (hudConf) hudConf.innerHTML = `${srmEvent.confidenceScore}% <span style="font-size:10.5px;padding:2px 6px;border-radius:4px;background:rgba(2,132,199,0.12);color:#0284c7;margin-left:4px;">DEMO HEURISTIC</span>`;
     if (hudSensors) { hudSensors.innerHTML = `11 / 11 REAL SENSORS STREAMING`; hudSensors.style.color = '#16a34a'; }
     if (hudSensorsSub) hudSensorsSub.innerText = `Temp ${temp.toFixed(1)}°C · MQ ${Math.round(mq2)}ppm · ${flame > 0.5 ? '🔥 FIRE ALERT' : 'Normal'}`;
 
@@ -4586,38 +4594,33 @@ function updateGatewayBadgeUI(online, details = '') {
 }
 
 // Forward live telemetry packets from Web Serial / Simulator directly to Type B Gateway
-async function forwardTelemetryToGateway(sensorData) {
-    if (!TERRA_GATEWAY_CONFIG || !TERRA_GATEWAY_CONFIG.baseUrl) return;
+async function forwardHardwareEnvelope(envelope) {
     try {
-        const payload = {
-            node_id: sensorData.node_id || 'TE-001',
-            temperature_c: sensorData.temp !== undefined ? sensorData.temp : 32.5,
-            humidity_pct: sensorData.hum !== undefined ? sensorData.hum : 50.0,
-            pressure_hpa: sensorData.press !== undefined ? sensorData.press : 1011.0,
-            mq135_raw: sensorData.mq2 !== undefined ? sensorData.mq2 : 120.0,
-            rainfall_mm: sensorData.rain !== undefined ? sensorData.rain : 0.0,
-            water_level_m: sensorData.water !== undefined ? sensorData.water : 0.0,
-            soil_moisture_pct: sensorData.soil !== undefined ? sensorData.soil : 35.0,
-            tilt_magnitude: sensorData.tilt !== undefined ? sensorData.tilt : 0.0,
-            vibration_rate: sensorData.vib !== undefined ? sensorData.vib : 0.0,
-            flame_detected: sensorData.flame > 0.5,
-            latitude: sensorData.lat !== undefined ? sensorData.lat : (sensorData.latitude !== undefined ? sensorData.latitude : 13.0827),
-            longitude: sensorData.lon !== undefined ? sensorData.lon : (sensorData.longitude !== undefined ? sensorData.longitude : 80.2707),
-            battery_pct: sensorData.bat !== undefined ? sensorData.bat : 95.0
-        };
-
-        const res = await fetch(`${TERRA_GATEWAY_CONFIG.baseUrl}/api/telemetry`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
+        const res = await fetch(`${TERRA_GATEWAY_CONFIG.baseUrl}/api/hardware`, {
+            method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(envelope)
         });
-        if (res.ok) {
-            const data = await res.json();
-            applyGatewayPredictionData(data);
-        }
-    } catch (e) {
-        // Non-blocking fallback when gateway process is offline
+        const result = await res.json();
+        if (!res.ok) throw new Error(result.detail || `HTTP ${res.status}`);
+        if (result.evaluation) applyGatewayPredictionData(result.evaluation);
+    } catch (error) { appendSerialLog(`Hardware delivery failed: ${error.message}`); }
+}
+
+async function forwardTelemetryToGateway(sensorData) {
+    // Legacy manual examples are demo inputs; do not invent absent sensor values.
+    const aliases = {temp:'temperature_c',hum:'humidity_pct',press:'pressure_hpa',
+        water:'water_level_m',soil:'soil_moisture_pct',tilt:'tilt_magnitude',vib:'vibration_rate',
+        flame:'flame',lat:'latitude',lon:'longitude',bat:'battery_pct'};
+    const payload = {node_id:'DEMO-' + (sensorData.node_id || 'MANUAL'),is_simulated:true};
+    for (const [key,field] of Object.entries(aliases)) {
+        if (sensorData[key] !== undefined && sensorData[key] !== null) payload[field] = sensorData[key];
     }
+    try {
+        const res = await fetch(`${TERRA_GATEWAY_CONFIG.baseUrl}/api/telemetry`, {
+            method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        applyGatewayPredictionData(await res.json());
+    } catch (error) { appendSerialLog(`Demo gateway unavailable: ${error.message}`); }
 }
 
 // Update TAMIL_NADU_EVENTS and UI when Gateway returns unified prediction results
@@ -4632,6 +4635,7 @@ function applyGatewayPredictionData(gatewayResponse) {
         'Air Quality': 'air',
         'Extreme Heat': 'heat',
         'Industrial Emissions': 'ind',
+        'Toxic Flame': 'ind',
         'Water Quality': 'water'
     };
 
@@ -4642,17 +4646,17 @@ function applyGatewayPredictionData(gatewayResponse) {
         const eventType = hazardMapping[hazardKey] || hazardKey.toLowerCase();
         
         // Find matching map event
-        const event = TAMIL_NADU_EVENTS.find(e => e.hazard === eventType || (eventType === 'fire' && (e.isHardwareNode || e.name.includes('SRM Node'))));
+        const event = TAMIL_NADU_EVENTS.find(e => e.node_id === gatewayResponse.node_id && e.hazard === eventType);
         if (!event) return;
 
         // Map severity
-        event.severity = pred.severity || 'Normal';
-        event.severityScore = Math.min(100, Math.max(0, Math.round((pred.risk_score || 0) * 100)));
-        event.confidenceScore = Math.min(100, Math.max(0, Math.round((pred.confidence || 0.9) * 100)));
+        event.severity = (pred.severity || 'UNKNOWN').toUpperCase();
+        event.severityScore = Math.min(100, Math.max(0, pred.risk_pct));
+        event.confidenceScore = Math.min(100, Math.max(0, pred.confidence_pct));
 
-        if (event.severity === 'Critical') event.color = '#ef4444';
-        else if (event.severity === 'Warning') event.color = '#f97316';
-        else if (event.severity === 'Watch') event.color = '#eab308';
+        if (event.severity === 'CRITICAL') event.color = '#ef4444';
+        else if (event.severity === 'WARNING') event.color = '#f97316';
+        else if (event.severity === 'WATCH') event.color = '#eab308';
         else event.color = '#22c55e';
     });
 
@@ -4680,7 +4684,7 @@ async function pollTerraGateway() {
             const loraLinkText = document.getElementById('lora-link-text');
             if (loraLinkText) {
                 const loraState = healthData.lora || 'Active';
-                loraLinkText.innerText = `📡 LoRa 433MHz: ${loraState.toUpperCase().includes('DISABLED') ? 'ACTIVE' : 'CONNECTED'}`;
+                loraLinkText.innerText = `📡 LoRa 433MHz: ${loraState.toUpperCase().includes('DISABLED') ? 'USB BRIDGE MODE' : loraState.toUpperCase()}`;
             }
 
             // Phase 5: Fetch complete GIS Risk Map from Backend
@@ -4701,7 +4705,7 @@ async function pollTerraGateway() {
                                 match.primary_hazard = bNode.latest_primary_hazard;
                                 match.severity = bNode.latest_severity || 'NORMAL';
                                 match.severityScore = bNode.latest_risk_pct || 0;
-                                match.confidenceScore = bNode.latest_confidence_pct || 85;
+                                match.confidenceScore = bNode.latest_confidence_pct ?? null;
                                 match.color = getSeverityColor(bNode.latest_severity);
                             }
                         });

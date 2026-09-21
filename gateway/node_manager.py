@@ -133,7 +133,9 @@ class NodeManager:
         self._power_budget_engine = PowerBudgetEngine()
 
         # Pre-seed known baseline nodes
-        self._seed_baseline_nodes()
+        # Seed fabricated nodes only in explicit demo mode.
+        if __import__("os").environ.get("TERRAEDGE_ENV") == "demo":
+            self._seed_baseline_nodes()
 
     def _seed_baseline_nodes(self) -> None:
         initial_nodes = [
@@ -390,7 +392,9 @@ class NodeManager:
             
             # Packet loss tracking
             last_seq = existing.get("last_sequence")
-            current_seq = telemetry.sequence or (transport_meta.packet_sequence if transport_meta else None)
+            current_seq = telemetry.sequence if telemetry.sequence is not None else (transport_meta.packet_sequence if transport_meta else None)
+            if telemetry.boot_id is not None and telemetry.boot_id != existing.get("boot_id"):
+                last_seq = None
             packets_lost = existing.get("packets_lost", 0)
             if last_seq is not None and current_seq is not None and current_seq > (last_seq + 1):
                 packets_lost += (current_seq - last_seq - 1)
@@ -467,6 +471,7 @@ class NodeManager:
                 "rssi_dbm": rssi,
                 "snr_db": snr,
                 "last_sequence": current_seq if current_seq is not None else existing.get("last_sequence"),
+                "boot_id": telemetry.boot_id,
                 "packets_received": packets_received,
                 "packets_lost": packets_lost,
                 # Phase 9 Power Telemetry

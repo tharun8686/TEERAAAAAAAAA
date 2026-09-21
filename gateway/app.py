@@ -15,6 +15,8 @@ from typing import Any, Dict, List, Optional
 
 from fastapi import Depends, FastAPI, HTTPException, Query, Request, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from pydantic import ValidationError
 
 # Ensure imports work from current and parent directory
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -116,6 +118,37 @@ _latest_node_evaluations: Dict[str, UnifiedGatewayResponse] = {}
 _lora_receiver = None
 
 
+@app.get("/live", include_in_schema=False)
+def live_dashboard():
+    return FileResponse(os.path.join(PROJECT_ROOT, "hardware", "live.html"))
+
+
+@app.get("/api/hardware/latest")
+def hardware_latest():
+    from .hardware_ingest import UNITS
+    return {"units": UNITS, "nodes": [r.model_dump() for r in _latest_node_evaluations.values()
+            if not r.is_simulated]}
+
+
+@app.post("/api/hardware")
+def ingest_hardware(envelope: Dict[str, Any], request: Request):
+    from .hardware_ingest import assembler
+    rate_limiter.check_rate_limit(request)
+    with assembler.lock:
+        try:
+            state, raw, identity = assembler.accept(envelope)
+            if raw is None:
+                return {"status": state}
+            payload = TypeATelemetryPayload(**raw)
+        except (ValueError, UnicodeError, ValidationError) as error:
+            raise HTTPException(status_code=422, detail=str(error)) from error
+        meta = LoRaTransportMetadata(rssi_dbm=payload.rssi_dbm, snr_db=payload.snr_db,
+                                     packet_sequence=payload.sequence)
+        result = process_type_a_telemetry(payload, meta)
+        assembler.commit(identity)
+        return {"status": "accepted", "evaluation": result.model_dump()}
+
+
 # ============================================================================
 # Shared Telemetry Processing Function
 # Called by BOTH the HTTP endpoint AND the LoRa receiver.
@@ -171,6 +204,13 @@ def process_type_a_telemetry(
     composite_risk, primary_hazard, primary_severity, priority_score, ranked_hazards, alert_candidates = (
         risk_engine.evaluate_node_risk(node_id, hazard_results)
     )
+    if not payload.is_simulated and (payload.flame_detected is True or payload.flame == 1):
+        alert_candidates.append({
+            "hazard": "Wildfire", "severity": "CRITICAL", "risk_score_pct": 100,
+            "confidence_pct": 0, "top_features": ["flame_detected"], "timestamp": payload.timestamp,
+            "details": {"source": "direct_sensor", "message": "Optical flame input active",
+                        "score_basis": "Rule priority, not ML probability", "confidence_available": False}
+        })
 
     # Calculate top confidence for node summary
     top_conf = 0.0
