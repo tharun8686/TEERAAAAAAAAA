@@ -18,7 +18,44 @@
 
 #include <Arduino.h>
 #include <esp_system.h>  // Explicit declaration of esp_random().
-#include "hardware_config.h"
+// Self-contained sketch: edit these settings here, no project header required.
+// Analog/digital modules have no presence ID: disable any unwired input below.
+#define ENABLE_MQ7 true
+#define ENABLE_RAIN_PLATE true
+#define ENABLE_WATER_ADC true
+#define ENABLE_SOIL true
+#define ENABLE_PH true
+#define ENABLE_TDS false
+#define ENABLE_TURBIDITY false
+#define ENABLE_FLAME true
+#define ENABLE_VIBRATION true
+#define ENABLE_ULTRASONIC true
+#define ENABLE_GPS false
+#define ENABLE_BATTERY false
+// Calibration points are examples, NOT measured calibration for your probes.
+#define SOIL_CALIBRATED false
+#define SOIL_ADC_1 3600.0f
+#define SOIL_VWC_1_PCT 0.0f
+#define SOIL_ADC_2 1800.0f
+#define SOIL_VWC_2_PCT 45.0f
+#define PH_CALIBRATED false
+// Voltages measured at GPIO4 AFTER the divider.
+#define PH_MV_1 1666.667f
+#define PH_VALUE_1 7.0f
+#define PH_MV_2 2000.0f
+#define PH_VALUE_2 4.0f
+#define TDS_CALIBRATED false
+#define TDS_PPM_PER_MV 1.0f
+#define TDS_OFFSET_PPM 0.0f
+#define TURBIDITY_CALIBRATED false
+#define TURBIDITY_NTU_PER_MV -1.0f
+#define TURBIDITY_OFFSET_NTU 3300.0f
+#define WATER_HEIGHT_CALIBRATED false
+#define WATER_REFERENCE_CM 300.0f
+#define S3_BATTERY_PIN -1
+#define S3_GPS_RX_PIN -1
+#define VIBRATION_DEBOUNCE_US 10000
+#define ADC_USABLE_MAX_MV 3100.0f
 #if ENABLE_GPS
 #include <TinyGPSPlus.h>
 #endif
@@ -218,9 +255,9 @@ void setup() {
 
   // Pin modes for digital/analog sensors
   pinMode(PIN_FLAME, INPUT_PULLUP);
-  pinMode(PIN_SW420, INPUT);
+  pinMode(PIN_SW420, INPUT_PULLDOWN);
   pinMode(PIN_US_TRIG, OUTPUT);
-  pinMode(PIN_US_ECHO, INPUT);
+  pinMode(PIN_US_ECHO, INPUT_PULLDOWN);
 
   // Attach interrupts for instant response
   if (ENABLE_VIBRATION) attachInterrupt(digitalPinToInterrupt(PIN_SW420), isrVibration, RISING);
@@ -230,6 +267,7 @@ void setup() {
   // Initialize I2C Bus
   Wire.begin(SDA_PIN, SCL_PIN);
   Wire.setClock(100000);
+  Wire.setTimeOut(50);
   delay(50);
 
   // 1. Initialize BME680
@@ -322,7 +360,13 @@ void transmitSensorTelemetry() {
   seqNumber++;
   StaticJsonDocument<2048> readings;
   // Failed reads are absent. No synthetic temperature, humidity, location or battery.
+  // Retry discovery so an I2C module connected after boot can recover.
+  if (!health.bme680) {
+    health.bme680 = bme.begin(0x76) || bme.begin(0x77);
+    if (health.bme680) bme.setGasHeater(320, 150);
+  }
   bool bmeOk = health.bme680 && bme.performReading();
+  health.bme680 = bmeOk;
   readings["bme_ok"] = bmeOk;
   if (bmeOk && isfinite(bme.temperature) && isfinite(bme.humidity)) {
     readings["t"] = bme.temperature;
@@ -378,15 +422,37 @@ void transmitSensorTelemetry() {
     }
   }
   bool mpuOk = false;
+  Wire.beginTransmission(0x68);
+  bool mpuPresent = Wire.endTransmission() == 0;
+  if (!mpuPresent) {
+    Wire.beginTransmission(0x69);
+    mpuPresent = Wire.endTransmission() == 0;
+  }
+  if (!mpuPresent) health.mpu6050 = false;
+  else if (!health.mpu6050) {
+    health.mpu6050 = mpu.begin(0x68, &Wire) || mpu.begin(0x69, &Wire);
+    if (health.mpu6050) {
+      mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
+      mpu.setGyroRange(MPU6050_RANGE_500_DEG);
+      mpu.setFilterBandwidth(MPU6050_BAND_21_HZ);
+    }
+  }
   if (health.mpu6050) {
     sensors_event_t a{}, g{}, temp{};
     mpuOk = mpu.getEvent(&a, &g, &temp);
     float norm = sqrt(a.acceleration.x*a.acceleration.x + a.acceleration.y*a.acceleration.y + a.acceleration.z*a.acceleration.z);
     if (mpuOk && isfinite(norm) && norm > 0.001f) {
       readings["tm"] = acos(constrain(a.acceleration.z/norm, -1.0f, 1.0f)) * 180.0f / PI;
+      readings["ax"] = a.acceleration.x;
+      readings["ay"] = a.acceleration.y;
+      readings["az"] = a.acceleration.z;
+      if (isfinite(g.gyro.x)) readings["gx"] = g.gyro.x;
+      if (isfinite(g.gyro.y)) readings["gy"] = g.gyro.y;
+      if (isfinite(g.gyro.z)) readings["gz"] = g.gyro.z;
     } else mpuOk = false;
   }
   readings["mpu_ok"] = mpuOk;
+  if (!mpuOk) health.mpu6050 = false;
   if (ENABLE_VIBRATION) {
     portENTER_CRITICAL(&vibrationMux);
     uint32_t vibrationSampleTime = millis();

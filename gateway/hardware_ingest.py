@@ -22,6 +22,8 @@ FIELDS = {
     "wl": ("water_level_m", "m"), "ud": ("ultrasonic_distance_cm", "cm"),
     "sm": ("soil_moisture_pct", "% VWC"), "tm": ("tilt_magnitude", "°"),
     "vr": ("vibration_rate", "pulses/min"), "fd": ("flame_detected", "boolean"),
+    "ax": ("ax", "m/s²"), "ay": ("ay", "m/s²"), "az": ("az", "m/s²"),
+    "gx": ("gx", "rad/s"), "gy": ("gy", "rad/s"), "gz": ("gz", "rad/s"),
     "ph": ("ph", "pH"), "td": ("tds_ppm", "ppm"), "tb": ("turbidity", "NTU"),
     "p25": ("pm25_ug_m3", "µg/m³"), "p10": ("pm10_ug_m3", "µg/m³"),
     "lat": ("latitude", "°"), "lon": ("longitude", "°"),
@@ -33,6 +35,7 @@ FIELDS = {
 }
 UNITS = {name: unit for name, unit in FIELDS.values()}
 DIAGNOSTICS = {"m7_mv", "rain_adc", "water_adc", "soil_adc", "ph_mv", "tds_mv", "turb_mv", "bme_ok", "mpu_ok"}
+DIAGNOSTICS.update({"ax", "ay", "az", "gx", "gy", "gz"})
 
 
 def decode_envelope(envelope):

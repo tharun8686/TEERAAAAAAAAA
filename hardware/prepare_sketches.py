@@ -8,7 +8,8 @@ for name in ("SENDER", "RECEIVER"):
     target = root / "build" / "arduino" / name
     target.mkdir(parents=True, exist_ok=True)
     shutil.copy2(root / (name + ".ino"), target / (name + ".ino"))
-    shutil.copy2(root / "hardware_config.h", target / "hardware_config.h")
+    # Remove only the obsolete generated header; sketches are self-contained.
+    (target / "hardware_config.h").unlink(missing_ok=True)
     print(target)
 
 instructions = """TerraEdge complete Arduino sketches
@@ -16,7 +17,7 @@ instructions = """TerraEdge complete Arduino sketches
 Extract this ZIP first. Do not paste a selected section into a new sketch.
 Open SENDER/SENDER.ino for the ESP32-S3 sender.
 Open RECEIVER/RECEIVER.ino for the standard ESP32/WROOM-32 receiver.
-Keep hardware_config.h in the same directory as SENDER.ino.
+Each sketch is a single self-contained file. Settings are inside SENDER.ino.
 Never place both .ino files in the same sketch directory.
 
 Arduino IDE board selections:
@@ -38,7 +39,8 @@ open SENDER/SENDER.ino from this extracted folder.
 
 Sensor calibration is still required. See docs/HARDWARE_TO_DASHBOARD.md in
 the project for wiring, units, calibration and receiver-to-dashboard setup.
-These files have not been compiled or flashed by the assistant.
+Verified with ESP32 core 3.3.11 for ESP32-S3 sender (USB CDC enabled) and ESP32
+receiver. These revised files have not been flashed or physically tested.
 """
 base = root / "build" / "arduino"
 (base / "READ_ME_FIRST.txt").write_text(instructions, encoding="utf-8")
@@ -46,7 +48,7 @@ archive = root / "build" / "TerraEdge-Sender-S3-Receiver-ESP32.zip"
 with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as bundle:
     bundle.write(base / "READ_ME_FIRST.txt", "READ_ME_FIRST.txt")
     for name in ("SENDER", "RECEIVER"):
-        for filename in (name + ".ino", "hardware_config.h"):
+        for filename in (name + ".ino",):
             path = base / name / filename
             assert path.read_bytes() == (root / filename).read_bytes()
             bundle.write(path, f"{name}/{filename}")

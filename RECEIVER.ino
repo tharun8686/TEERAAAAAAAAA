@@ -29,6 +29,25 @@
   #define LORA_DIO0           2
 #endif
 
+bool radioReady = false;
+unsigned long lastStatus = 0;
+
+void reportStatus() {
+  Serial.print("{\"type\":\"READY\",\"role\":\"receiver\",\"protocol\":4,\"radio_ready\":");
+  Serial.print(radioReady ? "true" : "false");
+  Serial.println("}");
+}
+
+bool startRadio() {
+  if (!LoRa.begin(433E6)) return false;
+  LoRa.setSignalBandwidth(125E3);
+  LoRa.setSpreadingFactor(7);
+  LoRa.setCodingRate4(5);
+  LoRa.setSyncWord(0x34);
+  LoRa.enableCrc();
+  LoRa.receive();
+  return true;
+}
 
 void setup() {
   Serial.begin(115200);
@@ -36,19 +55,18 @@ void setup() {
   // Never drive DIO0 as an LED output: on ESP32 DEV both used GPIO2 before.
   SPI.begin(LORA_SCK, LORA_MISO, LORA_MOSI, LORA_SS);
   LoRa.setPins(LORA_SS, LORA_RST, LORA_DIO0);
-  if (!LoRa.begin(433E6)) {
-    Serial.println("{\"type\":\"ERROR\",\"msg\":\"LoRa init failed: check board pins and power\"}");
-    while (true) delay(1000);
-  }
-  LoRa.setSignalBandwidth(125E3);
-  LoRa.setSpreadingFactor(7);
-  LoRa.setCodingRate4(5);
-  LoRa.setSyncWord(0x34);
-  LoRa.enableCrc();
-  Serial.println("{\"type\":\"READY\",\"protocol\":4}");
+  radioReady = startRadio();
+  reportStatus();
 }
 
 void loop() {
+  // Periodic identity works even when the dashboard opens USB after boot.
+  if (millis() - lastStatus >= 2000) {
+    lastStatus = millis();
+    if (!radioReady) radioReady = startRadio();
+    reportStatus();
+  }
+  if (!radioReady) { delay(10); return; }
   int size = LoRa.parsePacket();
   if (size <= 0) return;
   char hex[511];

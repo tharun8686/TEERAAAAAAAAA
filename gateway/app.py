@@ -123,6 +123,11 @@ def live_dashboard():
     return FileResponse(os.path.join(PROJECT_ROOT, "hardware", "live.html"))
 
 
+@app.get("/hardware/usb.js", include_in_schema=False)
+def hardware_usb_script():
+    return FileResponse(os.path.join(PROJECT_ROOT, "hardware", "usb.js"), media_type="application/javascript")
+
+
 @app.get("/api/hardware/latest")
 def hardware_latest():
     from .hardware_ingest import UNITS

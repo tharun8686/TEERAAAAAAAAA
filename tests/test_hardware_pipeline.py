@@ -192,3 +192,18 @@ def test_mq7_preserves_adc_boundaries_without_gas_conversion(value):
 def test_mq7_rejects_invalid_adc_data(data):
     with pytest.raises(ValueError):
         FrameAssembler().accept(envelope(data))
+
+
+def test_partial_sensor_installation_keeps_raw_units_and_mpu_axes():
+    values = {"m7": 500, "rain_adc": 1200, "water_adc": 0, "soil_adc": 2300,
+              "ph_mv": 1700, "ax": -1.25, "ay": 0, "az": 9.81,
+              "gx": 0.2, "gy": -0.1, "gz": 0, "bme_ok": False, "mpu_ok": True}
+    status, raw, _ = FrameAssembler().accept(envelope(values))
+    assert status == "complete"
+    payload = TypeATelemetryPayload(**raw)
+    assert payload.temperature_c is None and payload.ph is None
+    assert payload.sensor_diagnostics["water_adc"] == 0
+    assert payload.sensor_diagnostics["ax"] == -1.25
+    assert payload.sensor_diagnostics["ph_mv"] == 1700
+    from gateway.hardware_ingest import UNITS
+    assert UNITS["ax"] == "m/s²" and UNITS["gx"] == "rad/s"

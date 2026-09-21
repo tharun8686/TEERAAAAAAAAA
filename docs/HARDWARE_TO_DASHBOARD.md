@@ -49,15 +49,16 @@ Arduino must not compile SENDER and RECEIVER together in the root folder:
 
 Open `build/arduino/SENDER/SENDER.ino` and
 `build/arduino/RECEIVER/RECEIVER.ino` separately in Arduino IDE. Edit the maintained
-root files and `hardware_config.h`, then rerun the copy command after edits.
+root `.ino` files (configuration is inside `SENDER.ino`), then rerun the copy command after edits.
 
 Required libraries: Arduino ESP32 core, LoRa by Sandeep Mistry, ArduinoJson **6.x**,
 Adafruit BME680, Adafruit MPU6050, Adafruit Unified Sensor and Adafruit BusIO.
 TinyGPSPlus is needed only when ENABLE_GPS is enabled. Select the actual ESP32 Dev Module or ESP32S3 Dev Module for each board.
 Other ESP32 families deliberately fail compilation until a verified pin map exists.
 For S3 native USB, enable USB CDC On Boot. Select the port corresponding to the board
-you are flashing. Firmware compilation and physical flashing are still required;
-they were not verified in the agent session.
+you are flashing. These standalone sketches compiled successfully with ESP32 core
+3.3.11: ESP32-S3 sender with USB CDC enabled, and standard ESP32 receiver. The
+revised firmware has not been flashed or physically tested in this update.
 
 Both radios use 433 MHz, SF7, 125 kHz bandwidth, CR4/5, sync word 0x34 and CRC.
 LoRa packets are bounded to 250 bytes. The sender splits larger snapshots by field;
@@ -98,7 +99,7 @@ probe board's supply and logic specifications. Protect ESP32 ADC and ECHO inputs
 from 5 V signals with the appropriate divider or level shifter. A software change
 cannot compensate for wrong wiring, insufficient heater current, or overvoltage.
 
-In `hardware_config.h`, disable every sensor that is not connected. Analog pins
+At the top of `SENDER.ino`, disable every sensor that is not connected. Analog pins
 cannot reliably detect a disconnected sensor. MQ-7, rain, water, soil, pH, flame,
 SW420 and ultrasonic are enabled for the supplied wiring. TDS on GPIO5 is optional
 and disabled until connected. Turbidity on GPIO6 is only a reserved optional pin:
@@ -210,3 +211,23 @@ values, unit conversion, missing-input rejection, direct alerts and the dashboar
 - [ESP32 ADC API: calibrated millivolt readings](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html)
 - Training contracts are defined in each module's `src/features` and `src/training`
   files. Reports alone are insufficient to establish sensor compatibility.
+
+## USB detection and disconnection
+
+Both the overview and Live measurements pages offer Connect receiver USB and
+Disconnect. Use Chrome/Edge on localhost and select the receiver port in the
+browser permission chooser. The receiver announces its identity every two seconds,
+even without a sender. A sender node appears only after a complete radio frame.
+Disconnect releases the port while leaving USB power attached; stored readings
+remain timestamped and become stale. Keep the connection tab open. Switching to a
+new page closes that page's USB session; reconnect there, or use the Python bridge
+for a persistent session across pages. Only one tab/program can own the receiver.
+
+The two `.ino` files require no local header. Install the listed Arduino libraries.
+Your listed probes are enabled; optional TDS, turbidity, GPS and battery remain off.
+I2C probes retry discovery after failure; ultrasonic timeout omits its distance.
+Analog and simple digital modules cannot identify their physical presence: disable
+unwired channels using the inline ENABLE settings. Raw values, including rain,
+water-level, soil and pH voltage, appear in the measurement table. Calibration is
+still required for physical-unit model inputs. A rain plate cannot measure rainfall
+in mm, and a fixed-heater MQ-7 module does not supply calibrated CO concentration.

@@ -6,6 +6,14 @@ For `SENDER.ino` → LoRa → `RECEIVER.ino` → USB → gateway → dashboard, 
 [the hardware setup and model compatibility guide](docs/HARDWARE_TO_DASHBOARD.md).
 Start `python -m uvicorn gateway.app:app --host 127.0.0.1 --port 8000`, then open
 **http://127.0.0.1:8000/live**. Use its USB connection or `python lora_serial_bridge.py COM4`.
+The overview and live pages include Connect receiver USB and Disconnect controls.
+Use Chrome or Edge, select the receiver port and keep the connection tab open.
+Prepare the two standalone Arduino files with `python hardware/prepare_sketches.py`:
+open `build/arduino/SENDER/SENDER.ino` for ESP32-S3 and
+`build/arduino/RECEIVER/RECEIVER.ino` for ESP32. No project header is required.
+Sensor enable flags and calibration settings are at the top of `SENDER.ino`.
+Analog/digital probe presence cannot be reliably auto-detected: disable unwired
+channels. I2C devices are probed automatically; raw probe values remain visible.
 Missing sensors and uncalibrated values are explicitly unavailable. Several trained
 models require instruments or field retraining beyond the current sender's sensor
 set; see the guide before interpreting predictions. Existing model confidence
