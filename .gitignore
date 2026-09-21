@@ -45,6 +45,7 @@ desktop.ini
 
 # ── Logs & Local Databases ──────────────────────────────────
 *.log
+setup/arduino-setup.log
 logs/
 *.db
 *.db-wal

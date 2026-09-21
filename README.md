@@ -2,6 +2,10 @@
 
 ## Live hardware setup
 
+On a new Windows computer, double-click `INSTALL_ARDUINO_WINDOWS.bat` to install
+Arduino IDE, the ESP32 board package and all firmware libraries, then compile both
+sketches. See [the one-click setup guide](setup/README.md) for USB-driver handling.
+
 For `SENDER.ino` → LoRa → `RECEIVER.ino` → USB → gateway → dashboard, follow
 [the hardware setup and model compatibility guide](docs/HARDWARE_TO_DASHBOARD.md).
 Start `python -m uvicorn gateway.app:app --host 127.0.0.1 --port 8000`, then open
