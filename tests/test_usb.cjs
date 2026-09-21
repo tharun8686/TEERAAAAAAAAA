@@ -3,6 +3,15 @@ const assert = require('node:assert/strict');
 const vm = require('node:vm');
 const fs = require('node:fs');
 const tick = () => new Promise(setImmediate);
+test('file-opened dashboard redirects to HTTP before opening USB or posting data',()=>{
+  let destination;
+  vm.runInNewContext(fs.readFileSync('hardware/usb.js','utf8'), {
+    location:{protocol:'file:',hostname:'',replace:url=>destination=url},
+    document:{getElementById:()=>{throw Error('Must redirect before connecting');}},
+    fetch:()=>{throw Error('Must not post from file origin');}
+  });
+  assert.equal(destination,'http://127.0.0.1:8000/live');
+});
 function mount({failOpen=false, failPost=false}={}) {
   const elements = new Map(), events = {}, posts = [];
   const el = id => {

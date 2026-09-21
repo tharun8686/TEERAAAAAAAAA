@@ -20,9 +20,10 @@ html[data-theme="dark"]{--bg-deep:#111a20;--panel-bg:#19252d;--panel-bg-hover:#2
 <footer class="app-footer">TerraEdge · Updates every 2 seconds · Readings become stale after 30 seconds</footer>
 </main>
 <script>
+if (location.protocol === 'file:') location.replace('http://127.0.0.1:8000/live');
 const $=id=>document.getElementById(id);
 let snapshot={nodes:[],units:{}};
-const api = `${location.protocol}//${location.hostname}:8000`;
+const api = location.protocol === 'file:' ? 'http://127.0.0.1:8000' : `${location.protocol}//${location.hostname}:8000`;
 const labels={temperature_c:'BME680 temperature',humidity_pct:'Relative humidity',pressure_hpa:'Atmospheric pressure',gas_resistance_kohm:'BME680 gas resistance',mq7_raw:'MQ-7 raw response',mq135_raw:'MQ-135 raw response',water_level_m:'Water depth',ultrasonic_distance_cm:'Ultrasonic distance',soil_moisture_pct:'Calibrated soil moisture',tilt_magnitude:'MPU6050 inclination',vibration_rate:'SW420 vibration',flame_detected:'Optical flame input',ph:'Water pH',tds_ppm:'Dissolved solids',turbidity:'Turbidity',pm25_ug_m3:'PM2.5',pm10_ug_m3:'PM10',latitude:'Latitude',longitude:'Longitude',battery_voltage_v:'Battery voltage'};
 Object.assign(labels,{ax:'MPU6050 acceleration X',ay:'MPU6050 acceleration Y',az:'MPU6050 acceleration Z',gx:'MPU6050 rotation X',gy:'MPU6050 rotation Y',gz:'MPU6050 rotation Z',rain_adc:'Rain plate raw wetness',water_adc:'Water level probe raw',soil_adc:'Soil moisture raw',ph_mv:'pH probe voltage (uncalibrated)',m7_mv:'MQ-7 pin voltage',tds_mv:'TDS pin voltage',turb_mv:'Turbidity pin voltage',rainfall_mm:'Rainfall increment',rainfall_1h_mm:'Rainfall (1 hour)',rainfall_3h_mm:'Rainfall (3 hours)',rainfall_6h_mm:'Rainfall (6 hours)',rainfall_24h_mm:'Rainfall (24 hours)',rainfall_72h_mm:'Rainfall (72 hours)',streamflow_cumec:'Streamflow',co_mg_m3:'Carbon monoxide',no2_ug_m3:'Nitrogen dioxide',water_temperature_c:'Water temperature',dissolved_oxygen:'Dissolved oxygen',electrical_conductivity:'Electrical conductivity',solar_radiation_w_m2:'Solar radiation',wind_speed_kmh:'Wind speed'});
 function log(message){$('log').textContent=($('log').textContent+'\n'+message).split('\n').slice(-30).join('\n');}

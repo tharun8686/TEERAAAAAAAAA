@@ -1,7 +1,7 @@
 /* Hardware-only summary. Scenario/map data never enters these assessments. */
 (() => {
   const el = id => document.getElementById(id);
-  const api = `${location.protocol}//${location.hostname}:8000`;
+  const api = location.protocol === 'file:' ? 'http://127.0.0.1:8000' : `${location.protocol}//${location.hostname}:8000`;
   const modelNames = ['Flood','Wildfire','Landslide','Air Quality','Extreme Heat','Industrial Emissions','Water Quality'];
   let snapshot = {nodes: []}, online = false;
   const text = (id, value) => { el(id).textContent = value; };

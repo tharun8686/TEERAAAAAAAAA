@@ -1,7 +1,13 @@
 /* One USB owner per browser tab. Gateway owns inference, receiver owns radio. */
 (() => {
   const el = id => document.getElementById(id);
-  const api = `${location.protocol}//${location.hostname}:8000`;
+  const api = location.protocol === 'file:' ? 'http://127.0.0.1:8000' : `${location.protocol}//${location.hostname}:8000`;
+  // Local files have an opaque origin. Use the gateway-served dashboard so USB
+  // packets and polling share a valid HTTP origin instead of weakening CORS.
+  if (location.protocol === 'file:') {
+    location.replace(api + '/live');
+    return;
+  }
   let port = null, reader = null, busy = false, stop = false, identified = false;
   const status = message => { el('usb-status').textContent = message; };
   const log = message => {
